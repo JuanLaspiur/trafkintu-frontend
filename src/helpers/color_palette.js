@@ -8,3 +8,8 @@ const colorPalette = {
   
   export default colorPalette;
   
+  // background: linear-gradient(90deg, #a3e2e9, #5fcbcb, #41adad)
+
+  // librerias de animaciones  'react-native-reanimated'
+  
+  // verde más fuerte #01A79D

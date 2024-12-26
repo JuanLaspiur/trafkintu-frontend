@@ -6,8 +6,8 @@ import colorPalette from '../../helpers/color_palette';
 function LightGreenCard() {
   return (
     <View style={styles.greenContainer}>
-        <Text style={styles.balanceLabel}>Saldo Actual</Text>
-      <Text style={styles.balanceAmount}>$1227,23 <Ionicons name="eye" size={20} color={colorPalette.neutralDark} style={styles.icon} /></Text>
+        <Text style={styles.poetryLabel}>Poema Destacado</Text>
+      <Text style={styles.poetryTitle}>"La Luna y el Mar" </Text>
     </View>
   );
 }
@@ -21,28 +21,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     display:'flex',
-    flexDirection:'row', 
-    gap:'20',
+    gap: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  balanceRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  icon: {
-    marginHorizontal: 5,
-  },
-  balanceLabel: {
+  poetryLabel: {
     fontSize: 16,
     color: colorPalette.neutralDark,
     fontWeight: 'bold',
   },
-  balanceAmount: {
-    fontSize: 24,
+  poetryTitle: {
+    fontSize: 14,
     fontWeight: 'bold',
     color: colorPalette.neutralDark,
+  },
+  icon: {
+    marginHorizontal: 5,
+    marginTop:15
   },
 });
 
