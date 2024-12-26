@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     marginTop: -2,
     fontWeight: "400",
     color: "#A1A1A1",
-    textShadowColor: "#B0B0B0",
     textShadowOffset: { width: 10, height: 10 },
     textShadowRadius: 70
   },
