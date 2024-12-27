@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigation } from "@react-navigation/native";
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
 
 function SelectorMenu() {
+    const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.option}>
@@ -12,8 +14,7 @@ function SelectorMenu() {
       <TouchableOpacity style={styles.option}>
       <Image source={require('../../../assets/icons/libro.webp')} style={styles.image}  />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.option}>
-        {/* Cambié el ícono "brush-outline" por "disc" (ícono de disco, relacionado con música) */}
+      <TouchableOpacity style={styles.option}   onPress={() => navigation.navigate("Radio")}>
         <Image source={require('../../../assets/icons/radio.webp')} style={styles.image}  />
       </TouchableOpacity>
       <TouchableOpacity style={styles.option}>

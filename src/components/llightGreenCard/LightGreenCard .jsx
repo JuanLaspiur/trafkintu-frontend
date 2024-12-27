@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   greenContainer: {
     marginVertical: 15,
     backgroundColor: colorPalette.secondary, 
-    width:'85%',
+    width:'88.9%',
     margin:'auto',
     borderRadius: 10,
     padding: 20,
