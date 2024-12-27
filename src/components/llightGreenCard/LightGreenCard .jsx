@@ -1,20 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; 
+import { StyleSheet, Text, View, Image } from 'react-native';
 import colorPalette from '../../helpers/color_palette';
 
 function LightGreenCard() {
   return (
     <View style={styles.greenContainer}>
+      <View>
+        <Image source={require('../../../assets/icons/inkwell_15894224.webp')} style={styles.image}/>
+      </View>
+      <View>
         <Text style={styles.poetryLabel}>Poema Destacado</Text>
-      <Text style={styles.poetryTitle}>"La Luna y el Mar" </Text>
+      <Text style={styles.poetryTitle}>"La Luna y el Mar" </Text></View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   greenContainer: {
-    marginTop: 15,
+    marginVertical: 15,
     backgroundColor: colorPalette.secondary, 
     width:'80%',
     margin:'auto',
@@ -23,8 +26,14 @@ const styles = StyleSheet.create({
     display:'flex',
     gap: 10,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    flexDirection:'row'
   },
+  image:{
+    width:'50',
+    height:'50'
+  }
+  ,
   poetryLabel: {
     fontSize: 16,
     color: colorPalette.neutralDark,
