@@ -48,17 +48,14 @@ function Reproductor({ isPlaying, toggleRadio }) {
           </Text>
         </View>
 
-        <TouchableOpacity style={[styles.button, isPlaying ? styles.buttonOn : styles.buttonOff]} onPress={toggleRadio}>
-          <Ionicons
-            name={isPlaying ? "power" : "power-outline"}
-            size={50}
-            color="#fff"
-          />
+        <TouchableOpacity onPress={toggleRadio}>
+            {isPlaying ? 
+            <Image source={require('../../../assets/icons/encender.png')} style={styles.onOffIcon}/> :  
+             <Image source={require('../../../assets/icons/apagar.png')} style={styles.onOffIcon}/>}
+
         </TouchableOpacity>
 
-        <Text style={styles.controlText}>
-          {isPlaying ? "Apagar Radio" : "Encender Radio"}
-        </Text>
+       
       </View>
     </View>
   );
@@ -93,6 +90,12 @@ const styles = StyleSheet.create({
     left: 170,
     transform: [{ scale: 0.5 }],
   },
+  onOffIcon:{
+    marginTop:20,
+    opacity:0.9,
+    width:'120',
+    height:'120'
+  },
   turntableImage: {
     width: '100%',
     height: '100%',
@@ -111,24 +114,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginTop: 5,
   },
-  button: {
-    padding: 10,
-    borderRadius: 50,
-    marginVertical: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  buttonOn: {
-    backgroundColor:'#FF6347' , 
-  },
-  buttonOff: {
-    backgroundColor:'#4CAF50' , 
-  },
+
   controlText: {
     fontSize: 18,
     fontWeight: '500',
