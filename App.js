@@ -1,20 +1,36 @@
 import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Start from "./src/screens/Start";
 import Home from "./src/screens/Home";
 import Radio from "./src/screens/Radio";
+import colorPalette from "./src/helpers/color_palette";
+import ButtonNavBar from "./src/components/ButtonNavBar/ButtonNavBar"; 
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function getTabBarVisibility(route) {
+  return route.name === 'Start' || route.name === 'Radio' ? 'none' : 'flex';
+}
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Start">
-        <Stack.Screen name="Start" options={{ headerShown: false }} component={Start} />
-        <Stack.Screen name="Home" options={{ headerShown: false }} component={Home} />
-        <Stack.Screen name="Radio" options={{ headerShown: false }} component={Radio} />
-      </Stack.Navigator>
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={({ route, navigation }) => ({
+          tabBarIcon: (props) => <ButtonNavBar {...props} route={route} />,
+          tabBarActiveTintColor: colorPalette.primary, 
+          tabBarInactiveTintColor: 'gray',  
+          tabBarStyle: {
+            display: getTabBarVisibility(route), 
+          },
+        })}
+      >
+        <Tab.Screen name="Start" component={Start} options={{ headerShown: false }} />
+        <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Tab.Screen name="Radio" component={Radio} options={{ headerShown: false }} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
