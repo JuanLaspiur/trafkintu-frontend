@@ -1,35 +1,48 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Swiper from 'react-native-swiper';
 import colorPalette from '../../helpers/color_palette';
 import { Image } from 'expo-image';
+
 function LastPoems() {
   const poems = [
     {
       id: 1,
       title: 'Susurros del Alma',
-      image: '../../../assets/gift/descarga_animation.gif', 
-    }
+      image: require('../../../assets/gift/descarga_animation.gif'),
+    },
+    {
+      id: 2,
+      title: 'Susurros del Alma 2',
+      image: require('../../../assets/gift/descarga_animation.gif'),
+    },
+    {
+      id: 3,
+      title: 'Susurros del Alma 3',
+      image:require('../../../assets/gift/descarga_animation.gif'),
+    },
   ];
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Últimos tres poemas:</Text>
-      <View style={styles.cardsContainer}>
+      <Swiper
+        style={styles.swiper}
+        showsPagination={false} 
+        loop={true} autoplay={true} autoplayTimeout={5}
+      >
         {poems.map((poem) => (
-          <PoemCard key={poem.id} title={poem.title} />
+          <PoemCard key={poem.id} title={poem.title} image={poem.image} />
         ))}
-      </View>
+      </Swiper>
     </View>
   );
 }
 
-function PoemCard({ title }) {
+function PoemCard({ title, image }) {
   return (
     <View style={styles.card}>
-     <Image
-        source={require( '../../../assets/gift/descarga_animation.gif')}
-        style={styles.image}
-      />
+      <Image source={image} style={styles.image} />
       <Text style={styles.cardTitle}>{title}</Text>
     </View>
   );
@@ -40,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colorPalette.neutralDark,
     padding: 20,
-    paddingTop:10
+    paddingTop: 10,
   },
   title: {
     fontSize: 17,
@@ -48,14 +61,9 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     marginBottom: 15,
     paddingHorizontal: 5,
-    textShadowColor: 'gray', 
-    textShadowOffset: { width: 1, height: 1 }, 
-    textShadowRadius: 3, 
-  }
-  ,
-  cardsContainer: {
-    flexDirection: 'column',
-    gap: 15,
+    textShadowColor: 'gray',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
   },
   card: {
     backgroundColor: '#ffffff',
@@ -69,8 +77,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: '100%',
+    width: '98.8%',
+    margin:'auto',
     height: 150,
+    borderRadius: 12,
   },
   cardTitle: {
     fontSize: 16,

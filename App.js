@@ -6,7 +6,7 @@ import Home from "./src/screens/Home";
 import Radio from "./src/screens/Radio";
 import colorPalette from "./src/helpers/color_palette";
 import ButtonNavBar from "./src/components/ButtonNavBar/ButtonNavBar"; 
-
+// Unable to resolve "@react-navigation/bottom-tabs" from "App.js"
 const Tab = createBottomTabNavigator();
 
 function getTabBarVisibility(route) {
