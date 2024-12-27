@@ -41,18 +41,18 @@ function Reproductor({ isPlaying, toggleRadio }) {
 
         <View style={styles.stationInfo}>
           <Text style={styles.stationTitle}>
-            {isPlaying ? "Estación: Radio FM 98.7" : "Radio apagada"}
+            {isPlaying ? "Estación: AM 1240" : "Radio apagada"}
           </Text>
           <Text style={styles.stationDescription}>
-            {isPlaying ? "Escuchando música en vivo..." : "Apaga la radio para escuchar música."}
+            Radio Universidad UNS 
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={toggleRadio}>
+        <TouchableOpacity style={[styles.button, isPlaying ? styles.buttonOn : styles.buttonOff]} onPress={toggleRadio}>
           <Ionicons
             name={isPlaying ? "power" : "power-outline"}
             size={50}
-            color={isPlaying ? "green" : "gray"}
+            color="#fff"
           />
         </TouchableOpacity>
 
@@ -67,6 +67,8 @@ function Reproductor({ isPlaying, toggleRadio }) {
 const styles = StyleSheet.create({
   reproductor: {
     padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   innerContainer: {
     alignItems: 'center',
@@ -89,9 +91,7 @@ const styles = StyleSheet.create({
     zIndex: 999,
     top: -72,
     left: 170,
-    transform: [
-      { scale: 0.5 }, 
-    ],
+    transform: [{ scale: 0.5 }],
   },
   turntableImage: {
     width: '100%',
@@ -112,10 +112,22 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   button: {
-    backgroundColor: 'transparent',
-    padding: 15,
+    padding: 10,
     borderRadius: 50,
-    marginBottom: 10,
+    marginVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonOn: {
+    backgroundColor:'#FF6347' , 
+  },
+  buttonOff: {
+    backgroundColor:'#4CAF50' , 
   },
   controlText: {
     fontSize: 18,
