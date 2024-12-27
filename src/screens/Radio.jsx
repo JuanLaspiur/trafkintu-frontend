@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';  // Importa LinearGradient de Expo
 import colorPalette from '../helpers/color_palette';
 import Header from '../components/header/Header';
-import Reproductor from '../components/reproductor/Reproductor'; // Importamos el componente Reproductor
+import Reproductor from '../components/reproductor/Reproductor';
 
 function Radio() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -13,17 +14,19 @@ function Radio() {
   };
 
   return (
-    <View style={styles.container}> 
-        <Header />
-        <Reproductor isPlaying={isPlaying} toggleRadio={toggleRadio} /> {/* Usamos el componente Reproductor */}
-    </View>
+    <LinearGradient
+      colors={['black', '#41adad', 'black']} 
+      style={styles.container}
+    >
+      <Header />
+      <Reproductor isPlaying={isPlaying} toggleRadio={toggleRadio} />
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colorPalette.secondary,
   },
 });
 
