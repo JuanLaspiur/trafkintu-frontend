@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';  // Importamos los íconos
 import colorPalette from '../../helpers/color_palette';
 
 function SevenLastPoems() {
   const poems = [
-    { id: 1, title: 'El eco del bosque', image: 'https://trafkintu.com.ar/wp-content/uploads/2023/07/15858273721277.jpg' },
-    { id: 2, title: 'Amanecer eterno', image: 'https://trafkintu.com.ar/wp-content/uploads/2024/12/Offtopic-dureza-y-fragilidad-scaled.jpg' },
-    { id: 3, title: 'Sombras perdidas', image: 'https://trafkintu.com.ar/wp-content/uploads/2023/07/15858273721277.jpg' },
-    { id: 4, title: 'Raíces profundas', image: 'https://trafkintu.com.ar/wp-content/uploads/2024/12/Offtopic-dureza-y-fragilidad-scaled.jpg' },
-    { id: 5, title: 'La luna y el río', image: 'https://trafkintu.com.ar/wp-content/uploads/2023/07/15858273721277.jpg' },
-    { id: 6, title: 'Versos en el viento', image: 'https://trafkintu.com.ar/wp-content/uploads/2024/12/Offtopic-dureza-y-fragilidad-scaled.jpg' },
-    { id: 7, title: 'El faro y la noche', image: 'https://trafkintu.com.ar/wp-content/uploads/2023/07/15858273721277.jpg' },
+    { id: 1, title: 'El eco del bosque', image: require('../../../assets/gift/fotografica_animation.gif') },
+    { id: 2, title: 'Amanecer eterno', image: require('../../../assets/gift/frida_animation.gif') },
+    { id: 3, title: 'Sombras perdidas', image: require('../../../assets/gift/hYq1Qv6q1_2000x1500__1_animation.gif') },
+    { id: 4, title: 'Raíces profundas', image: require('../../../assets/gift/quinquela_animation.gif') },
+    { id: 5, title: 'La luna y el río', image: require('../../../assets/gift/yellow_kiss.gif') },
+    { id: 6, title: 'Versos en el viento', image: require('../../../assets/gift/slide_nort_animation.gif')},
+    { id: 7, title: 'El faro y la noche', image: require('../../../assets/gift/sin_pan_y_sin_trabajo_animation.gif') },
   ];
 
   const [showAll, setShowAll] = useState(false);
@@ -42,7 +43,7 @@ function SevenLastPoems() {
 function MiniPoemCard({ title, image }) {
   return (
     <View style={styles.miniCard}>
-      <Image source={{ uri: image }} style={styles.miniImage} />
+      <Image source={image } style={styles.miniImage} />
       <Text style={styles.miniCardTitle}>{title}</Text>
     </View>
   );

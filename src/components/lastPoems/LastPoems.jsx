@@ -14,12 +14,12 @@ function LastPoems() {
     {
       id: 2,
       title: 'Susurros del Alma 2',
-      image: require('../../../assets/gift/descarga_animation.gif'),
+      image: require('../../../assets/gift/gernica_animation.gif'),
     },
     {
       id: 3,
       title: 'Susurros del Alma 3',
-      image:require('../../../assets/gift/descarga_animation.gif'),
+      image:require('../../../assets/gift/Muralismo-Mexicano_animation.gif'),
     },
   ];
 
@@ -50,10 +50,10 @@ function PoemCard({ title, image }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colorPalette.neutralDark,
     padding: 20,
     paddingTop: 10,
+    height: 270,
   },
   title: {
     fontSize: 17,
