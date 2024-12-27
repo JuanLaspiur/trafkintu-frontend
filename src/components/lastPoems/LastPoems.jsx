@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import colorPalette from '../../helpers/color_palette';
-
+import { Image } from 'expo-image';
 function LastPoems() {
   const poems = [
     {
       id: 1,
       title: 'Susurros del Alma',
-      image: 'https://trafkintu.com.ar/wp-content/uploads/2024/12/Offtopic-dureza-y-fragilidad-scaled.jpg', 
+      image: '../../../assets/gift/descarga_animation.gif', 
     }
   ];
 
@@ -16,17 +16,20 @@ function LastPoems() {
       <Text style={styles.title}>Últimos tres poemas:</Text>
       <View style={styles.cardsContainer}>
         {poems.map((poem) => (
-          <PoemCard key={poem.id} title={poem.title} image={poem.image} />
+          <PoemCard key={poem.id} title={poem.title} />
         ))}
       </View>
     </View>
   );
 }
 
-function PoemCard({ title, image }) {
+function PoemCard({ title }) {
   return (
     <View style={styles.card}>
-      <Image source={{ uri: image }} style={styles.image} />
+     <Image
+        source={require( '../../../assets/gift/descarga_animation.gif')}
+        style={styles.image}
+      />
       <Text style={styles.cardTitle}>{title}</Text>
     </View>
   );
@@ -45,9 +48,9 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     marginBottom: 15,
     paddingHorizontal: 5,
-    textShadowColor: 'gray', // Color de la sombra
-    textShadowOffset: { width: 1, height: 1 }, // Desplazamiento de la sombra
-    textShadowRadius: 3, // Radio de la sombra
+    textShadowColor: 'gray', 
+    textShadowOffset: { width: 1, height: 1 }, 
+    textShadowRadius: 3, 
   }
   ,
   cardsContainer: {
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 150, // Ajusta para que predomine la imagen
+    height: 150,
   },
   cardTitle: {
     fontSize: 16,
