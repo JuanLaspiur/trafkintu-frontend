@@ -44,8 +44,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#ffffff',
     marginBottom: 15,
-    paddingHorizontal:5
-  },
+    paddingHorizontal: 5,
+    textShadowColor: 'gray', // Color de la sombra
+    textShadowOffset: { width: 1, height: 1 }, // Desplazamiento de la sombra
+    textShadowRadius: 3, // Radio de la sombra
+  }
+  ,
   cardsContainer: {
     flexDirection: 'column',
     gap: 15,

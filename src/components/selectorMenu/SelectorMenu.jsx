@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
 
@@ -7,13 +7,14 @@ function SelectorMenu() {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.option}>
-        <Ionicons name="create-outline" size={32} color="black" />
+      <Image source={require('../../../assets/icons/writing_5724478.webp')} style={styles.image}  />
       </TouchableOpacity>
       <TouchableOpacity style={styles.option}>
-        <Ionicons name="book-outline" size={32} color="black" />
+      <Image source={require('../../../assets/icons/libro.webp')} style={styles.image}  />
       </TouchableOpacity>
       <TouchableOpacity style={styles.option}>
-        <Ionicons name="brush-outline" size={32} color="black" />
+        {/* Cambié el ícono "brush-outline" por "disc" (ícono de disco, relacionado con música) */}
+        <Image source={require('../../../assets/icons/radio.webp')} style={styles.image}  />
       </TouchableOpacity>
       <TouchableOpacity style={styles.option}>
         <Ionicons name="share-social-outline" size={32} color="black" />
@@ -41,13 +42,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5, // Sombra para Android
   },
-  text: {
-    marginTop: 8,
-    fontSize: 14,
-    color: '#000',
-    fontWeight: '500',
+  image: {
+    width:30,
+    height:30
   },
 });
 
 export default SelectorMenu;
-

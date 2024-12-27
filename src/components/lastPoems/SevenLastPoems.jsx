@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';  // Importamos los íconos
 import colorPalette from '../../helpers/color_palette';
 
 function SevenLastPoems() {
@@ -28,7 +29,11 @@ function SevenLastPoems() {
         ))}
       </View>
       <TouchableOpacity style={styles.showMoreButton} onPress={togglePoems}>
-        <Text style={styles.showMoreText}>{showAll ? 'Ver menos' : 'Ver más'}</Text>
+        <Ionicons 
+          name={showAll ? "chevron-up" : "chevron-down"}  
+          size={30}  
+          color={colorPalette.secondary}  
+        />
       </TouchableOpacity>
     </View>
   );
@@ -53,6 +58,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colorPalette.secondary,
     marginBottom: 15,
+    textShadowColor: colorPalette.neutralDark,
+    textShadowOffset: { width: 1, height: 1 }, 
+    textShadowRadius: 3, 
   },
   cardsContainer: {
     flexDirection: 'row',
@@ -79,21 +87,14 @@ const styles = StyleSheet.create({
   miniCardTitle: {
     fontSize: 14,
     fontWeight: '500',
-    color: colorPalette.neutralDark,
+    color: '#fff',
     padding: 10,
   },
   showMoreButton: {
     marginTop: 15,
     alignItems: 'center',
-    marginHorizontal:'20%',
+    marginHorizontal: '20%',
     padding: 10,
-    backgroundColor: colorPalette.neutralDark,
-    borderRadius: 8,
-  },
-  showMoreText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#ffffff',
   },
 });
 
