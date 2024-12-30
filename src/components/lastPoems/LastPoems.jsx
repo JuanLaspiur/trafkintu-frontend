@@ -10,12 +10,12 @@ function LastPoems() {
     {
       id: 1,
       title: 'Susurros del Alma',
-      image: require('../../../assets/gift/descarga_animation.gif'),
+      image: require('../../../assets/gift/descarga_animation.webp'),
     },
     {
       id: 2,
       title: 'Susurros del Alma 2',
-      image: require('../../../assets/gift/gernica_animation.gif'),
+      image: require('../../../assets/gift/gernica_animation_1.webp'),
     },
     {
       id: 3,

@@ -6,8 +6,8 @@ import colorPalette from '../../helpers/color_palette';
 
 function SevenLastPoems() {
   const poems = [
-    { id: 1, title: 'El eco del bosque', image: require('../../../assets/gift/fotografica_animation.gif') },
-    { id: 2, title: 'Amanecer eterno', image: require('../../../assets/gift/frida_animation.gif') },
+    { id: 1, title: 'El eco del bosque', image: require('../../../assets/gift/fotografica_animation.webp') },
+    { id: 2, title: 'Amanecer eterno', image: require('../../../assets/gift/frida_animation_1.webp') },
     { id: 3, title: 'Sombras perdidas', image: require('../../../assets/gift/hYq1Qv6q1_2000x1500__1_animation.gif') },
     { id: 4, title: 'Raíces profundas', image: require('../../../assets/gift/quinquela_animation.gif') },
     { id: 5, title: 'La luna y el río', image: require('../../../assets/gift/yellow_kiss.gif') },
