@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 import colorPalette from '../../helpers/color_palette';
 import { Image } from 'expo-image';
+import { useNavigation } from '@react-navigation/native'; 
 
 function LastPoems() {
   const poems = [
@@ -19,7 +20,7 @@ function LastPoems() {
     {
       id: 3,
       title: 'Susurros del Alma 3',
-      image:require('../../../assets/gift/Muralismo-Mexicano_animation.gif'),
+      image: require('../../../assets/gift/Muralismo-Mexicano_animation.gif'),
     },
   ];
 
@@ -32,19 +33,27 @@ function LastPoems() {
         loop={true} autoplay={true} autoplayTimeout={5}
       >
         {poems.map((poem) => (
-          <PoemCard key={poem.id} title={poem.title} image={poem.image} />
+          <PoemCard key={poem.id} title={poem.title} image={poem.image} poemId={poem.id} />
         ))}
       </Swiper>
     </View>
   );
 }
 
-function PoemCard({ title, image }) {
+function PoemCard({ title, image, poemId }) {
+  const navigation = useNavigation();
+
+  const handleCardPress = () => {
+    navigation.navigate('PoemDetail');
+  };
+
   return (
-    <View style={styles.card}>
-      <Image source={image} style={styles.image} />
-      <Text style={styles.cardTitle}>{title}</Text>
-    </View>
+    <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}> 
+      <View style={styles.card}>
+        <Image source={image} style={styles.image} />
+        <Text style={styles.cardTitle}>{title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 
@@ -78,7 +87,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '98.8%',
-    margin:'auto',
+    margin: 'auto',
     height: 150,
     borderRadius: 12,
   },
