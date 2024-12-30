@@ -44,7 +44,9 @@ function PoemCard({ title, image, poemId }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate('PoemDetail');
+    navigation.navigate('PoemDetail', {
+     title, image, poemId 
+    });
   };
 
   return (
