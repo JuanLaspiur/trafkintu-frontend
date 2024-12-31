@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import colorPalette from '../../helpers/color_palette';
 
 function InputComent({ comment, setComment, handleCommentSubmit }) {
   return (
@@ -26,14 +27,15 @@ const styles = StyleSheet.create({
   commentInput: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colorPalette.natural,
     borderRadius: 8,
     paddingHorizontal: 12,
-    paddingVertical: 8,
-    backgroundColor: '#fff',
+    paddingVertical: 9.5,
+    backgroundColor: colorPalette.neutralLight,
   },
   commentButton: {
-    backgroundColor: '#333',
+    backgroundColor: colorPalette.secondary,
+
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   commentButtonText: {
-    color: '#fff',
+    color:colorPalette.ligthBlue,
     fontSize: 16,
   },
 });

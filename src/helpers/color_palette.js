@@ -5,7 +5,9 @@ const colorPalette = {
     neutralLight: "#F2F3F7",
     neutralDark: "#D9EBED",
     greenFluor:"#01A79D",
-    natural:"F5F5DC",  
+    natural:"#F5F5DC",
+    ligthBlue:"#24B9CC"
+
 }
   export default colorPalette;
   

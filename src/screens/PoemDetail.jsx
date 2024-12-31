@@ -11,10 +11,29 @@ function PoemDetail() {
 
   const [comment, setComment] = useState('');
   const comments = [
-    { id: '1', user: 'Carlos López', text: 'Hermoso poema, realmente inspirador.', avatar: 'https://this-person-does-not-exist.com/img/avatar-gen840212179ed94ab7d009f6e6b9770fa7.jpg' },
-    { id: '2', user: 'Ana García', text: 'Me encanta la metáfora utilizada.', avatar: 'https://this-person-does-not-exist.com/img/avatar-gen648c05f4c576887e2b1b626de498a12b.jpg' },
-    { id: '3', user: 'Clara Martínez', text: '¡Qué profundidad en las palabras!', avatar: 'https://this-person-does-not-exist.com/img/avatar-genb90ca300387e39eb0b560bf264386201.jpg' },
+    { 
+      id: '1', 
+      user: 'Carlos López', 
+      text: 'Hermoso poema, realmente inspirador.', 
+      avatar: 'https://this-person-does-not-exist.com/img/avatar-gen840212179ed94ab7d009f6e6b9770fa7.jpg',
+      isOwner: true  
+    },
+    { 
+      id: '2', 
+      user: 'Ana García', 
+      text: 'Me encanta la metáfora utilizada.', 
+      avatar: 'https://this-person-does-not-exist.com/img/avatar-gen648c05f4c576887e2b1b626de498a12b.jpg',
+      isOwner: false  
+    },
+    { 
+      id: '3', 
+      user: 'Clara Martínez', 
+      text: '¡Qué profundidad en las palabras!', 
+      avatar: 'https://this-person-does-not-exist.com/img/avatar-genb90ca300387e39eb0b560bf264386201.jpg',
+      isOwner: false  
+    },
   ];
+  
 
   const handleCommentSubmit = () => {
     console.log('Comentario:', comment);

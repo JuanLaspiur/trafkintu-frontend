@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import colorPalette from "../../helpers/color_palette";
 import Coment from './Coment';
 
 function ListComent({ comments }) {
@@ -7,7 +8,7 @@ function ListComent({ comments }) {
     <View style={styles.commentSection}>
       <Text style={styles.commentSectionTitle}>Comentarios</Text>
       {comments.map((item) => (
-        <Coment key={item.id} avatar={item.avatar} user={item.user} text={item.text} />
+        <Coment key={item.id} avatar={item.avatar} user={item.user} text={item.text} isOwner={item.isOwner} />
       ))}
     </View>
   );
@@ -20,8 +21,8 @@ const styles = StyleSheet.create({
   },
   commentSectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: '600',
+    color: colorPalette.greenFluor,
     marginBottom: 10,
     alignSelf: 'flex-start',
   },
