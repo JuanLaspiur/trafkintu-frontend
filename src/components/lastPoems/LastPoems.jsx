@@ -22,8 +22,8 @@ function LastPoems() {
     {
       id: 3,
       title: 'Susurros del Alma 3',
-      image: require('../../../assets/gift/Muralismo-Mexicano_animation.gif'),
-      image_route:'../../../assets/gift/Muralismo-Mexicano_animation.gif'
+      image: require('../../../assets/gift/Muralismo-Mexicano_animation.webp'),
+      image_route:'../../../assets/gift/Muralismo-Mexicano_animation.webp'
     },
   ];
 

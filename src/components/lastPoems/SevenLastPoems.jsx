@@ -8,11 +8,11 @@ function SevenLastPoems() {
   const poems = [
     { id: 1, title: 'El eco del bosque', image: require('../../../assets/gift/fotografica_animation.webp') },
     { id: 2, title: 'Amanecer eterno', image: require('../../../assets/gift/frida_animation_1.webp') },
-    { id: 3, title: 'Sombras perdidas', image: require('../../../assets/gift/hYq1Qv6q1_2000x1500__1_animation.gif') },
-    { id: 4, title: 'Raíces profundas', image: require('../../../assets/gift/quinquela_animation.gif') },
-    { id: 5, title: 'La luna y el río', image: require('../../../assets/gift/yellow_kiss.gif') },
-    { id: 6, title: 'Versos en el viento', image: require('../../../assets/gift/slide_nort_animation.gif')},
-    { id: 7, title: 'El faro y la noche', image: require('../../../assets/gift/sin_pan_y_sin_trabajo_animation.gif') },
+    { id: 3, title: 'Sombras perdidas', image: require('../../../assets/gift/hYq1Qv6q1_2000x1500__1_animation.webp') },
+    { id: 4, title: 'Raíces profundas', image: require('../../../assets/gift/quinquela_animation.webp') },
+    { id: 5, title: 'La luna y el río', image: require('../../../assets/gift/yellow_kiss.webp') },
+    { id: 6, title: 'Versos en el viento', image: require('../../../assets/gift/slide_nort_animation.webp')},
+    { id: 7, title: 'El faro y la noche', image: require('../../../assets/gift/sin_pan_y_sin_trabajo_animation.webp') },
   ];
 
   const [showAll, setShowAll] = useState(false);
