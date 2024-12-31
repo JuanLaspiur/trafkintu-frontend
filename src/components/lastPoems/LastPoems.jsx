@@ -11,16 +11,19 @@ function LastPoems() {
       id: 1,
       title: 'Susurros del Alma',
       image: require('../../../assets/gift/descarga_animation.webp'),
+      image_route:'../../../assets/gift/descarga_animation.webp'
     },
     {
       id: 2,
       title: 'Susurros del Alma 2',
       image: require('../../../assets/gift/gernica_animation_1.webp'),
+      image_route:'../../../assets/gift/gernica_animation_1.webp'
     },
     {
       id: 3,
       title: 'Susurros del Alma 3',
       image: require('../../../assets/gift/Muralismo-Mexicano_animation.gif'),
+      image_route:'../../../assets/gift/Muralismo-Mexicano_animation.gif'
     },
   ];
 
@@ -33,19 +36,19 @@ function LastPoems() {
         loop={true} autoplay={true} autoplayTimeout={5}
       >
         {poems.map((poem) => (
-          <PoemCard key={poem.id} title={poem.title} image={poem.image} poemId={poem.id} />
+          <PoemCard key={poem.id} title={poem.title} image={poem.image} poemId={poem.id} image_route={poem.image_route} />
         ))}
       </Swiper>
     </View>
   );
 }
 
-function PoemCard({ title, image, poemId }) {
+function PoemCard({ title, image, poemId, image_route }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
     navigation.navigate('PoemDetail', {
-     title, image, poemId 
+     title, image, poemId, image_route 
     });
   };
 

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import { useRoute } from '@react-navigation/native';
-import ComentsList from '../components/comentsList/ComentsList';
+import CommentSection from '../components/commentSection/Index';
+import AuthorInfo from '../components/authorInfo/AuthorInfo';
 
 function PoemDetail() {
   const route = useRoute();
@@ -22,6 +23,7 @@ function PoemDetail() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      {/* Haz que esto */}
       <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.poem}>
@@ -30,16 +32,13 @@ function PoemDetail() {
         ligula vel mauris fermentum, quis viverra orci posuere. Fusce malesuada, velit nec suscipit pulvinar, sem 
         libero tincidunt magna, non suscipit sem nunc a neque.
       </Text>
-      <View style={styles.authorContainer}>
-        <Image
-          source={{ uri: "https://this-person-does-not-exist.com/img/avatar-genaf437f464b793583dc4b2d45066290fa.jpg" }}
-          style={styles.authorAvatar}
-        />
-        <Text style={styles.authorName}>Juan Pérez</Text>
-      </View>
+      {/** hasta aqui, sea otro componente */}
+      <AuthorInfo
+        name="Juan Pérez"
+        avatar="https://this-person-does-not-exist.com/img/avatar-genaf437f464b793583dc4b2d45066290fa.jpg"
+      />
 
-      {/* Aquí se integra el componente ComentsList */}
-      <ComentsList 
+      <CommentSection 
         comments={comments} 
         comment={comment} 
         setComment={setComment} 
@@ -77,23 +76,6 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     paddingVertical: 10,
     paddingHorizontal: 22,
-  },
-  authorContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 12,
-    marginBottom: 16,
-  },
-  authorAvatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 12,
-  },
-  authorName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
   },
 });
 
