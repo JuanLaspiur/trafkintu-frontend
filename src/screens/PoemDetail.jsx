@@ -42,7 +42,6 @@ function PoemDetail() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Haz que esto */}
       <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.poem}>
@@ -51,7 +50,6 @@ function PoemDetail() {
         ligula vel mauris fermentum, quis viverra orci posuere. Fusce malesuada, velit nec suscipit pulvinar, sem 
         libero tincidunt magna, non suscipit sem nunc a neque.
       </Text>
-      {/** hasta aqui, sea otro componente */}
       <AuthorInfo
         name="Juan Pérez"
         avatar="https://this-person-does-not-exist.com/img/avatar-genaf437f464b793583dc4b2d45066290fa.jpg"

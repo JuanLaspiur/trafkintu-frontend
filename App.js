@@ -6,16 +6,17 @@ import Start from "./src/screens/Start";
 import Home from "./src/screens/Home";
 import Radio from "./src/screens/Radio";
 import PoemDetail from "./src/screens/PoemDetail";
+import Perfil from "./src/screens/Perfil";
+import UploadPoem from "./src/screens/UploadPoem"
 import colorPalette from "./src/helpers/color_palette";
 import ButtonNavBar from "./src/components/ButtonNavBar/ButtonNavBar"; 
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator(); // Stack Navigator para PoemDetail
+const Stack = createNativeStackNavigator(); 
 
-// Función para controlar la visibilidad del tab bar
 function getTabBarVisibility(route) {
   if (route.name === 'PoemDetail') {
-    return 'none';  // Oculta la pestaña de PoemDetail
+    return 'none';  
   }
   return 'flex'; 
 }
@@ -45,6 +46,8 @@ function App() {
         <Stack.Screen name="PoemDetail" component={PoemDetail} options={{ headerShown: false }} /> 
         <Stack.Screen name="Radio" component={Radio} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }} />
+        <Stack.Screen name="UploadPoem" component={UploadPoem} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -8,7 +8,7 @@ function SelectorMenu() {
     const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.option}>
+      <TouchableOpacity   onPress={() => navigation.navigate("UploadPoem")}  style={styles.option} >
       <Image source={require('../../../assets/icons/writing_5724478.webp')} style={styles.image}  />
       </TouchableOpacity>
       <TouchableOpacity style={styles.option}>

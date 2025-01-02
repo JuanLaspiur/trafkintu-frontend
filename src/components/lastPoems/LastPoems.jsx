@@ -48,19 +48,20 @@ function PoemCard({ title, image, poemId, image_route }) {
 
   const handleCardPress = () => {
     navigation.navigate('PoemDetail', {
-     title, image, poemId, image_route 
+      title, image, poemId, image_route,
     });
   };
 
   return (
-    <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}> 
+    <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}>
       <View style={styles.card}>
         <Image source={image} style={styles.image} />
-        <Text style={styles.cardTitle}>{title}</Text>
+        {title ? <Text style={styles.cardTitle}>{title}</Text> : null}
       </View>
     </TouchableOpacity>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

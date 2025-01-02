@@ -1,13 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Image } from 'expo-image';
 
 function AuthorInfo({ name, avatar }) {
+   const navigation = useNavigation();
   return (
-    <View style={styles.authorContainer}>
+    <TouchableOpacity   onPress={() => navigation.navigate("Perfil", { name, avatar })} style={styles.authorContainer}>
       <Image source={{ uri: avatar }} style={styles.authorAvatar} />
       <Text style={styles.authorName}>{name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
