@@ -5,24 +5,24 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Modal,
+  Modal
 } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { MaterialIcons } from "@expo/vector-icons"; // Asegúrate de instalar @expo/vector-icons
+import { MaterialIcons } from "@expo/vector-icons"; 
 
-function RegisterModal({
-  isModalVisible,
-  setIsModalVisible,
-  name,
-  setName,
-  email,
-  setEmail,
-  password,
-  setPassword,
-  handleRegisterSubmit,
-}) {
+function RegisterModal({ isModalVisible, setIsModalVisible }) {
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegisterSubmit = () => {
+    console.log("Nombre:", name);
+    console.log("Email:", email);
+    console.log("Password:", password);
+    setIsModalVisible(false);
+  };
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
@@ -84,7 +84,7 @@ function RegisterModal({
                 fontFamily: "Roboto_400Regular",
                 fontSize: 14,
                 fontWeight: "400",
-                color: "#FFFFFF",
+                color: "#FFFFFF"
               }}
               iconStyle={{ borderColor: "#A1A1A1", borderRadius: 5 }}
               isChecked={isTermsAccepted}
@@ -96,7 +96,7 @@ function RegisterModal({
           <TouchableOpacity
             style={[
               styles.modalButton,
-              { backgroundColor: isTermsAccepted ? "#25B3AD" : "#A1A1A1" },
+              { backgroundColor: isTermsAccepted ? "#25B3AD" : "#A1A1A1" }
             ]}
             onPress={handleRegisterSubmit}
             disabled={!isTermsAccepted}
@@ -118,14 +118,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    backgroundColor: "rgba(0, 0, 0, 0.7)"
   },
   modalContainer: {
     backgroundColor: "#4F4F4F",
     padding: 20,
     borderRadius: 10,
     width: "90%",
-    maxWidth: 400,
+    maxWidth: 400
   },
   modalTitle: {
     fontFamily: "Roboto_400Regular",
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#FFFFFF",
     marginBottom: 20,
-    textAlign: "center",
+    textAlign: "center"
   },
   input: {
     backgroundColor: "#4A4A4A",
@@ -143,14 +143,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 10,
     marginBottom: 15,
-    height: 48,
+    height: 48
   },
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#4A4A4A",
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 15
   },
   passwordInput: {
     flex: 1,
@@ -158,23 +158,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingVertical: 12,
     paddingHorizontal: 15,
-    height: 48,
+    height: 48
   },
   eyeIcon: {
-    padding: 10,
+    padding: 10
   },
   modalButton: {
     alignSelf: "center",
     paddingVertical: 12,
     paddingHorizontal: 60,
     borderRadius: 19,
-    marginTop: 20,
+    marginTop: 20
   },
   buttonText: {
     fontFamily: "Roboto_400Regular",
     fontSize: 18,
     fontWeight: "700",
-    color: "white",
+    color: "white"
   },
   closeModalText: {
     fontFamily: "Roboto_400Regular",
@@ -182,14 +182,14 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#25B3AD",
     textAlign: "center",
-    marginTop: 10,
+    marginTop: 10
   },
   termsContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 10,
-    paddingLeft: 10,
-  },
+    paddingLeft: 10
+  }
 });
 
 export default RegisterModal;

@@ -34,12 +34,6 @@ function Login() {
     setIsModalVisible(true);  
   };
 
-  const handleRegisterSubmit = () => {
-    console.log("Nombre:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    setIsModalVisible(false); 
-  };
 
   if (!fontsLoaded) {
     return null;
@@ -81,13 +75,6 @@ function Login() {
       <RegisterModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
-        name={name}
-        setName={setName}
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-        handleRegisterSubmit={handleRegisterSubmit}
       />
     </View>
   );
