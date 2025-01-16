@@ -8,9 +8,7 @@ import SevenLastPoems from '../components/lastPoems/SevenLastPoems';
 function Perfil() {
   const route = useRoute();
   const { name, avatar } = route.params;
-
   const [isFollowing, setIsFollowing] = useState(false);
-
   const [followers, setFollowers] = useState(128);
   const [following, setFollowing] = useState(75);
 

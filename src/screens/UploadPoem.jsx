@@ -1,29 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { Ionicons } from '@expo/vector-icons'; // Importamos el icono de Ionicons
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import colorPalette from '../helpers/color_palette';
+import ImagesModal from '../components/imagesModal/ImagesModal'; 
+import { Image } from 'expo-image';
 
 function UploadPoem() {
   const [titulo, setTitulo] = useState('');
   const [contenido, setContenido] = useState('');
   const [imagen, setImagen] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  // Función para seleccionar la imagen
-  const seleccionarImagen = async () => {
-    const resultado = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!resultado.canceled) {
-      setImagen(resultado.assets[0].uri);
-    }
-  };
-
-  // Función para enviar el poema
   const manejarEnvio = () => {
     if (!imagen) {
       Alert.alert('Error', 'La imagen es obligatoria');
@@ -37,15 +23,25 @@ function UploadPoem() {
     setImagen(null);
   };
 
+  const abrirModalImagenes = () => {
+    setModalVisible(true);
+  };
+
+  const cerrarModal = () => {
+    setModalVisible(false);
+  };
+
+  const recibirImagen = (imagenSeleccionada) => {
+    setImagen(imagenSeleccionada);
+    cerrarModal();
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Imagen con ícono flotante de "+" en la esquina inferior derecha */}
-      <TouchableOpacity onPress={seleccionarImagen} style={styles.imageWrapper}>
-        <Image
-          source={imagen ? { uri: imagen } : { uri: 'https://www.thewall360.com/uploadImages/ExtImages/images1/def-638240706028967470.jpg' }} // Imagen por defecto si no hay una seleccionada
-          style={styles.imagePreview}
-        />
-        <Ionicons name="add-circle" size={20} color="white" style={styles.icon} /> {/* Icono de "+" */}
+      <TouchableOpacity onPress={abrirModalImagenes} style={styles.imageWrapper}>
+        <Text style={styles.imagePreview}>
+          {imagen ? 'Imagen seleccionada' : 'Selecciona una imagen'}
+        </Text>
       </TouchableOpacity>
 
       <Text style={styles.header}>Subir Poema</Text>
@@ -69,6 +65,12 @@ function UploadPoem() {
       <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={manejarEnvio}>
         <Text style={styles.buttonText}>Enviar Poema</Text>
       </TouchableOpacity>
+
+      <ImagesModal
+        visible={modalVisible}
+        onClose={cerrarModal}
+        onImageSelect={recibirImagen} 
+      />
     </ScrollView>
   );
 }
@@ -115,21 +117,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   imageWrapper: {
-    position: 'relative',
     marginVertical: 16,
+    padding: 10,
+    backgroundColor: '#ccc',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   imagePreview: {
     width: 200,
     height: 150,
     borderRadius: 8,
-  },
-  icon: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-    backgroundColor:colorPalette.primary, 
-    padding: 5,
-    borderRadius: 20,
+    textAlign: 'center',
+    lineHeight: 150, 
   },
 });
 

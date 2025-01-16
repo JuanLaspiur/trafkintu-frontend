@@ -30,11 +30,7 @@ function LastPoems() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Últimos tres poemas:</Text>
-      <Swiper
-        style={styles.swiper}
-        showsPagination={false} 
-        loop={true} autoplay={true} autoplayTimeout={5}
-      >
+      <Swiper style={styles.swiper} showsPagination={false} loop={true} autoplay={true} autoplayTimeout={5}>
         {poems.map((poem) => (
           <PoemCard key={poem.id} title={poem.title} image={poem.image} poemId={poem.id} image_route={poem.image_route} />
         ))}

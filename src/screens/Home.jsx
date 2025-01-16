@@ -17,7 +17,6 @@ function Home() {
       <LastPoems /> 
        <LastYoutubeVideo videoId="tTfMid0Sweg" /> 
       <SevenLastPoems />
-     
     </ScrollView>
   );
 }

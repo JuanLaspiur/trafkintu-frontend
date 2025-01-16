@@ -10,6 +10,7 @@ import Perfil from "./src/screens/Perfil";
 import UploadPoem from "./src/screens/UploadPoem"
 import colorPalette from "./src/helpers/color_palette";
 import ButtonNavBar from "./src/components/ButtonNavBar/ButtonNavBar"; 
+import Login from "./src/screens/Login";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator(); 
@@ -48,6 +49,7 @@ function App() {
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }} />
         <Stack.Screen name="UploadPoem" component={UploadPoem} options={{ headerShown: false }} />
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
