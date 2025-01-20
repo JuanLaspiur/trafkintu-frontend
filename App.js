@@ -2,6 +2,9 @@ import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { AuthProvider } from "./src/contexts/AuthContext.jsx";
+
 import Start from "./src/screens/Start";
 import Home from "./src/screens/Home";
 import Radio from "./src/screens/Radio";
@@ -24,6 +27,7 @@ function getTabBarVisibility(route) {
 
 function App() {
   return (
+   <AuthProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
         <Stack.Screen name="HomeTabs" options={{ headerShown: false }}>
@@ -52,6 +56,7 @@ function App() {
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
+    </AuthProvider>
   );
 }
 

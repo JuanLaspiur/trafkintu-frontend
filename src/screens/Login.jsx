@@ -10,10 +10,13 @@ import {
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { useNavigation } from "@react-navigation/native";
 import RegisterModal from '../components/registerModal/RegisterModal.jsx'; 
+import { useAuth }  from '../contexts/AuthContext.jsx';
+import { loginUser } from '../services/auth.services.js'
 
 const { height } = Dimensions.get("window");
 
 function Login() {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -24,9 +27,9 @@ function Login() {
 
   const navigation = useNavigation();
 
-  const handleLogin = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const handleLogin = async() => {
+    const result = await loginUser({email, password});
+    login(result);
     navigation.navigate("Home");
   };
 

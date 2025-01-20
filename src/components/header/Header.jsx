@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import colorPalette from '../../helpers/color_palette';
 import { Ionicons } from '@expo/vector-icons'; 
-import { useNavigation } from '@react-navigation/native';  // Importar useNavigation
+import { useNavigation } from '@react-navigation/native';  
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigation = useNavigation();  // Hook para la navegación
+  const navigation = useNavigation();  
 
-  // Función para manejar la navegación al Login
   const handleLoginPress = () => {
-    navigation.navigate('Login');  // Redirige a la pantalla "Login"
+    navigation.navigate('Login');  
   };
 
   return (

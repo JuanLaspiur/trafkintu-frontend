@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
-import { BACKEND_DEV } from '@env'; 
+import * as env from '../../env.js'; 
 
 const $api = axios.create({
-  baseURL: `${BACKEND_DEV}/api`,
+  baseURL: `${env.BACKEND_DEV}/api`,
 });
 
 const api = () => {
   const { token } = useAuth(); 
 
   const apiWithToken = axios.create({
-    baseURL: `${BACKEND_DEV}/api`,
+    baseURL: `${env.BACKEND_DEV}/api`,
   });
 
   apiWithToken.interceptors.request.use(
