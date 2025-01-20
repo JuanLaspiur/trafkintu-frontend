@@ -1,127 +1,105 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Image } from 'expo-image';
-import { useRoute } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { useAuth } from '../contexts/AuthContext';
 import colorPalette from '../helpers/color_palette';
-import SevenLastPoems from '../components/lastPoems/SevenLastPoems';
+import { Ionicons } from '@expo/vector-icons';
+import Header from '../components/header/Header';
 
 function Perfil() {
-  const route = useRoute();
-  const { name, avatar } = route.params;
-  const [isFollowing, setIsFollowing] = useState(false);
-  const [followers, setFollowers] = useState(128);
-  const [following, setFollowing] = useState(75);
+  const { user } = useAuth();
 
-  const handleFollowToggle = () => {
-    setIsFollowing(!isFollowing);
-
-    setFollowers((prevFollowers) => 
-      isFollowing ? prevFollowers - 1 : prevFollowers + 1
-    );
+  const handleEditProfilePress = () => {
+    console.log('Editar perfil presionado');
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Image 
-        source={require('../../assets/gift/sin_pan_y_sin_trabajo_animation.webp')} 
-        style={styles.coverImage} 
-      />
-      <View style={styles.profileInfo}>
-        <Image source={{ uri: avatar }} style={styles.avatar} />
-        <Text style={styles.name}>{name}</Text>
-
-        <TouchableOpacity
-          style={[
-            styles.followButton,
-            isFollowing ? styles.followingButton : styles.followButtonDefault,
-          ]}
-          onPress={handleFollowToggle}
-        >
-          <Text style={styles.followButtonText}>
-            {isFollowing ? 'Siguiendo' : 'Seguir'}
-          </Text>
-        </TouchableOpacity>
-        <View style={styles.statsContainer}>
-          <View style={styles.stat}>
-            <Text style={styles.statValue}>{followers}</Text>
-            <Text style={styles.statLabel}>Seguidores</Text>
-          </View>
-          <View style={styles.stat}>
-            <Text style={styles.statValue}>{following}</Text>
-            <Text style={styles.statLabel}>Seguidos</Text>
-          </View>
-        </View> 
-         <SevenLastPoems />
+    <View style={styles.container}>
+   <Header/>
+      <View style={styles.profileHeader}>
+        <Image
+          source={{
+            uri: user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png',
+          }}
+          style={styles.avatar}
+        />
+        <Text style={styles.username}>{user?.username || 'Usuario'}</Text>
+        <Text style={styles.email}>{user?.email || 'Email no disponible'}</Text>
       </View>
-    </ScrollView>
+
+      <View style={styles.actions}>
+        <TouchableOpacity style={styles.editButton} onPress={handleEditProfilePress}>
+          <Ionicons name="pencil" size={20} color={colorPalette.accent} />
+          <Text style={styles.editButtonText}>Editar perfil</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.infoSection}>
+        <Text style={styles.sectionTitle}>Información adicional:</Text>
+        <Text style={styles.infoText}>Fecha de registro: {user?.createdAt || 'N/A'}</Text>
+        <Text style={styles.infoText}>Rol: {user?.role || 'Usuario'}</Text>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    flex: 1,
+    backgroundColor: colorPalette.neutralDark,
+    padding: 20,
   },
-  coverImage: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'cover',
-  },
-  profileInfo: {
+  profileHeader: {
     alignItems: 'center',
-    marginTop: -60,
+    marginBottom: 30,
   },
   avatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 4,
-    borderColor: '#fff',
-    marginBottom: 8,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 15,
   },
-  name: {
+  username: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: colorPalette.ligthBlue,
-    marginBottom: 12,
+    color: colorPalette.accent,
   },
-  followButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  followButtonDefault: {
-    backgroundColor: colorPalette.ligthBlue,
-  },
-  followingButton: {
-    backgroundColor: '#ddd',
-  },
-  followButtonText: {
+  email: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#fff',
+    color: colorPalette.primary,
   },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '60%',
-    marginTop: 8,
-  },
-  stat: {
+  actions: {
     alignItems: 'center',
+    marginBottom: 20,
   },
-  statValue: {
-    fontSize: 20,
+  editButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colorPalette.neutralLight,
+    padding: 10,
+    borderRadius: 8,
+  },
+  editButtonText: {
+    fontSize: 16,
+    color: colorPalette.accent,
+    marginLeft: 10,
+  },
+  infoSection: {
+    backgroundColor: colorPalette.neutralLight,
+    padding: 15,
+    borderRadius: 8,
+  },
+  sectionTitle: {
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: colorPalette.primary,
+    marginBottom: 10,
   },
-  statLabel: {
+  infoText: {
     fontSize: 14,
-    color: '#666',
+    color: colorPalette.primary,
+    marginBottom: 5,
   },
 });
 
 export default Perfil;
+

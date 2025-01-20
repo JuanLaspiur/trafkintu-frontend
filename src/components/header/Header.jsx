@@ -16,7 +16,12 @@ function Header() {
 
   const handleLogoutPress = () => {
     logout();
-    setIsMenuVisible(false); // Cerrar el menú después de cerrar sesión
+    setIsMenuVisible(false); 
+  };
+
+  const handleProfilePress = () => {
+    navigation.navigate('Perfil'); 
+    setIsMenuVisible(false); 
   };
 
   const toggleMenu = () => {
@@ -56,6 +61,15 @@ function Header() {
             </TouchableOpacity>
             {isMenuVisible && (
               <View style={styles.menu}>
+                <TouchableOpacity onPress={handleProfilePress} style={styles.menuItem}>
+                  <Ionicons
+                    name="person"
+                    size={20}
+                    color={colorPalette.accent}
+                    style={styles.menuIcon}
+                  />
+                  <Text style={styles.menuText}>Mi Perfil</Text>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={handleLogoutPress} style={styles.menuItem}>
                   <Ionicons
                     name="log-out"
@@ -144,21 +158,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    zIndex:999
+    zIndex: 999,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 5,
   },
-menuText: {
+  menuText: {
     fontSize: 16,
     color: colorPalette.accent,
   },
-  menudesplegable:{
-    flexDirection:'row',
-    alignItems:'center',
-  }
+  menuIcon: {
+    marginRight: 10,
+  },
+  menudesplegable: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default Header;
