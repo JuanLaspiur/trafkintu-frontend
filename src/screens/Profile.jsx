@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import Header from '../components/header/Header';
@@ -7,6 +7,17 @@ import FullWidthPoemCards from '../components/fullWidthPoemCards/FullWidthPoemCa
 
 function Profile() {
   const { user } = useAuth();
+
+  const [description, setDescription] = useState(user?.description || 'Añade una descripción...');
+  const [isEditing, setIsEditing] = useState(false);
+
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleSaveDescription = () => {
+    setIsEditing(false);
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -18,7 +29,24 @@ function Profile() {
           style={styles.avatar}
         />
         <Text style={styles.username}>{user?.username || 'Usuario'}</Text>
-        <Text style={styles.email}>{user?.email || 'Email no disponible'}</Text>
+
+        <View style={styles.descriptionContainer}>
+          {isEditing ? (
+            <TextInput
+              style={styles.descriptionInput}
+              value={description}
+              onChangeText={setDescription}
+              autoFocus
+              multiline
+              placeholder="Escribe algo sobre ti..."
+            />
+          ) : (
+            <Text style={styles.descriptionText}>{description}</Text>
+          )}
+          <TouchableOpacity onPress={isEditing ? handleSaveDescription : toggleEdit} style={styles.editButton}>
+            <Ionicons name={isEditing ? 'checkmark' : 'pencil'} size={20} color="#333" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.statsContainer}>
@@ -34,7 +62,7 @@ function Profile() {
 
       <View style={styles.postsSection}>
         <Text style={styles.sectionTitle}>Mis últimos escritos:</Text>
-    <FullWidthPoemCards/>
+        <FullWidthPoemCards />
       </View>
     </ScrollView>
   );
@@ -64,9 +92,28 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
   },
-  email: {
+  descriptionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  descriptionText: {
     fontSize: 16,
-    color: '#777',
+    color: '#555',
+    textAlign: 'center',
+    flex: 1,
+  },
+  descriptionInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#333',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    padding: 5,
+  },
+  editButton: {
+    marginLeft: 10,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -108,26 +155,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 10,
-  },
-  postItem: {
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    paddingBottom: 10,
-  },
-  postTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  postSnippet: {
-    fontSize: 14,
-    color: '#555',
-    marginTop: 5,
-  },
-  noPostsText: {
-    fontSize: 14,
-    color: '#777',
   },
 });
 

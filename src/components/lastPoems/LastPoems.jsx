@@ -11,19 +11,16 @@ function LastPoems() {
       id: 1,
       title: 'Susurros del Alma',
       image: require('../../../assets/gift/descarga_animation.webp'),
-      image_route:'../../../assets/gift/descarga_animation.webp'
     },
     {
       id: 2,
       title: 'Susurros del Alma 2',
       image: require('../../../assets/gift/gernica_animation_1.webp'),
-      image_route:'../../../assets/gift/gernica_animation_1.webp'
     },
     {
       id: 3,
       title: 'Susurros del Alma 3',
       image: require('../../../assets/gift/Muralismo-Mexicano_animation.webp'),
-      image_route:'../../../assets/gift/Muralismo-Mexicano_animation.webp'
     },
   ];
 
@@ -32,32 +29,29 @@ function LastPoems() {
       <Text style={styles.title}>Últimos tres poemas:</Text>
       <Swiper style={styles.swiper} showsPagination={false} loop={true} autoplay={true} autoplayTimeout={5}>
         {poems.map((poem) => (
-          <PoemCard key={poem.id} title={poem.title} image={poem.image} poemId={poem.id} image_route={poem.image_route} />
+          <PoemCard key={poem.id} title={poem.title} image={poem.image} />
         ))}
       </Swiper>
     </View>
   );
 }
 
-function PoemCard({ title, image, poemId, image_route }) {
+function PoemCard({ title, image }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate('PoemDetail', {
-      title, image, poemId, image_route,
-    });
+    navigation.navigate('PoemDetail', { title, image });
   };
 
   return (
     <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}>
       <View style={styles.card}>
         <Image source={image} style={styles.image} />
-        {title ? <Text style={styles.cardTitle}>{title}</Text> : null}
+        <Text style={styles.cardTitle}>{title || 'Sin título'}</Text>
       </View>
     </TouchableOpacity>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -88,8 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: '98.8%',
-    margin: 'auto',
+    width: '100%',
     height: 150,
     borderRadius: 12,
   },
