@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import colorPalette from '../../helpers/color_palette';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ import { useAuth } from '../../contexts/AuthContext';
 function Header() {
   const { user, logout, token } = useAuth();
   const navigation = useNavigation();
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const handleLoginPress = () => {
     navigation.navigate('Login');
@@ -15,6 +16,11 @@ function Header() {
 
   const handleLogoutPress = () => {
     logout();
+    setIsMenuVisible(false); // Cerrar el menú después de cerrar sesión
+  };
+
+  const toggleMenu = () => {
+    setIsMenuVisible(!isMenuVisible);
   };
 
   return (
@@ -34,20 +40,33 @@ function Header() {
                 </Text>
               </Text>
             </View>
-            <Image
-              source={{
-                uri: 'https://media.licdn.com/dms/image/v2/D4D35AQGtDVqcgI4CEw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1736971943737?e=1737648000&v=beta&t=72TgEyElW0HClohFiHHb6AcP1Pk9UOSDbtzpBV_-67Y', // Imagen predeterminada
-              }}
-              style={styles.icon}
-            />
-            <TouchableOpacity onPress={handleLogoutPress}>
+            <TouchableOpacity onPress={toggleMenu} style={styles.menudesplegable}>
+              <Image
+                source={{
+                  uri: 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png',
+                }}
+                style={styles.icon}
+              />
               <Ionicons
-                name="log-out"
-                size={30}
+                name={isMenuVisible ? 'chevron-up' : 'chevron-down'}
+                size={18}
                 color={colorPalette.accent}
-                style={styles.iconLogout}
+                style={styles.menuToggleIcon}
               />
             </TouchableOpacity>
+            {isMenuVisible && (
+              <View style={styles.menu}>
+                <TouchableOpacity onPress={handleLogoutPress} style={styles.menuItem}>
+                  <Ionicons
+                    name="log-out"
+                    size={20}
+                    color={colorPalette.accent}
+                    style={styles.menuIcon}
+                  />
+                  <Text style={styles.menuText}>Cerrar sesión</Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </>
         ) : (
           <>
@@ -105,9 +124,6 @@ const styles = StyleSheet.create({
   iconLogin: {
     marginRight: 12,
   },
-  iconLogout: {
-    marginRight: 12,
-  },
   greeting: {
     fontSize: 14,
     color: colorPalette.primary,
@@ -116,6 +132,33 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: 'bold',
   },
+  menu: {
+    position: 'absolute',
+    top: 75,
+    right: 2,
+    backgroundColor: colorPalette.neutralDark,
+    borderRadius: 8,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    zIndex:999
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
+menuText: {
+    fontSize: 16,
+    color: colorPalette.accent,
+  },
+  menudesplegable:{
+    flexDirection:'row',
+    alignItems:'center',
+  }
 });
 
 export default Header;
