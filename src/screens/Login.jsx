@@ -11,7 +11,8 @@ import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { useNavigation } from "@react-navigation/native";
 import RegisterModal from '../components/registerModal/RegisterModal.jsx'; 
 import { useAuth }  from '../contexts/AuthContext.jsx';
-import { loginUser } from '../services/auth.services.js'
+import { loginUser } from '../services/auth.services.js';
+
 
 const { height } = Dimensions.get("window");
 

@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await AsyncStorage.setItem("token", response?.token);
       setToken(response?.token);
-      setUser({username: response?.user, email:response?.email});
+      setUser({username: response?.username, email:response?.email});
     } catch (error) {
       console.error("Error saving token: ", error);
     }
