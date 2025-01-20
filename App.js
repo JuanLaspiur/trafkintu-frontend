@@ -9,7 +9,7 @@ import Start from "./src/screens/Start";
 import Home from "./src/screens/Home";
 import Radio from "./src/screens/Radio";
 import PoemDetail from "./src/screens/PoemDetail";
-import Perfil from "./src/screens/Perfil";
+import Profile from "./src/screens/Profile";
 import UploadPoem from "./src/screens/UploadPoem"
 import colorPalette from "./src/helpers/color_palette";
 import ButtonNavBar from "./src/components/ButtonNavBar/ButtonNavBar"; 
@@ -52,7 +52,7 @@ function App() {
         <Stack.Screen name="PoemDetail" component={PoemDetail} options={{ headerShown: false }} /> 
         <Stack.Screen name="Radio" component={Radio} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }} />
+        <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
         <Stack.Screen name="UploadPoem" component={UploadPoem} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="OtherUserProfile" component={OtherUserProfile} options={{ headerShown: false }} />

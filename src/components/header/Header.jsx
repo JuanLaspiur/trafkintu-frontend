@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import colorPalette from '../../helpers/color_palette';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 function Header() {
   const { user, logout, token } = useAuth();
   const navigation = useNavigation();
+  const route = useRoute(); // si es OtherUserProfile el nombre de la ruta que no se vea ni nada más que Trafkintu
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const handleLoginPress = () => {
@@ -20,7 +21,7 @@ function Header() {
   };
 
   const handleProfilePress = () => {
-    navigation.navigate('Perfil'); 
+    navigation.navigate('Profile'); 
     setIsMenuVisible(false); 
   };
 
@@ -36,7 +37,7 @@ function Header() {
         </View>
 
         {token ? (
-          <>
+          route.name !== 'OtherUserProfile' && <>
             <View style={styles.userContainer}>
               <Text style={styles.greeting}>
                 Hola,{' '}

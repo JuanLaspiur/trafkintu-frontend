@@ -6,7 +6,7 @@ import { Image } from 'expo-image';
 function AuthorInfo({ name, avatar }) {
    const navigation = useNavigation();
   return (
-    <TouchableOpacity   onPress={() => navigation.navigate("Perfil", { name, avatar })} style={styles.authorContainer}>
+    <TouchableOpacity   onPress={() => navigation.navigate("Profile", { name, avatar })} style={styles.authorContainer}>
       <Image source={{ uri: avatar }} style={styles.authorAvatar} />
       <Text style={styles.authorName}>{name}</Text>
     </TouchableOpacity>
