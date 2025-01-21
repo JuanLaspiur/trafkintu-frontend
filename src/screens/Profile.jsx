@@ -7,6 +7,7 @@ import colorPalette from '../helpers/color_palette';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 import * as ImagePicker from 'expo-image-picker'; // Importamos el ImagePicker de Expo
+import SelectorMenu from '../components/selectorMenu/SelectorMenu';
 
 function Profile({ navigation }) {
   const { user } = useAuth();
@@ -19,9 +20,7 @@ function Profile({ navigation }) {
     return <Text>Loading...</Text>;
   }
 
-  // Función para editar la imagen de perfil
   const handleImageEditPress = async () => {
-    // Pedir permisos para acceder a la galería de imágenes
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted) {
@@ -31,7 +30,7 @@ function Profile({ navigation }) {
       });
 
       if (!result.canceled) {
-        setAvatar(result.assets[0].uri); // Establece la nueva imagen de perfil
+        setAvatar(result.assets[0].uri); 
       }
     } else {
       Alert.alert("Permisos Denegados", "Para cambiar la imagen de perfil debes permitir el acceso a tu galería.");
@@ -67,8 +66,7 @@ function Profile({ navigation }) {
               source={{ uri: avatar }}
               style={styles.avatar}
             />
-            {/* Ícono de editar sobre la imagen de perfil */}
-            <Feather name="edit-2" size={14} color="white" style={styles.editIcon} />
+            <Feather name="edit-2" size={16} color="white" style={styles.editIcon} />
           </TouchableOpacity>
           <Text style={styles.username}>{user?.username || 'Usuario'}</Text>
         </View>
@@ -92,8 +90,10 @@ function Profile({ navigation }) {
           onPress={isEditing ? handleSavePress : handleEditPress}
         >
           <AntDesign name={isEditing ? "save" : "edit"} size={20} color={colorPalette.accent} />
-        </TouchableOpacity>
+        </TouchableOpacity>  
+     
       </View>
+       <SelectorMenu style={styles.barmenu}/>
     </ScrollView>
   );
 }
@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
     right: 10,
     padding: 8,
   },
+
 });
 
 export default Profile;
