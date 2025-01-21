@@ -1,20 +1,42 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { Image } from "expo-image";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import colorPalette from '../helpers/color_palette';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
+import * as ImagePicker from 'expo-image-picker'; // Importamos el ImagePicker de Expo
 
 function Profile({ navigation }) {
   const { user } = useAuth();
   const [fontsLoaded] = useFonts({ Roboto_400Regular });
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState(user?.description || 'Aún no se ha añadido una descripción personal.');
+  const [avatar, setAvatar] = useState(user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); // Estado para la imagen de perfil
 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
   }
+
+  // Función para editar la imagen de perfil
+  const handleImageEditPress = async () => {
+    // Pedir permisos para acceder a la galería de imágenes
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted) {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setAvatar(result.assets[0].uri); // Establece la nueva imagen de perfil
+      }
+    } else {
+      Alert.alert("Permisos Denegados", "Para cambiar la imagen de perfil debes permitir el acceso a tu galería.");
+    }
+  };
 
   const handleEditPress = () => {
     setIsEditing(true);
@@ -22,16 +44,14 @@ function Profile({ navigation }) {
 
   const handleSavePress = () => {
     setIsEditing(false);
-    // Aquí puedes agregar la lógica para guardar la nueva descripción, por ejemplo, enviarla a la API o al contexto
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.profileHeader}>
-        {/* Botón de retroceso con el ícono de "menos" */}
         <TouchableOpacity 
           style={styles.backButton} 
-          onPress={() => navigation.goBack()} // Volver a la pantalla anterior
+          onPress={() => navigation.goBack()} 
         >
           <AntDesign name="left" size={27} color="white" />
         </TouchableOpacity>
@@ -42,13 +62,18 @@ function Profile({ navigation }) {
           contentFit="cover"
         />
         <View style={styles.profileInfo}>
-          <Image
-            source={{ uri: user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png' }}
-            style={styles.avatar}
-          />
+          <TouchableOpacity onPress={handleImageEditPress} style={styles.avatarContainer}>
+            <Image
+              source={{ uri: avatar }}
+              style={styles.avatar}
+            />
+            {/* Ícono de editar sobre la imagen de perfil */}
+            <Feather name="edit-2" size={14} color="white" style={styles.editIcon} />
+          </TouchableOpacity>
           <Text style={styles.username}>{user?.username || 'Usuario'}</Text>
         </View>
       </View> 
+
       <View style={styles.descriptionContainer}>
         <Text style={styles.followDescription} ><AntDesign name="team" size={14} />Seguidores 5     <AntDesign name="addusergroup" size={14} /> Seguidos 10</Text>
         <Text style={styles.descriptionTitle}><AntDesign name="infocirlceo" size={14} /> Mi Descripción</Text>
@@ -102,12 +127,22 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
   },
+  avatarContainer: {
+    position: 'relative',
+  },
   avatar: {
     width: 100,
     height: 100,
     borderRadius: 5,
     backgroundColor: '#fff',
     marginRight: 10,
+  },
+  editIcon: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    color: colorPalette.accent,
+    padding: 5,
   },
   username: {
     fontSize: 20,
@@ -123,7 +158,6 @@ const styles = StyleSheet.create({
   },
   descriptionContainer: {
     padding: 10,
-
     backgroundColor: '#fff',
     borderRadius: 8,
     shadowColor: '#000',
