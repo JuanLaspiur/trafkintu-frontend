@@ -22,7 +22,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false); // Estado para visibilidad de la contraseña
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
   const [fontsLoaded] = useFonts({
     Roboto_400Regular
   });
@@ -63,7 +63,7 @@ function Login() {
             style={[styles.input, styles.passwordInput]}
             placeholder="Contraseña"
             placeholderTextColor="#A1A1A1"
-            secureTextEntry={!isPasswordVisible} // Alternar visibilidad de contraseña
+            secureTextEntry={!isPasswordVisible} 
             value={password}
             onChangeText={setPassword}
           />

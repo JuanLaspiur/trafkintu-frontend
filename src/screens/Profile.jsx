@@ -1,68 +1,53 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
-import { Ionicons } from '@expo/vector-icons';
-import Header from '../components/header/Header';
-import FullWidthPoemCards from '../components/fullWidthPoemCards/FullWidthPoemCards';
+import { Image } from "expo-image";
+import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
+import colorPalette from '../helpers/color_palette';
 
 function Profile() {
   const { user } = useAuth();
+  const [fontsLoaded] = useFonts({ Roboto_400Regular });
 
-  const [description, setDescription] = useState(user?.description || 'Añade una descripción...');
-  const [isEditing, setIsEditing] = useState(false);
-
-  const toggleEdit = () => {
-    setIsEditing(!isEditing);
-  };
-
-  const handleSaveDescription = () => {
-    setIsEditing(false);
-  };
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>;
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.profileHeader}>
         <Image
-          source={{
-            uri: user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png',
-          }}
-          style={styles.avatar}
+          source={require('../../assets/gift/fotografica_animation.webp')}
+          style={styles.backgroundImage}
+          contentFit="cover"
         />
-        <Text style={styles.username}>{user?.username || 'Usuario'}</Text>
-
-        <View style={styles.descriptionContainer}>
-          {isEditing ? (
-            <TextInput
-              style={styles.descriptionInput}
-              value={description}
-              onChangeText={setDescription}
-              autoFocus
-              multiline
-              placeholder="Escribe algo sobre ti..."
-            />
-          ) : (
-            <Text style={styles.descriptionText}>{description}</Text>
-          )}
-          <TouchableOpacity onPress={isEditing ? handleSaveDescription : toggleEdit} style={styles.editButton}>
-            <Ionicons name={isEditing ? 'checkmark' : 'pencil'} size={20} color="#333" />
-          </TouchableOpacity>
+        <View style={styles.profileInfo}>
+          <Image
+            source={{ uri: user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png' }}
+            style={styles.avatar}
+          />
+          <Text style={styles.username}>{user?.username || 'Usuario'}</Text>
         </View>
       </View>
-
       <View style={styles.statsContainer}>
-        <View style={styles.statsBox}>
-          <Text style={styles.statsNumber}>{user?.followers || 0}</Text>
-          <Text style={styles.statsLabel}>Seguidores</Text>
+        <View style={styles.statItem}>
+          <Text style={styles.statNumber}>20</Text>
+          <Text style={styles.statLabel}>Publicaciones</Text>
         </View>
-        <View style={styles.statsBox}>
-          <Text style={styles.statsNumber}>{user?.following || 0}</Text>
-          <Text style={styles.statsLabel}>Seguidos</Text>
+        <View style={styles.statItem}>
+          <Text style={styles.statNumber}>91</Text>
+          <Text style={styles.statLabel}>Seguidores</Text>
         </View>
-      </View>
-
-      <View style={styles.postsSection}>
-        <Text style={styles.sectionTitle}>Mis últimos escritos:</Text>
-        <FullWidthPoemCards />
+        <View style={styles.statItem}>
+          <Text style={styles.statNumber}>73</Text>
+          <Text style={styles.statLabel}>Seguidos</Text>
+        </View>
+      </View>   
+       <View style={styles.descriptionContainer}>
+        <Text style={styles.descriptionTitle}>Descripción</Text>
+        <Text style={styles.descriptionText}>
+          {user?.description || 'Aún no se ha añadido una descripción personal.'}
+        </Text>
       </View>
     </ScrollView>
   );
@@ -71,91 +56,88 @@ function Profile() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#f8f8f8',
-    paddingTop: 40,
+    paddingTop: 30,
+    backgroundColor: colorPalette.neutralDark,
     paddingBottom: 20,
+    paddingHorizontal: 5,
   },
   profileHeader: {
-    alignItems: 'center',
-    marginBottom: 30,
+    position: 'relative',
+    marginBottom: 20,
+    height: 200,
+    borderRadius: 5,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
-  avatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 3,
-    borderColor: '#ddd',
-    marginBottom: 15,
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: -1,
   },
-  username: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  descriptionContainer: {
+  profileInfo: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    padding: 8,
+    borderRadius: 8,
   },
-  descriptionText: {
-    fontSize: 16,
-    color: '#555',
-    textAlign: 'center',
-    flex: 1,
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    marginRight: 10,
   },
-  descriptionInput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#333',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    padding: 5,
-  },
-  editButton: {
-    marginLeft: 10,
+  username: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    fontFamily: "Roboto_400Regular",
   },
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 30,
+    marginHorizontal: 25,
   },
-  statsBox: {
+  statItem: {
     alignItems: 'center',
-    flex: 1,
-    paddingVertical: 15,
-    backgroundColor: '#fff',
+  },
+  statNumber: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: colorPalette.accent,
+  },
+  statLabel: {
+    fontSize: 11,
+    color: colorPalette.accent,
+  },
+  descriptionContainer: {
     marginHorizontal: 5,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-  },
-  statsNumber: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  statsLabel: {
-    fontSize: 14,
-    color: '#777',
-  },
-  postsSection: {
+    marginTop: 20,
+    padding: 10,
     backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 10,
+    borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
-  sectionTitle: {
-    fontSize: 18,
+  descriptionTitle: {
+    fontSize: 15,
     fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
+    color: colorPalette.accent,
+    marginBottom: 5,
   },
+  descriptionText: {
+    fontSize: 11,
+    color: colorPalette.accent,
+    lineHeight: 20,
+  },
+
 });
 
 export default Profile;
