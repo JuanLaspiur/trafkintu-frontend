@@ -1,0 +1,1 @@
+export const BACKEND_DEV="https://backend-trafiktu-no-ts.onrender.com"
