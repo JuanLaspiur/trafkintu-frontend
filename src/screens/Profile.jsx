@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   },
   descriptionContainer: {
     padding: 10,
+
     backgroundColor: '#fff',
     borderRadius: 8,
     shadowColor: '#000',
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     color: colorPalette.accent,
+    paddingTop:15,
   },
   followDescription: {
     fontSize: 14,
