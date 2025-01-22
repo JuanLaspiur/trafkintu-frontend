@@ -8,8 +8,8 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 import * as ImagePicker from 'expo-image-picker'; 
 import SelectorMyProfile from '../components/selectorMenu/SelectorMyProfile';
-import MyPoemsPublic from '../components/myPoems/MyPoemsPublic';
-import MyPoemsDraft from '../components/myPoems/MyPoemsDraft';
+import MyPoemsPublic from '../components/optionsMyProfile/MyPoemsPublic';
+import MyPoemsDraft from '../components/optionsMyProfile/MyPoemsDraft';
 
 function Profile({ navigation }) {
   const { user } = useAuth();
@@ -97,7 +97,8 @@ function Profile({ navigation }) {
         </TouchableOpacity>  
 
       </View>
-      {selectedOption === 'publico' ?<MyPoemsPublic/> : <MyPoemsDraft/>}
+      {selectedOption === 'publico' && <MyPoemsPublic/> }
+      {selectedOption === '' && <MyPoemsDraft/>}
     </ScrollView>
   );
 }
