@@ -8,6 +8,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 import * as ImagePicker from 'expo-image-picker'; 
 import SelectorMyProfile from '../components/selectorMenu/SelectorMyProfile';
+import MyPoemsPublic from '../components/myPoems/MyPoemsPublic';
 
 function Profile({ navigation }) {
   const { user } = useAuth();
@@ -94,6 +95,7 @@ function Profile({ navigation }) {
         </TouchableOpacity>  
 
       </View>
+      <MyPoemsPublic/>
      
     </ScrollView>
   );
