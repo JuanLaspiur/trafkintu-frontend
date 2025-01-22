@@ -4,10 +4,10 @@ import { View, Image, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
 
-function SelectorMyProfile() {
+function SelectorMyProfile({selectedOption, setSelectedOption}) {
     const navigation = useNavigation();
     
-    const [selectedOption, setSelectedOption] = useState('publico');
+   
     
     const handleSelectOption = (option) => {
         setSelectedOption(option);

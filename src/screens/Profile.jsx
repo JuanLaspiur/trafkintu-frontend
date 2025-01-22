@@ -9,11 +9,13 @@ import Feather from '@expo/vector-icons/Feather';
 import * as ImagePicker from 'expo-image-picker'; 
 import SelectorMyProfile from '../components/selectorMenu/SelectorMyProfile';
 import MyPoemsPublic from '../components/myPoems/MyPoemsPublic';
+import MyPoemsDraft from '../components/myPoems/MyPoemsDraft';
 
 function Profile({ navigation }) {
   const { user } = useAuth();
   const [fontsLoaded] = useFonts({ Roboto_400Regular });
   const [isEditing, setIsEditing] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('publico');
   const [description, setDescription] = useState(user?.description || 'Aún no se ha añadido una descripción personal.');
   const [avatar, setAvatar] = useState(user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); 
 
@@ -74,7 +76,7 @@ function Profile({ navigation }) {
       </View> 
 
       <View style={styles.descriptionContainer}>    
-           <SelectorMyProfile />
+           <SelectorMyProfile selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
         <Text style={styles.followDescription} ><AntDesign name="team" size={14} />Seguidores 5     <AntDesign name="addusergroup" size={14} /> Seguidos 10</Text>
         <Text style={styles.descriptionTitle}><AntDesign name="infocirlceo" size={14} /> Mi Descripción</Text>
         {isEditing ? (
@@ -95,8 +97,7 @@ function Profile({ navigation }) {
         </TouchableOpacity>  
 
       </View>
-      <MyPoemsPublic/>
-     
+      {selectedOption === 'publico' ?<MyPoemsPublic/> : <MyPoemsDraft/>}
     </ScrollView>
   );
 }
