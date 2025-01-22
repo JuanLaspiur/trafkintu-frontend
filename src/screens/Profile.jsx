@@ -6,15 +6,15 @@ import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import colorPalette from '../helpers/color_palette';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
-import * as ImagePicker from 'expo-image-picker'; // Importamos el ImagePicker de Expo
-import SelectorMenu from '../components/selectorMenu/SelectorMenu';
+import * as ImagePicker from 'expo-image-picker'; 
+import SelectorMyProfile from '../components/selectorMenu/SelectorMyProfile';
 
 function Profile({ navigation }) {
   const { user } = useAuth();
   const [fontsLoaded] = useFonts({ Roboto_400Regular });
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState(user?.description || 'Aún no se ha añadido una descripción personal.');
-  const [avatar, setAvatar] = useState(user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); // Estado para la imagen de perfil
+  const [avatar, setAvatar] = useState(user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); 
 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
@@ -72,7 +72,8 @@ function Profile({ navigation }) {
         </View>
       </View> 
 
-      <View style={styles.descriptionContainer}>
+      <View style={styles.descriptionContainer}>    
+           <SelectorMyProfile />
         <Text style={styles.followDescription} ><AntDesign name="team" size={14} />Seguidores 5     <AntDesign name="addusergroup" size={14} /> Seguidos 10</Text>
         <Text style={styles.descriptionTitle}><AntDesign name="infocirlceo" size={14} /> Mi Descripción</Text>
         {isEditing ? (
@@ -91,9 +92,9 @@ function Profile({ navigation }) {
         >
           <AntDesign name={isEditing ? "save" : "edit"} size={20} color={colorPalette.accent} />
         </TouchableOpacity>  
-     
+
       </View>
-       <SelectorMenu style={styles.barmenu}/>
+     
     </ScrollView>
   );
 }
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 100,
     height: 100,
-    borderRadius: 5,
+    borderRadius: 30,
     backgroundColor: '#fff',
     marginRight: 10,
   },
