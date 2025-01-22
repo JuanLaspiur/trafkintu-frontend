@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import PoemCard from './components/PoemCard';
+import colorPalette from '../../helpers/color_palette';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 function MyPoemsPublic() {
   const poems = [
@@ -18,12 +20,14 @@ function MyPoemsPublic() {
   const [currentPage, setCurrentPage] = useState(1);
   const poemsPerPage = 5;
 
+  const totalPages = Math.ceil(poems.length / poemsPerPage);
+
   const indexOfLastPoem = currentPage * poemsPerPage;
   const indexOfFirstPoem = indexOfLastPoem - poemsPerPage;
   const currentPoems = poems.slice(indexOfFirstPoem, indexOfLastPoem);
 
   const handleNextPage = () => {
-    if (currentPage * poemsPerPage < poems.length) {
+    if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -41,9 +45,21 @@ function MyPoemsPublic() {
       ))}
 
       <View style={styles.pagination}>
-        <Button title="Anterior" onPress={handlePreviousPage} disabled={currentPage === 1} />
-        <Text style={styles.pageText}>Página {currentPage}</Text>
-        <Button title="Siguiente" onPress={handleNextPage} disabled={currentPage * poemsPerPage >= poems.length} />
+        <AntDesign
+          name="leftcircle"
+          size={30}
+          color={colorPalette.primary}
+          onPress={handlePreviousPage}
+          disabled={currentPage === 1}
+        />
+        <Text style={styles.pageText}>Página {currentPage} de {totalPages}</Text>
+        <AntDesign
+          name="rightcircle"
+          size={30}
+          color={colorPalette.primary}
+          onPress={handleNextPage}
+          disabled={currentPage === totalPages}
+        />
       </View>
     </View>
   );
@@ -63,6 +79,7 @@ const styles = StyleSheet.create({
   pageText: {
     marginHorizontal: 10,
     fontSize: 16,
+    color:colorPalette.accent
   },
 });
 
