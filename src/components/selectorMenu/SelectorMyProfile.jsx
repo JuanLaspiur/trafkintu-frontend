@@ -4,15 +4,12 @@ import { View, Image, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
 
-function SelectorMyProfile({selectedOption, setSelectedOption}) {
+function SelectorMyProfile({selectedOption, handleSelectOption}) {
     const navigation = useNavigation();
     
    
     
-    const handleSelectOption = (option) => {
-        setSelectedOption(option);
-    };
-
+  
     return (
         <View style={styles.container}>
             <View>

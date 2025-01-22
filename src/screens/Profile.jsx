@@ -10,6 +10,8 @@ import * as ImagePicker from 'expo-image-picker';
 import SelectorMyProfile from '../components/selectorMenu/SelectorMyProfile';
 import MyPoemsPublic from '../components/optionsMyProfile/MyPoemsPublic';
 import MyPoemsDraft from '../components/optionsMyProfile/MyPoemsDraft';
+import MyFollowers from '../components/optionsMyProfile/MyFollowers';
+import MyFollowing from '../components/optionsMyProfile/MyFollowing';
 
 function Profile({ navigation }) {
   const { user } = useAuth();
@@ -48,6 +50,10 @@ function Profile({ navigation }) {
     setIsEditing(false);
   };
 
+    const handleSelectOption = (option) => {
+          setSelectedOption(option);
+      };
+  
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.profileHeader}>
@@ -76,8 +82,8 @@ function Profile({ navigation }) {
       </View> 
 
       <View style={styles.descriptionContainer}>    
-           <SelectorMyProfile selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
-        <Text style={styles.followDescription} ><AntDesign name="team" size={14} />Seguidores 5     <AntDesign name="addusergroup" size={14} /> Seguidos 10</Text>
+           <SelectorMyProfile selectedOption={selectedOption} handleSelectOption={handleSelectOption} />
+        <Text style={styles.followDescription} ><Text  onPress={() => handleSelectOption('seguidores')} style={ selectedOption === 'seguidores' && styles.selectedText}><AntDesign name="team" size={14} />Seguidores 5</Text>     <Text onPress={() => handleSelectOption('seguidos')} style={ selectedOption === 'seguidos' && styles.selectedText}><AntDesign name="addusergroup" size={14} /> Seguidos 10</Text></Text>
         <Text style={styles.descriptionTitle}><AntDesign name="infocirlceo" size={14} /> Mi Descripción</Text>
         {isEditing ? (
           <TextInput
@@ -98,7 +104,9 @@ function Profile({ navigation }) {
 
       </View>
       {selectedOption === 'publico' && <MyPoemsPublic/> }
-      {selectedOption === '' && <MyPoemsDraft/>}
+      {selectedOption === 'borrador' && <MyPoemsDraft/>}
+      {selectedOption === 'seguidores' && <MyFollowers/>}
+      {selectedOption === 'seguidos' && <MyFollowing/>}
     </ScrollView>
   );
 }
@@ -183,6 +191,10 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     paddingVertical: 10,
     fontWeight: '300',
+  }, 
+  selectedText: {
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
   },
   descriptionText: {
     fontSize: 11,
