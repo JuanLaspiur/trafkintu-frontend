@@ -12,6 +12,7 @@ const HeaderWithFilter = ({ title, filterText, setFilterText }) => {
   };
 
   return (
+    <>
     <View style={styles.header}>
       <Text style={styles.title}>{title}</Text>
       <Ionicons
@@ -21,7 +22,9 @@ const HeaderWithFilter = ({ title, filterText, setFilterText }) => {
         onPress={handleFilterToggle}
         style={styles.icon}
       />
-      {filterVisible && (
+
+    </View>
+    {filterVisible && (
         <TextInput
           style={styles.filterInput}
           placeholder="Buscar"
@@ -29,7 +32,7 @@ const HeaderWithFilter = ({ title, filterText, setFilterText }) => {
           onChangeText={setFilterText}
         />
       )}
-    </View>
+    </>
   );
 };
 
@@ -38,7 +41,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginVertical: 18,
+    paddingHorizontal:10,
+
   },
   title: {
     fontSize: 16,
@@ -49,11 +54,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   filterInput: {
-    marginTop: 10,
+    marginVertical: 10,
     borderWidth: 1,
     borderColor: colorPalette.primary,
     borderRadius: 8,
     padding: 8,
+    marginBottom:18
   },
 });
 
