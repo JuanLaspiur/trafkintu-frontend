@@ -1,107 +1,195 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { useAuth } from '../contexts/AuthContext';
+import { Image } from "expo-image";
+import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import colorPalette from '../helpers/color_palette';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
+import * as ImagePicker from 'expo-image-picker'; 
+import SelectorOtherUserProfile from '../components/selectorMenu/SelectorOtherUserProfile';
+import MyPoemsPublic from '../components/optionsMyProfile/MyPoemsPublic';
+import MyPoemsDraft from '../components/optionsMyProfile/MyPoemsDraft';
+import MyFollowers from '../components/optionsMyProfile/MyFollowers';
+import MyFollowing from '../components/optionsMyProfile/MyFollowing';
+import { useNavigation } from '@react-navigation/native';
 
-function OtherUserProfile({ user }) {
-  const defaultUser = {
-    username: 'Nombre de Usuario',
-    email: 'usuario@email.com',
-    avatar: 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png',
-    bio: 'Este usuario aún no tiene una biografía.',
-  };
+function OtherUserProfile({ otherUser }) {
+ const { user } = useAuth();
+ const navigation = useNavigation();
+  const [fontsLoaded] = useFonts({ Roboto_400Regular });
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('publico');
+  const [description, setDescription] = useState(user?.description || 'Aún no se ha añadido una descripción personal.');
+  const [avatar, setAvatar] = useState(user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); 
 
-  const currentUser = user || defaultUser;
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>;
+  }
+
+ 
+
+
+    const handleSelectOption = (option) => {
+          setSelectedOption(option);
+      };
+  
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.profileHeader}>
+        <TouchableOpacity 
+          style={styles.backButton} 
+          onPress={() => navigation.goBack()} 
+        >
+          <AntDesign name="left" size={27} color="white" />
+        </TouchableOpacity>
+
         <Image
-          source={{
-            uri: currentUser.avatar,
-          }}
-          style={styles.avatar}
+          source={require('../../assets/gift/fotografica_animation.webp')}
+          style={styles.backgroundImage}
+          contentFit="cover"
         />
-        <Text style={styles.username}>{currentUser.username}</Text>
-        <Text style={styles.email}>{currentUser.email}</Text>
-      </View>
+        <View style={styles.profileInfo}>
+          <TouchableOpacity  style={styles.avatarContainer}>
+            <Image
+              source={{ uri: avatar }}
+              style={styles.avatar}
+            />
+          </TouchableOpacity>
+          <Text style={styles.username}>{user?.username || 'Usuario'}</Text>
+        </View>
+      </View> 
 
-      <View style={styles.bioSection}>
-        <Text style={styles.sectionTitle}>Biografía:</Text>
-        <Text style={styles.bioText}>{currentUser.bio}</Text>
+      <View style={styles.descriptionContainer}>    
+           <SelectorOtherUserProfile selectedOption={selectedOption} handleSelectOption={handleSelectOption} />
+        <Text style={styles.followDescription} ><Text  onPress={() => handleSelectOption('seguidores')} style={ selectedOption === 'seguidores' && styles.selectedText}><AntDesign name="team" size={14} />Sus Seguidores 5</Text>     <Text onPress={() => handleSelectOption('seguidos')} style={ selectedOption === 'seguidos' && styles.selectedText}><AntDesign name="addusergroup" size={14} />Sus Seguidos 10</Text></Text>
+        <Text style={styles.descriptionTitle}><AntDesign name="infocirlceo" size={14} /> Su Descripción</Text>
+        {isEditing ? (
+          <TextInput
+            style={styles.descriptionTextInput}
+            value={description}
+            onChangeText={setDescription}
+            multiline
+          />
+        ) : (
+          <Text style={styles.descriptionText}>{description}</Text>
+        )}
+   
       </View>
-
-      <View style={styles.actions}>
-        <TouchableOpacity style={styles.actionButton}>
-          <Ionicons name="chatbubbles" size={20} color={colorPalette.accent} />
-          <Text style={styles.actionButtonText}>Enviar mensaje</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.actionButton}>
-          <Ionicons name="person-add" size={20} color={colorPalette.accent} />
-          <Text style={styles.actionButtonText}>Seguir</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      {selectedOption === 'publico' && <MyPoemsPublic/> }
+      {selectedOption === 'borrador' && <MyPoemsDraft/>}
+      {selectedOption === 'seguidores' && <MyFollowers/>}
+      {selectedOption === 'seguidos' && <MyFollowing/>}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: colorPalette.neutralDark,
-    padding: 20,
+    flexGrow: 1,
+    paddingTop: 30,
+    backgroundColor: '#fff',
+    paddingBottom: 20,
   },
   profileHeader: {
+    position: 'relative',
+    height: 200,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+  },
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: -1,
+  },
+  profileInfo: {
+    position: 'absolute',
+    bottom: 5,
+    left: 5,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 30,
+    padding: 8,
+    borderRadius: 8,
+  },
+  avatarContainer: {
+    position: 'relative',
   },
   avatar: {
     width: 100,
     height: 100,
-    borderRadius: 50,
-    marginBottom: 15,
+    borderRadius: 30,
+    backgroundColor: '#fff',
+    marginRight: 10,
+  },
+  editIcon: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    color: colorPalette.accent,
+    padding: 5,
   },
   username: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: colorPalette.accent,
+    color: '#fff',
+    fontFamily: "Roboto_400Regular",
   },
-  email: {
-    fontSize: 16,
-    color: colorPalette.primary,
+  backButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    zIndex: 1,
   },
-  bioSection: {
-    backgroundColor: colorPalette.neutralLight,
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colorPalette.primary,
-    marginBottom: 10,
-  },
-  bioText: {
-    fontSize: 14,
-    color: colorPalette.primary,
-  },
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  actionButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colorPalette.neutralLight,
+  descriptionContainer: {
     padding: 10,
+    backgroundColor:  colorPalette.neutralDark,
     borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    position: 'relative',
   },
-  actionButtonText: {
-    fontSize: 16,
+  descriptionTitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'gray',
+    paddingTop:15,
+  },
+  followDescription: {
+    fontSize: 14,
+    color: 'gray',
+    lineHeight: 20,
+    paddingVertical: 10,
+    fontWeight: '300',
+  }, 
+  selectedText: {
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
+  },
+  descriptionText: {
+    fontSize: 11,
+    color:'gray',
+    lineHeight: 20,
+  },
+  descriptionTextInput: {
+    fontSize: 11,
     color: colorPalette.accent,
-    marginLeft: 10,
+    lineHeight: 20,
+    padding: 5,
+    borderWidth: 1,
+    borderColor: colorPalette.accent,
+    borderRadius: 5,
   },
-});
+  editButton: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    padding: 8,
+  },
 
+});
 export default OtherUserProfile;

@@ -22,7 +22,7 @@ function PoemCard({ title, image }) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     overflow: 'hidden',
     elevation: 4,
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colorPalette.primary,
     padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
   },
 });
 
