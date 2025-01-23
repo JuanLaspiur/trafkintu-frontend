@@ -5,7 +5,7 @@ import ComentCard from './components/ComentCard';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 function OtherComponents() {
-  const comments = [
+ const comments = [
     { id: 1, comment: 'Comentario 1' },
     { id: 2, comment: 'Comentario 2' },
     { id: 3, comment: 'Comentario 3' },
@@ -40,7 +40,7 @@ function OtherComponents() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sus comentarios</Text>
-      <View style={styles.cardContainer}>
+        <View style={styles.cardContainer}>
         {comments.length === 0 ? (
           <Text style={styles.noCommentsText}>
             No ha comentado nada aún.
@@ -50,7 +50,7 @@ function OtherComponents() {
             <ComentCard key={comment.id} comment={comment.comment} />
           ))
         )}
-      </View>
+ 
       {comments.length > 0 && (
         <View style={styles.pagination}>
           <AntDesign
@@ -72,6 +72,7 @@ function OtherComponents() {
           />
         </View>
       )}
+         </View>
     </View>
   );
 }
@@ -89,9 +90,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   cardContainer: {
-    height: 400,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 450,
   },
   noCommentsText: {
     fontSize: 16,
@@ -103,6 +102,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
+    position:'absolute',
+    width:'100%',
+    bottom:0
   },
   pageText: {
     marginHorizontal: 10,
