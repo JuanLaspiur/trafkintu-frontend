@@ -22,12 +22,10 @@ function OtherFollowers() {
   const [filterText, setFilterText] = useState('');
   const followersPerPage = 5;
 
-  // Filtrar seguidores
   const filteredFollowers = followers.filter((follower) =>
     follower.name.toLowerCase().includes(filterText.toLowerCase())
   );
 
-  // Paginación basada en los resultados filtrados
   const totalPages = Math.ceil(filteredFollowers.length / followersPerPage);
   const indexOfLastFollower = currentPage * followersPerPage;
   const indexOfFirstFollower = indexOfLastFollower - followersPerPage;
