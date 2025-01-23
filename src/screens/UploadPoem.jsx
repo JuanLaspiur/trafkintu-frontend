@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imagePreview: {
-    width: 200,
+    width: '100%',
     height: 150,
     borderRadius: 8,
     textAlign: 'center',
