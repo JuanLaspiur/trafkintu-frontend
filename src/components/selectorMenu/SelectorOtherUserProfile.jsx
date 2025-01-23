@@ -5,14 +5,13 @@ import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
 
 function SelectorOtherUserProfile({selectedOption, handleSelectOption}) {
-    const navigation = useNavigation();
   return (
         <View style={styles.container}>
             <View>
-                <TouchableOpacity onPress={() => navigation.navigate("UploadPoem")} style={styles.option}>
+                <TouchableOpacity  style={styles.option}>
                     <Image source={require('../../../assets/icons/writing_5724478.webp')} style={styles.image} />
                 </TouchableOpacity>
-                <Text style={styles.descritionText}>Escribir</Text>
+                <Text style={styles.descritionText}>Seguir</Text>
             </View>
             <View>
                 <TouchableOpacity 
@@ -21,7 +20,7 @@ function SelectorOtherUserProfile({selectedOption, handleSelectOption}) {
                 >
                     <Image source={require('../../../assets/icons/publicado.webp')} style={styles.image} />
                 </TouchableOpacity>
-                <Text style={styles.descritionText}>Publico</Text>
+                <Text style={styles.descritionText}>Publicó</Text>
             </View>
             <View>
                 <TouchableOpacity 
@@ -30,7 +29,7 @@ function SelectorOtherUserProfile({selectedOption, handleSelectOption}) {
                 >
                     <Image source={require('../../../assets/icons/borrador.webp')} style={styles.image} />
                 </TouchableOpacity>
-                <Text style={styles.descritionText}>Borrador</Text>
+                <Text style={styles.descritionText}>Comentó</Text>
             </View>
             <View>
                 <TouchableOpacity style={styles.option}>
