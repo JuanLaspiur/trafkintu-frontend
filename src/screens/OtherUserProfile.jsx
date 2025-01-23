@@ -8,11 +8,11 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
 import * as ImagePicker from 'expo-image-picker'; 
 import SelectorOtherUserProfile from '../components/selectorMenu/SelectorOtherUserProfile';
-import MyPoemsPublic from '../components/optionsMyProfile/MyPoemsPublic';
-import MyPoemsDraft from '../components/optionsMyProfile/MyPoemsDraft';
+import OtherPoemsPublic from '../components/optionsOtherProfile/OtherPoemsPublic';
 import MyFollowers from '../components/optionsMyProfile/MyFollowers';
 import MyFollowing from '../components/optionsMyProfile/MyFollowing';
 import { useNavigation } from '@react-navigation/native';
+import OtherComponents from '../components/optionsOtherProfile/OtherCompents.jsx';
 
 function OtherUserProfile({ otherUser }) {
  const { user } = useAuth();
@@ -77,8 +77,8 @@ function OtherUserProfile({ otherUser }) {
         )}
    
       </View>
-      {selectedOption === 'publico' && <MyPoemsPublic/> }
-      {selectedOption === 'borrador' && <MyPoemsDraft/>}
+      {selectedOption === 'publico' && <OtherPoemsPublic/> }
+      {selectedOption === 'comentarios' && <OtherComponents/>}
       {selectedOption === 'seguidores' && <MyFollowers/>}
       {selectedOption === 'seguidos' && <MyFollowing/>}
     </ScrollView>

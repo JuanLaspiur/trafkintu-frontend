@@ -38,7 +38,7 @@ function SelectorOtherUserProfile({ selectedOption, handleSelectOption }) {
       </View>
       <View>
         <TouchableOpacity
-          style={[styles.option, selectedOption === 'borrador' && styles.selectedOption]}
+          style={[styles.option, selectedOption === 'comentarios' && styles.selectedOption]}
           onPress={() => handleSelectOption('comentarios')}
         >
           <Image source={require('../../../assets/icons/comentario-positivo.webp')} style={styles.image} />
