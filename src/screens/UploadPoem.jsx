@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    width: '100%',
+    width: '98%',
     backgroundColor: '#fff',
     borderRadius: 8,
     padding: 10,
@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   textarea: {
-    height: 250,
+    height: '44%',
+    width:'98%',
     textAlignVertical: 'top',
   },
   button: {
