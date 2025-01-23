@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import PoemCard from '../optionsMyProfile/components/PoemCard';
+import PoemCard from './components/PoemCard';
 import colorPalette from '../../helpers/color_palette';
 import AntDesign from '@expo/vector-icons/AntDesign';
 

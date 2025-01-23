@@ -9,8 +9,8 @@ import Feather from '@expo/vector-icons/Feather';
 import * as ImagePicker from 'expo-image-picker'; 
 import SelectorOtherUserProfile from '../components/selectorMenu/SelectorOtherUserProfile';
 import OtherPoemsPublic from '../components/optionsOtherProfile/OtherPoemsPublic';
-import MyFollowers from '../components/optionsMyProfile/MyFollowers';
-import MyFollowing from '../components/optionsMyProfile/MyFollowing';
+import OtherFollowers from '../components/optionsOtherProfile/OtherFollowers.jsx';
+import OtherFollowing from '../components/optionsOtherProfile/OtherFollowing.jsx';
 import { useNavigation } from '@react-navigation/native';
 import OtherComponents from '../components/optionsOtherProfile/OtherCompents.jsx';
 
@@ -79,8 +79,8 @@ function OtherUserProfile({ otherUser }) {
       </View>
       {selectedOption === 'publico' && <OtherPoemsPublic/> }
       {selectedOption === 'comentarios' && <OtherComponents/>}
-      {selectedOption === 'seguidores' && <MyFollowers/>}
-      {selectedOption === 'seguidos' && <MyFollowing/>}
+      {selectedOption === 'seguidores' && <OtherFollowers/>}
+      {selectedOption === 'seguidos' && <OtherFollowing/>}
     </ScrollView>
   );
 }
