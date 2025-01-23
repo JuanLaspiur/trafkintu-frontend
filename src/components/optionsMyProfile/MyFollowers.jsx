@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import colorPalette from '../../helpers/color_palette';
 import OtherUserCard from './components/OtherUserCard';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import HeaderWithFilter from './components/HeaderWithFilter';
 
 const MyFollowers = () => {
   const followers = [
@@ -18,28 +19,33 @@ const MyFollowers = () => {
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const followersPerPage = 5;
+  const [filterText, setFilterText] = useState('');
 
-  const totalPages = Math.ceil(followers.length / followersPerPage);
+  const followersPerPage = 5;
+  const filteredFollowers = followers.filter((follower) =>
+    follower.name.toLowerCase().includes(filterText.toLowerCase())
+  );
+  const totalPages = Math.ceil(filteredFollowers.length / followersPerPage);
+
   const indexOfLastFollower = currentPage * followersPerPage;
   const indexOfFirstFollower = indexOfLastFollower - followersPerPage;
-  const currentFollowers = followers.slice(indexOfFirstFollower, indexOfLastFollower);
+  const currentFollowers = filteredFollowers.slice(indexOfFirstFollower, indexOfLastFollower);
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
   const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Mis Seguidores</Text>
+      <HeaderWithFilter
+        title="Mis Seguidores"
+        filterText={filterText}
+        setFilterText={setFilterText}
+      />
       <View style={styles.cardContainer}>
         {currentFollowers.map((follower) => (
           <OtherUserCard
@@ -75,13 +81,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingVertical: 10,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: colorPalette.accent,
-    paddingTop: 15,
-    padding: 10,
   },
   cardContainer: {
     height: 500,
