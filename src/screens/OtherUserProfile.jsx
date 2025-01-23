@@ -42,7 +42,7 @@ function OtherUserProfile({ otherUser }) {
           style={styles.backButton} 
           onPress={() => navigation.goBack()} 
         >
-          <AntDesign name="left" size={27} color="white" />
+          <AntDesign name="left" size={27} color={colorPalette.accent} />
         </TouchableOpacity>
 
         <Image
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
+    color:  colorPalette.accent,
     fontFamily: "Roboto_400Regular",
   },
   backButton: {
@@ -156,12 +156,12 @@ const styles = StyleSheet.create({
   descriptionTitle: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: 'gray',
+    color: colorPalette.accent,
     paddingTop:15,
   },
   followDescription: {
     fontSize: 14,
-    color: 'gray',
+    color:colorPalette.accent,
     lineHeight: 20,
     paddingVertical: 10,
     fontWeight: '300',
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     fontSize: 11,
-    color:'gray',
+    color:colorPalette.accent,
     lineHeight: 20,
   },
   descriptionTextInput: {

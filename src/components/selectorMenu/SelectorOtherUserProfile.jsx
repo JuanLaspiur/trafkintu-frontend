@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
   },
   selectedOption: {
     borderWidth: 2,
-    borderColor: 'gray',
+    borderColor: colorPalette.natural,
   },
   image: {
     width: '100%',
     height: '100%',
   },
   descritionText: {
-    color: 'gray',
+    color: colorPalette.accent,
     fontSize: 12,
     textAlign: 'center',
   },
