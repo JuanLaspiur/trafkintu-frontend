@@ -40,12 +40,14 @@ const MyFollowers = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mis Seguidores</Text>
-      {currentFollowers.map((follower) => (
-        <OtherUserCard
-          key={follower.id}
-          user={{ name: follower.name, avatar: follower.avatar }}
-        />
-      ))}
+      <View style={styles.cardContainer}>
+        {currentFollowers.map((follower) => (
+          <OtherUserCard
+            key={follower.id}
+            user={{ name: follower.name, avatar: follower.avatar }}
+          />
+        ))}
+      </View>
       <View style={styles.pagination}>
         <AntDesign
           name="leftcircle"
@@ -81,6 +83,9 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     padding: 10,
   },
+  cardContainer: {
+    height: 500,
+  },
   pagination: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -95,4 +100,3 @@ const styles = StyleSheet.create({
 });
 
 export default MyFollowers;
-
