@@ -13,6 +13,7 @@ import OtherFollowers from '../components/optionsOtherProfile/OtherFollowers.jsx
 import OtherFollowing from '../components/optionsOtherProfile/OtherFollowing.jsx';
 import { useNavigation } from '@react-navigation/native';
 import OtherComponents from '../components/optionsOtherProfile/OtherCompents.jsx';
+import HeaderProfileLogo from '../components/header/HeaderProfileLogo.jsx';
 
 function OtherUserProfile({ otherUser }) {
  const { user } = useAuth();
@@ -37,6 +38,7 @@ function OtherUserProfile({ otherUser }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+          <HeaderProfileLogo color={'#fff'}/>
       <View style={styles.profileHeader}>
         <TouchableOpacity 
           style={styles.backButton} 
@@ -147,9 +149,9 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 10,
+    top: 12,
     left: 10,
-    zIndex: 1,
+    zIndex: 99999,
   },
   descriptionContainer: {
     padding: 10,

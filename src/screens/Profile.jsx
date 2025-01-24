@@ -12,6 +12,7 @@ import MyPoemsPublic from '../components/optionsMyProfile/MyPoemsPublic';
 import MyPoemsDraft from '../components/optionsMyProfile/MyPoemsDraft';
 import MyFollowers from '../components/optionsMyProfile/MyFollowers';
 import MyFollowing from '../components/optionsMyProfile/MyFollowing';
+import HeaderProfileLogo from '../components/header/HeaderProfileLogo';
 
 function Profile({ navigation }) {
   const { user } = useAuth();
@@ -56,6 +57,7 @@ function Profile({ navigation }) {
   
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <HeaderProfileLogo color={colorPalette.neutralDark}/>
       <View style={styles.profileHeader}>
         <TouchableOpacity 
           style={styles.backButton} 
@@ -173,9 +175,9 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 10,
+    top: 12,
     left: 10,
-    zIndex: 1,
+    zIndex: 99999,
   },
   descriptionContainer: {
     padding: 10,
