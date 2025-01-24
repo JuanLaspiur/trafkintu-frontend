@@ -8,7 +8,6 @@ const PoemDetailOptions = () => {
 
   return (
     <View style={styles.container}>
-      {/* Ícono de reproducción */}
       <TouchableOpacity style={styles.playButton} onPress={handlePlayPoem}>
         <Image
           source={require('../../../assets/icons/repoducir_poemdetail.webp')}
@@ -17,13 +16,20 @@ const PoemDetailOptions = () => {
         <Text style={styles.playText}>Reproducir poema</Text>
       </TouchableOpacity>
 
-      {/* Fecha de publicación */}
       <View style={styles.dateContainer}>
         <Image
           source={require('../../../assets/icons/fecha_card.webp')}
           style={styles.icon}
         />
         <Text style={styles.dateText}>Publicado el: 24 de enero de 2025</Text>
+      </View>
+
+      <View style={styles.viewsContainer}>
+        <Image
+          source={require('../../../assets/icons/vistas_poemdetail.webp')}
+          style={styles.icon}
+        />
+        <Text style={styles.viewsText}>1234 visualizaciones</Text>
       </View>
     </View>
   );
@@ -57,6 +63,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   dateText: {
+    fontSize: 14,
+    color: '#555',
+  },
+  viewsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  viewsText: {
     fontSize: 14,
     color: '#555',
   },
