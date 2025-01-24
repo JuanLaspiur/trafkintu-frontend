@@ -149,6 +149,11 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: '#fff',
     marginRight: 10,
+    shadowColor: '#000', 
+    shadowOffset: { width: 2, height: 2 }, 
+    shadowOpacity: 0.3,
+    shadowRadius: 4, 
+    elevation: 5, 
   },
   editIcon: {
     position: 'absolute',
@@ -161,7 +166,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#fff',
-    fontFamily: "Roboto_400Regular",
+    fontFamily: 'Roboto_400Regular',
+    textShadowColor: '#000', 
+    textShadowOffset: { width: 1, height: 1 }, 
+    textShadowRadius: 3, 
   },
   backButton: {
     position: 'absolute',

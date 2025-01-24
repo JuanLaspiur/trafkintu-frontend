@@ -14,7 +14,7 @@ function Home() {
       <Header />
       <LightGreenCard />
       <SelectorMenu />
-      <LastPoems /> 
+      <LastPoems />  
       <LastYoutubeVideo videoId="tTfMid0Sweg" /> 
       <SevenLastPoems />
     </ScrollView>

@@ -88,16 +88,16 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   header:{
-    height:70,
+    height:40,
     width:'100%',
     justifyContent:'center',
     paddingTop:10
   },
   headerText: {
-    fontSize: 24,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '300',
     color: colorPalette.primary,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   input: {
     width: '98%',
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   imageWrapper: {
-    marginVertical: 16,
+    marginTop:-17,
     padding: 10,
     backgroundColor: '#ccc',
     borderRadius: 8,

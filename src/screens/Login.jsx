@@ -32,7 +32,7 @@ function Login() {
   const handleLogin = async () => {
     const result = await loginUser({ email, password });
     login(result);
-    navigation.navigate("Home");
+   navigation.navigate("Home");
   };
 
   const handleRegister = () => {
