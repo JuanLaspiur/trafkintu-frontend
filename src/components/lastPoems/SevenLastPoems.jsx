@@ -166,7 +166,8 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#fff",
     paddingHorizontal: 10,
-    paddingTop: 5
+    paddingTop: 5,
+    marginBottom:-2
   },
   miniCardSubtitle: {
     fontSize: 12,

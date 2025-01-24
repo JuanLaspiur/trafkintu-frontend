@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorPalette.neutralDark,
     padding: 20,
     paddingTop: 10,
-    height: 310,
+    height: 308,
   },
   title: {
     fontSize: 17,
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colorPalette.primary,
     padding: 10,
+    paddingBottom:4
   },
   cardAuthor: {
     fontSize: 12,
