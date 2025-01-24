@@ -6,6 +6,8 @@ import { useRoute } from '@react-navigation/native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import CommentSection from '../components/commentSection/Index';
 import AuthorInfo from '../components/authorInfo/AuthorInfo';
+import HeaderProfileLogo from '../components/header/HeaderProfileLogo';
+import colorPalette from '../helpers/color_palette';
 
 function PoemDetail() {
   const route = useRoute();
@@ -44,6 +46,7 @@ function PoemDetail() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+           <HeaderProfileLogo color={colorPalette.neutralDark}/>
             <View style={styles.header}>
       <TouchableOpacity 
           onPress={() => navigation.goBack()} 
