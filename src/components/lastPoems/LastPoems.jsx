@@ -11,16 +11,22 @@ function LastPoems() {
       id: 1,
       title: 'Susurros del Alma',
       image: require('../../../assets/gift/descarga_animation.webp'),
+      author: 'Juan Pérez',
+      date: '23 de enero, 2025',
     },
     {
       id: 2,
       title: 'Susurros del Alma 2',
       image: require('../../../assets/gift/gernica_animation_1.webp'),
+      author: 'María Gómez',
+      date: '15 de enero, 2025',
     },
     {
       id: 3,
       title: 'Susurros del Alma 3',
       image: require('../../../assets/gift/Muralismo-Mexicano_animation.webp'),
+      author: 'Carlos Ruiz',
+      date: '10 de enero, 2025',
     },
   ];
 
@@ -29,18 +35,24 @@ function LastPoems() {
       <Text style={styles.title}>Últimos tres poemas:</Text>
       <Swiper style={styles.swiper} showsPagination={false} loop={true} autoplay={true} autoplayTimeout={5}>
         {poems.map((poem) => (
-          <PoemCard key={poem.id} title={poem.title} image={poem.image} />
+          <PoemCard
+            key={poem.id}
+            title={poem.title}
+            image={poem.image}
+            author={poem.author}
+            date={poem.date}
+          />
         ))}
       </Swiper>
     </View>
   );
 }
 
-function PoemCard({ title, image }) {
+function PoemCard({ title, image, author, date }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate('PoemDetail', { title, image });
+    navigation.navigate('PoemDetail', { title, image, author, date });
   };
 
   return (
@@ -48,6 +60,8 @@ function PoemCard({ title, image }) {
       <View style={styles.card}>
         <Image source={image} style={styles.image} />
         <Text style={styles.cardTitle}>{title || 'Sin título'}</Text>
+        <Text style={styles.cardAuthor}>Autor: {author}</Text>
+        <Text style={styles.cardDate}>Publicado: {date}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -58,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorPalette.neutralDark,
     padding: 20,
     paddingTop: 10,
-    height: 270,
+    height: 310,
   },
   title: {
     fontSize: 17,
@@ -91,6 +105,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colorPalette.primary,
     padding: 10,
+  },
+  cardAuthor: {
+    fontSize: 12,
+    color: '#555',
+    paddingHorizontal: 10,
+    marginBottom: 4,
+  },
+  cardDate: {
+    fontSize: 12,
+    color: '#999',
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
 });
 

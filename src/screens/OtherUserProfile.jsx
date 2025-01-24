@@ -44,7 +44,7 @@ function OtherUserProfile({ otherUser }) {
           style={styles.backButton} 
           onPress={() => navigation.goBack()} 
         >
-          <AntDesign name="left" size={27} color={colorPalette.accent} />
+          <AntDesign name="left" size={27} color='#fff' />
         </TouchableOpacity>
 
         <Image
