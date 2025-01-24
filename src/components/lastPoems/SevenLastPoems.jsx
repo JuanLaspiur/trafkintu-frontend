@@ -119,7 +119,7 @@ function MiniPoemCard({ title, author, date, image, image_route }) {
       <Image source={image} style={styles.miniImage} />
       <Text style={styles.miniCardTitle}>{title}</Text>
       <Text style={styles.miniCardSubtitle}>
-        {author} • {date}
+        <Image source={require('../../../assets/icons/autor_card.webp')} style={styles.iconTitleCard} /> {author} • {date}
       </Text>
     </TouchableOpacity>
   );
@@ -144,6 +144,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     gap: 10
+  },  iconTitleCard:{
+    height:12,
+    width:12,
   },
   miniCard: {
     width: "45%",

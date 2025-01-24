@@ -59,9 +59,9 @@ function PoemCard({ title, image, author, date }) {
     <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}>
       <View style={styles.card}>
         <Image source={image} style={styles.image} />
-        <Text style={styles.cardTitle}>{title || 'Sin título'}</Text>
-        <Text style={styles.cardAuthor}>Autor: {author}</Text>
-        <Text style={styles.cardDate}>Publicado: {date}</Text>
+        <Text style={styles.cardTitle}><Image source={require('../../../assets/icons/titulo_card.webp')} style={styles.iconTitleCard} /> {title || 'Sin título'}</Text>
+        <Text style={styles.cardAuthor}><Image source={require('../../../assets/icons/autor_card.webp')} style={styles.iconTitleCard} />   Autor: {author}</Text>
+        <Text style={styles.cardDate}><Image source={require('../../../assets/icons/fecha_card.webp')} style={styles.iconTitleCard} />   Publicado: {date}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -94,6 +94,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     marginBottom: 10,
+  },
+  iconTitleCard:{
+    height:12,
+    width:12,
   },
   image: {
     width: '100%',
