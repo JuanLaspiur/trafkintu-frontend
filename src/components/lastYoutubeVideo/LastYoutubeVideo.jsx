@@ -1,12 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
 import { WebView } from "react-native-webview";
 import colorPalette from "../../helpers/color_palette";
 
 const LastYoutubeVideo = ({ videoId }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Último programa de Radio TFK</Text>
+      <Text style={styles.title}><Image source={require('../../../assets/icons/radio.webp')} style={styles.image} />  Último programa de Radio TFK</Text>
       <WebView
         style={styles.video}
         javaScriptEnabled={true}
@@ -38,4 +38,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
   },
+  image:{
+    width:20,
+    height:20
+  }
 });

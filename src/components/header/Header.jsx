@@ -133,8 +133,9 @@ const styles = StyleSheet.create({
   icon: {
     width: 39,
     height: 39,
-    borderRadius: 25,
+    borderRadius: 12,
     marginRight: 12,
+    backgroundColor:'#fff'
   },
   iconLogin: {
     marginRight: 12,
