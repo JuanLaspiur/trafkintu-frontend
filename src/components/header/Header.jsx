@@ -33,7 +33,10 @@ function Header() {
     <View>
       <View style={styles.header}>
         <View style={styles.companyContainer}>
-          <Text style={styles.companyName}>Trafkintu</Text>
+        <Image
+                source={require('../../../assets/logo/logo1.png')}
+                style={styles.logoImage}
+              />
         </View>
 
         {token ? (
@@ -115,8 +118,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto_400Regular',
     flexDirection: 'row',
     gap: 15,
-    paddingTop: 15,
+    paddingTop: 18,
     paddingHorizontal: 15,
+  },
+  logoImage: {
+    height: 50,
+    width:105,
+    resizeMode: 'contain', 
   },
   companyContainer: {
     flex: 1,
