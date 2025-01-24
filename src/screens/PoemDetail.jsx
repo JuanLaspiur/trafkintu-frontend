@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Image } from 'expo-image';
+import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import CommentSection from '../components/commentSection/Index';
 import AuthorInfo from '../components/authorInfo/AuthorInfo';
 
 function PoemDetail() {
   const route = useRoute();
   const { title, image, poemId } = route.params;
-
+  const navigation = useNavigation();
   const [comment, setComment] = useState('');
   const comments = [
     { 
@@ -42,6 +44,13 @@ function PoemDetail() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.header}>
+      <TouchableOpacity 
+          onPress={() => navigation.goBack()} 
+        >
+          <AntDesign name="left" size={27} color='gray' />
+        </TouchableOpacity>
+      </View>
       <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.poem}>
@@ -72,6 +81,12 @@ const styles = StyleSheet.create({
     paddingVertical: 25,
     backgroundColor: '#F9F9F9',
     alignItems: 'center',
+  }, 
+   header:{
+    height:60,
+    width:'100%',
+    justifyContent:'center',
+    paddingTop:10
   },
   title: {
     fontSize: 24,
