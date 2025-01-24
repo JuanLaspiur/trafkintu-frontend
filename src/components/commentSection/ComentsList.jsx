@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import colorPalette from "../../helpers/color_palette";
 import Coment from './Coment';
 
 function ListComent({ comments }) {
   return (
-    <View style={styles.commentSection}>
-      <Text style={styles.commentSectionTitle}>Comentarios</Text>
+    <View style={styles.commentSection}><View style={styles.comentHeader}><Text style={styles.commentSectionTitle}> Comentarios</Text><Image source={require('../../../assets/icons/comentario_poemdetail.webp')} style={styles.icon}/> 
+      </View>
       {comments.map((item) => (
         <Coment key={item.id} avatar={item.avatar} user={item.user} text={item.text} isOwner={item.isOwner} />
       ))}
@@ -19,6 +19,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '100%',
   },
+  comentHeader:{
+    display:'flex',
+    flexDirection:'row',
+    gap:10,
+    alignItems:'center',
+    paddingVertical:10
+  },
   commentSectionTitle: {
     fontSize: 20,
     fontWeight: '600',
@@ -26,6 +33,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'flex-start',
   },
+  icon: {
+    marginTop:-5,
+    width: 24,
+    height: 24,
+  }
 });
 
 export default ListComent;
