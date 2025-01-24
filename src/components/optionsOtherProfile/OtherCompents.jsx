@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import colorPalette from '../../helpers/color_palette';
 import ComentCard from './components/ComentCard';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import Pagination from './components/Pagination';
 
 function OtherComponents() {
  const comments = [
@@ -53,24 +54,13 @@ function OtherComponents() {
  
       {comments.length > 0 && (
         <View style={styles.pagination}>
-          <AntDesign
-            name="leftcircle"
-            size={30}
-            color={currentPage === 1 ? '#ccc' : colorPalette.primary}
-            onPress={handlePreviousPage}
-            disabled={currentPage === 1}
-          />
-          <Text style={styles.pageText}>
-            Página {currentPage} de {totalPages}
-          </Text>
-          <AntDesign
-            name="rightcircle"
-            size={30}
-            color={currentPage === totalPages ? '#ccc' : colorPalette.primary}
-            onPress={handleNextPage}
-            disabled={currentPage === totalPages}
-          />
-        </View>
+           <Pagination
+             currentPage={currentPage}
+             totalPages={totalPages}
+             onNext={handleNextPage}
+             onPrevious={handlePreviousPage}
+           />
+           </View>
       )}
          </View>
     </View>
@@ -98,19 +88,12 @@ const styles = StyleSheet.create({
     paddingVertical:5
   },
   pagination: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 20,
     position:'absolute',
     width:'100%',
     bottom:0
   },
-  pageText: {
-    marginHorizontal: 10,
-    fontSize: 16,
-    color: colorPalette.accent,
-  },
+ 
 });
 
 export default OtherComponents;
