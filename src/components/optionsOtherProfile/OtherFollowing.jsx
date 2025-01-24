@@ -4,6 +4,7 @@ import colorPalette from '../../helpers/color_palette';
 import OtherUserCard from './components/OtherUserCard';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import HeaderWithFilter from './components/HeaderWithFilter';
+import Pagination from './components/Pagination';
 
 function OtherFollowing() {
   const followers = [
@@ -61,25 +62,12 @@ function OtherFollowing() {
           <Text style={styles.noResultsText}>No se encontraron resultados.</Text>
         )}
       </View>
-      <View style={styles.pagination}>
-        <AntDesign
-          name="leftcircle"
-          size={30}
-          color={currentPage === 1 ? 'gray' : colorPalette.primary}
-          onPress={handlePreviousPage}
-          disabled={currentPage === 1}
-        />
-        <Text style={styles.pageText}>
-          Página {currentPage} de {totalPages || 1}
-        </Text>
-        <AntDesign
-          name="rightcircle"
-          size={30}
-          color={currentPage === totalPages || totalPages === 0 ? 'gray' : colorPalette.primary}
-          onPress={handleNextPage}
-          disabled={currentPage === totalPages || totalPages === 0}
-        />
-      </View>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onNext={handleNextPage}
+        onPrevious={handlePreviousPage}
+      />
     </View>
   );
 }
@@ -91,24 +79,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     height: 500,
-  },
-  pagination: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
-  },
-  pageText: {
-    marginHorizontal: 10,
-    fontSize: 16,
-    color: colorPalette.accent,
-  },
-  noResultsText: {
-    textAlign: 'center',
-    color: 'gray',
-    fontSize: 16,
-    marginTop: 20,
-  },
+  }
 });
 
 export default OtherFollowing;
