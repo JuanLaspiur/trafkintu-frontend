@@ -10,7 +10,7 @@ function AuthorInfo({ name, avatar }) {
     <TouchableOpacity   onPress={() => navigation.navigate("Profile", { name, avatar })} style={styles.authorContainer}>
    
       <Image source={{ uri: avatar }} style={styles.authorAvatar} />
-      <Text style={styles.authorName}>{name}</Text>      <Image source={require('../../../assets/icons/autor_card.webp')} style={styles.authorIcon} />
+      <Text style={styles.authorName}>{name}</Text> 
     </TouchableOpacity>
   );
 }

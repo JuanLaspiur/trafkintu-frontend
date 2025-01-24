@@ -8,6 +8,7 @@ import CommentSection from '../components/commentSection/Index';
 import AuthorInfo from '../components/authorInfo/AuthorInfo';
 import HeaderProfileLogo from '../components/header/HeaderProfileLogo';
 import colorPalette from '../helpers/color_palette';
+import PoemDetailOptions from '../components/poemDetailOptions/PoemDetailOptions';
 
 function PoemDetail() {
   const route = useRoute();
@@ -66,7 +67,7 @@ function PoemDetail() {
         name="Juan Pérez"
         avatar="https://this-person-does-not-exist.com/img/avatar-genaf437f464b793583dc4b2d45066290fa.jpg"
       />
-
+     <PoemDetailOptions/>
       <CommentSection 
         comments={comments} 
         comment={comment} 
