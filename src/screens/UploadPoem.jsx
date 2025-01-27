@@ -1,29 +1,41 @@
+// UploadPoem.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Alert, TouchableOpacity, ScrollView, StyleSheet, Text } from 'react-native';
 import colorPalette from '../helpers/color_palette';
-import ImagesModal from '../components/imagesModal/ImagesModal'; 
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import ImagesModal from '../components/imagesModal/ImagesModal';
+import StepOneText from '../components/uploadPoemSteps/StepOneText';
+import StepTwoCategoryImage from '../components/uploadPoemSteps/StepTwoCategoryImage';
 
 function UploadPoem() {
   const [titulo, setTitulo] = useState('');
   const [contenido, setContenido] = useState('');
   const [imagen, setImagen] = useState(null);
+  const [step, setStep] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
-   const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const manejarEnvio = () => {
-    if (!imagen) {
-      Alert.alert('Error', 'La imagen es obligatoria');
-      return;
+    if (step === 1) {
+      if (!titulo || !contenido) {
+        Alert.alert('Error', 'El título y contenido son obligatorios');
+        return;
+      }
+      setStep(2);
+    } else if (step === 2) {
+      if (!imagen) {
+        Alert.alert('Error', 'La imagen es obligatoria');
+        return;
+      }
+      console.log({ titulo, contenido, imagen });
+      Alert.alert('Éxito', '¡Poema subido con éxito!');
+      setTitulo('');
+      setContenido('');
+      setImagen(null);
+      setStep(1);
     }
-
-    console.log({ titulo, contenido, imagen });
-    Alert.alert('Éxito', '¡Poema subido con éxito!');
-    setTitulo('');
-    setContenido('');
-    setImagen(null);
   };
 
   const abrirModalImagenes = () => {
@@ -42,40 +54,39 @@ function UploadPoem() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-      <TouchableOpacity 
-          onPress={() => navigation.goBack()} 
-        >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="left" size={27} color={colorPalette.accent} />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={abrirModalImagenes} style={styles.imageWrapper}>
-        <Text style={styles.imagePreview}>
-          {imagen ? 'Imagen seleccionada' : 'Selecciona una imagen'}
-        </Text>
-      </TouchableOpacity>
-      <Text style={styles.headerText}>Subir Escrito</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Título del escrito"
-        value={titulo}
-        onChangeText={setTitulo}
-      />
-      <TextInput
-        style={[styles.input, styles.textarea]}
-        placeholder="Escribe tu escrito aquí..."
-        value={contenido}
-        onChangeText={setContenido}
-        multiline
-        numberOfLines={6}
-      />
-      <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={manejarEnvio}>
-        <Text style={styles.buttonText}>Subir Escrito</Text>
-      </TouchableOpacity>
-      <ImagesModal
-        visible={modalVisible}
-        onClose={cerrarModal}
-        onImageSelect={recibirImagen} 
-      />
+
+      {step === 1 && (
+        <StepOneText
+          titulo={titulo}
+          setTitulo={setTitulo}
+          contenido={contenido}
+          setContenido={setContenido}
+        />
+      )}
+
+      {step === 2 && (
+        <StepTwoCategoryImage
+          imagen={imagen}
+          abrirModalImagenes={abrirModalImagenes}
+        />
+      )}
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={manejarEnvio}>
+          <Text style={styles.buttonText}>{step === 1 ? 'Siguiente' : 'Subir Poema'}</Text>
+        </TouchableOpacity>
+        {step === 2 && (
+          <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={() => setStep(1)}>
+            <Text style={styles.buttonText}>Regresar</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
+      <ImagesModal visible={modalVisible} onClose={cerrarModal} onImageSelect={recibirImagen} />
     </ScrollView>
   );
 }
@@ -83,40 +94,25 @@ function UploadPoem() {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    flex: 1,
     backgroundColor: '#f2f2f2',
     alignItems: 'center',
-    flexGrow: 1,
   },
-  header:{
-    height:40,
-    width:'100%',
-    justifyContent:'center',
-    paddingTop:10
+  header: {
+    height: 40,
+    width: '100%',
+    justifyContent: 'center',
+    paddingTop: 10,
   },
-  headerText: {
-    fontSize: 20,
-    fontWeight: '300',
-    color: colorPalette.primary,
-    marginBottom: 10,
-  },
-  input: {
-    width: '98%',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 10,
-    fontSize: 16,
-    marginBottom: 16,
-    elevation: 2,
-  },
-  textarea: {
-    height: '44%',
-    width:'98%',
-    textAlignVertical: 'top',
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 8,
   },
   button: {
     paddingVertical: 12,
     paddingHorizontal: 20,
-    borderRadius: 8,
+    borderRadius: 4,
     marginVertical: 8,
   },
   submitButton: {
@@ -124,24 +120,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '500',
     color: '#fff',
     textAlign: 'center',
-  },
-  imageWrapper: {
-    marginTop:-17,
-    padding: 10,
-    backgroundColor: '#ccc',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imagePreview: {
-    width: '100%',
-    height: 150,
-    borderRadius: 8,
-    textAlign: 'center',
-    lineHeight: 150, 
   },
 });
 
