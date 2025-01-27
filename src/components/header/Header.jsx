@@ -90,8 +90,8 @@ function Header() {
           <>
             <View style={styles.userContainer}>
               <Text style={styles.greeting}>
-                Ingresa,{' '}
-                <Text style={styles.name}>POR AQUÍ</Text>
+                Ingresar{' '} 
+                <Text style={styles.name}></Text>
               </Text>
             </View>
             <TouchableOpacity onPress={handleLoginPress}>
