@@ -7,8 +7,7 @@ const StepOneText = ({ titulo, setTitulo, contenido, setContenido }) => {
   return (
     <>
       <Text style={styles.headerText}>
-        <Image source={require('../../../assets/icons/archivo.webp')} style={styles.icon} />
-        Subir Escrito
+        <Image source={require('../../../assets/icons/archivo.webp')} style={styles.icon} />  Subir Escrito
       </Text>
       <TextInput
         style={styles.input}
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   textarea: {
-    height: '44%',
+    height: '66.5%',
     width: '98%',
     textAlignVertical: 'top',
   },

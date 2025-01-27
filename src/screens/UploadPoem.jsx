@@ -1,6 +1,6 @@
 // UploadPoem.js
 import React, { useState } from 'react';
-import { View, Alert, TouchableOpacity, ScrollView, StyleSheet, Text } from 'react-native';
+import { View, Alert, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import colorPalette from '../helpers/color_palette';
 import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import ImagesModal from '../components/imagesModal/ImagesModal';
 import StepOneText from '../components/uploadPoemSteps/StepOneText';
 import StepTwoCategoryImage from '../components/uploadPoemSteps/StepTwoCategoryImage';
+import ButtonsComponent from '../components/uploadPoemSteps/ButtonsComponent';
 
 function UploadPoem() {
   const [titulo, setTitulo] = useState('');
@@ -75,16 +76,7 @@ function UploadPoem() {
         />
       )}
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={manejarEnvio}>
-          <Text style={styles.buttonText}>{step === 1 ? 'Siguiente' : 'Subir Poema'}</Text>
-        </TouchableOpacity>
-        {step === 2 && (
-          <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={() => setStep(1)}>
-            <Text style={styles.buttonText}>Regresar</Text>
-          </TouchableOpacity>
-        )}
-      </View>
+      <ButtonsComponent step={step} manejarEnvio={manejarEnvio} setStep={setStep} />
 
       <ImagesModal visible={modalVisible} onClose={cerrarModal} onImageSelect={recibirImagen} />
     </ScrollView>
@@ -103,26 +95,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     paddingTop: 10,
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 8,
-  },
-  button: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 4,
-    marginVertical: 8,
-  },
-  submitButton: {
-    backgroundColor: colorPalette.primary,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#fff',
-    textAlign: 'center',
   },
 });
 
