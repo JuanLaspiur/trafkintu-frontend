@@ -89,12 +89,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f2f2f2',
     alignItems: 'center',
+    paddingTop:60
   },
   header: {
-    height: 40,
     width: '100%',
     justifyContent: 'center',
-    paddingTop: 10,
+    position:'absolute',
+    top:45
   },
 });
 

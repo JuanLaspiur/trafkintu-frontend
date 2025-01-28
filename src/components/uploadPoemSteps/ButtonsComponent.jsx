@@ -1,22 +1,33 @@
 // ButtonsComponent.js
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, View, Image } from 'react-native';
 import colorPalette from '../../helpers/color_palette';
 
 function ButtonsComponent({ step, manejarEnvio, setStep }) {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={manejarEnvio}>
-        <Text style={styles.buttonText}>{step === 1 ? 'Siguiente' : 'Subir Poema'}</Text>
+        <View style={styles.content}>
+          <Text style={styles.buttonText}>{step === 1 ? 'Siguiente' : 'Subir Poema'}</Text>
+          <Image
+            source={
+              step === 1
+                ? require('../../../assets/icons/saltar.webp')
+                : require('../../../assets/icons/writing_5724478.webp')
+            }
+            style={styles.icon}
+          />
+        </View>
       </TouchableOpacity>
       {step === 1 && (
         <TouchableOpacity style={[styles.button, styles.borradorButton]} onPress={() => setStep(1)}>
-          <Text style={styles.buttonText}>Borrador</Text>
-        </TouchableOpacity>
-      )}
-      {step === 2 && (
-        <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={() => setStep(1)}>
-          <Text style={styles.buttonText}>Regresar</Text>
+          <View style={styles.content}>
+            <Text style={styles.buttonText}>Borrador</Text>
+            <Image
+              source={require('../../../assets/icons/borrador (1).webp')}
+              style={styles.icon}
+            />
+          </View>
         </TouchableOpacity>
       )}
     </View>
@@ -39,16 +50,24 @@ const styles = StyleSheet.create({
   submitButton: {
     backgroundColor: colorPalette.primary,
   },
-  borradorButton:{
-    backgroundColor: '#333',
+  borradorButton: {
+    backgroundColor: 'gray',
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: '500',
     color: '#fff',
-    textAlign: 'center',
+  },
+  icon: {
+    width: 22,
+    height: 22,
   },
 });
 
 export default ButtonsComponent;
-

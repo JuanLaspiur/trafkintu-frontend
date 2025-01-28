@@ -1,14 +1,17 @@
-// StepTwoCategoryImage.js
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import CategoryPicker from './components/CategoryPicker';
 
 const StepTwoCategoryImage = ({ imagen, abrirModalImagenes }) => {
   return (
+    <>
     <TouchableOpacity onPress={abrirModalImagenes} style={styles.imageWrapper}>
       <Text style={styles.imagePreview}>
         {imagen ? 'Imagen seleccionada' : 'Selecciona una imagen'}
       </Text>
     </TouchableOpacity>
+    <CategoryPicker/>
+    </>
   );
 };
 
