@@ -34,8 +34,7 @@ const RecordAudio = () => {
   const stopRecording = async () => {
     setRecording(null);
     await recording.stopAndUnloadAsync();
-    const uri = recording.getURI();
-    setRecordingUri('Grabado con exito');
+    setRecordingUri('Grabado con éxito');
   };
 
   return (
@@ -61,6 +60,7 @@ const RecordAudio = () => {
           </Text>
         </View>
       </TouchableOpacity>
+
       {recording && (
         <View style={styles.recordingStatus}>
           <Image
@@ -70,10 +70,15 @@ const RecordAudio = () => {
           <Text style={styles.recordingText}>Grabando...</Text>
         </View>
       )}
+
       {recordingUri && (
-        <Text style={styles.recordingText}>
-          Audio saved at: {recordingUri}
-        </Text>
+        <View style={styles.successStatus}>
+          <Image
+            source={require('../../../../assets/icons/discoVinilo.webp')}
+            style={styles.icon}
+          />
+          <Text style={styles.successText}>{recordingUri}</Text>
+        </View>
       )}
     </View>
   );
@@ -89,27 +94,38 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
-    marginBottom: 5,
+    marginBottom: 10,
+    backgroundColor: colorPalette.neutralDark,
   },
   buttonContent: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   buttonText: {
-    color: 'gray' ,
+    color: 'gray',
     fontSize: 15,
     fontWeight: '400',
     marginLeft: 10,
   },
   recordingStatus: {
     flexDirection: 'row',
-    alignItems: 'center', 
+    alignItems: 'center',
     marginTop: 10,
   },
   recordingText: {
     fontSize: 14,
     color: 'gray',
-    marginLeft: 8, 
+    marginLeft: 8,
+  },
+  successStatus: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  successText: {
+    fontSize: 14,
+    color: 'gray',
+    marginLeft: 8,
   },
   icon: {
     width: 28,
