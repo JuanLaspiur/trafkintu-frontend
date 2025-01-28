@@ -35,7 +35,7 @@ const RecordAudio = () => {
     setRecording(null);
     await recording.stopAndUnloadAsync();
     const uri = recording.getURI();
-    setRecordingUri(uri);
+    setRecordingUri('Grabado con exito');
   };
 
   return (
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   recordingText: {
     fontSize: 14,
-    color: '#333',
+    color: 'gray',
     marginLeft: 8, 
   },
   icon: {

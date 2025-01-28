@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import CategoryPicker from './components/CategoryPicker';
 import RecordAudio from './components/RecordAudio';
 
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     textAlign: 'center',
     lineHeight: 150,
+    color:'gray'
   },
 });
 

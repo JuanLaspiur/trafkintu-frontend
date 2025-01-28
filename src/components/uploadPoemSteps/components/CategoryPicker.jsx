@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
     color: colorPalette.primary,
+    width:'200px'
   },
   dropdownText: {
     fontSize: 16,

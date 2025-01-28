@@ -77,7 +77,6 @@ function UploadPoem() {
       )}
 
       <ButtonsComponent step={step} manejarEnvio={manejarEnvio} setStep={setStep} />
-
       <ImagesModal visible={modalVisible} onClose={cerrarModal} onImageSelect={recibirImagen} />
     </ScrollView>
   );
