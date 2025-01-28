@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
     color: colorPalette.accent,
     paddingTop: 15,
     padding: 10
-  }
+  },
+
 });
 
 export default MyPoemsPublic;
