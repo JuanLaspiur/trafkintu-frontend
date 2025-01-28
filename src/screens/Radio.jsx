@@ -29,7 +29,6 @@ const Radio = () => {
           <AntDesign name="left" size={27} color="gray" />
         </TouchableOpacity>
       </View>
-      <HeaderProfileLogo color={colorPalette.neutralDark}/>
       <Reproductor isPlaying={isPlaying} toggleRadio={toggleRadio} />
         <Image 
           source={require('../../assets/radio_tfk/imagen_equipo_radio.webp')} 
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%', 
-    height: 400,
+    height: 200,
     opacity:0.2,
     position:'absolute',
     top:0,

@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 10,
+    color: colorPalette.primary,
   },
   dropdownText: {
     fontSize: 16,
@@ -64,6 +65,10 @@ const styles = StyleSheet.create({
     color:  colorPalette.accent,
     fontWeight: 'bold',
   },
+  icon: {
+    width: 22,
+    height: 22,
+  }
 });
 
 export default CategoryPicker;
