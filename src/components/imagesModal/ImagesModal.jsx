@@ -36,11 +36,18 @@ function ImagesModal({ visible, onClose }) {
     }
   };
 
+  const handleContinuar = () => {
+    if (imagenSeleccionada) {
+      // Lógica para continuar, como navegar a otra pantalla o hacer algo con la imagen seleccionada
+      console.log('Imagen seleccionada:', imagenSeleccionada);
+    }
+  };
+
   return (
     <Modal visible={visible} onRequestClose={onClose} animationType="slide">
-        <TouchableOpacity onPress={onClose} style={styles.absoluteBack}>
-          <AntDesign name="left" size={27} color={colorPalette.accent} />
-        </TouchableOpacity>
+      <TouchableOpacity onPress={onClose} style={styles.absoluteBack}>
+        <AntDesign name="left" size={27} color={colorPalette.accent} />
+      </TouchableOpacity>
 
       <View style={styles.modalContainer}>
         <Text style={styles.header}>Galería de Imágenes</Text>
@@ -48,30 +55,43 @@ function ImagesModal({ visible, onClose }) {
         <Text style={styles.subHeader}>Imagenes Trafinktu</Text>
 
         <ScrollView contentContainerStyle={styles.imageContainer}>
-          {imagenes.map((image, index) => (
-            <View style={styles.imageWrapper} key={index}>
-              <TouchableOpacity onPress={() => setImagenSeleccionada(image)}>
-                <Image source={image} style={styles.image} />
-              </TouchableOpacity>
-            </View>
-          ))}
+          {imagenes.map((image, index) => {
+            // Verifica si es la última imagen (la que será el botón)
+            if (index === imagenes.length - 1) {
+              return (
+                <View style={styles.imageWrapper} key={index}>
+                  <TouchableOpacity onPress={seleccionarImagen}>
+                    <View style={styles.uploadImageWrapper}>
+                      <Text style={styles.uploadText}>Subir Imagen</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              );
+            } else {
+              return (
+                <View
+                  style={[
+                    styles.imageWrapper,
+                    imagenSeleccionada === image ? styles.selectedCard : {}
+                  ]}
+                  key={index}
+                >
+                  <TouchableOpacity onPress={() => setImagenSeleccionada(image)}>
+                    <Image source={image} style={styles.image} />
+                  </TouchableOpacity>
+                </View>
+              );
+            }
+          })}
         </ScrollView>
 
-        <View style={styles.selectedImageContainer}>
-          <Text style={styles.selectedImageLabel}>Imagen Seleccionada:</Text>
-          {imagenSeleccionada ? (
-            <Image source={{ uri: imagenSeleccionada }} style={styles.selectedImage} />
-          ) : (
-            <Text style={styles.noImageText}>No hay imagen seleccionada</Text>
-          )}
-        </View>
-
-        <TouchableOpacity style={styles.uploadButton} onPress={seleccionarImagen}>
-          <Ionicons name="add-circle" size={40} color="white" style={styles.icon} />
-          <Text style={styles.uploadText}>Subir Imagen</Text>
+        <TouchableOpacity
+          style={[styles.continuarButton, !imagenSeleccionada && styles.disabledButton]}
+          onPress={handleContinuar}
+          disabled={!imagenSeleccionada}
+        >
+          <Text style={styles.continuarText}>Continuar</Text>
         </TouchableOpacity>
-
-     
       </View>
     </Modal>
   );
@@ -112,45 +132,44 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 8,
   },
-  selectedImageContainer: {
-    marginBottom: 20,
-    alignItems: 'center',
-  },
-  selectedImageLabel: {
-    color: '#fff',
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  selectedImage: {
-    width: 200,
-    height: 150,
-    borderRadius: 8,
-  },
-  noImageText: {
-    color: '#fff',
-    fontSize: 14,
-    fontStyle: 'italic',
-  },
-  uploadButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  uploadImageWrapper: {
+    width: '100%',
+    height: 100,
     backgroundColor: '#007BFF',
-    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 8,
-    marginBottom: 20,
-  },
-  icon: {
-    marginRight: 10,
   },
   uploadText: {
     color: '#fff',
     fontSize: 16,
   },
-  absoluteBack:{
-    position:'absolute',
-    left:5,
-    top:10
-  }
+  selectedCard: {
+    borderWidth: 3,
+    borderColor: '#007BFF',
+    borderRadius: 8,
+  },
+  continuarButton: {
+    backgroundColor: '#007BFF',
+    padding: 12,
+    borderRadius: 8,
+    width: '80%',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  disabledButton: {
+    backgroundColor: '#B0C4DE',
+  },
+  continuarText: {
+    color: '#fff',
+    fontSize: 18,
+  },
+  absoluteBack: {
+    position: 'absolute',
+    left: 5,
+    top: 10,
+  },
 });
 
 export default ImagesModal;
+
