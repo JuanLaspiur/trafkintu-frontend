@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
+import colorPalette from '../../helpers/color_palette';
 
 function ImagesModal({ visible, onClose }) {
   const images = [
@@ -36,6 +38,10 @@ function ImagesModal({ visible, onClose }) {
 
   return (
     <Modal visible={visible} onRequestClose={onClose} animationType="slide">
+        <TouchableOpacity onPress={onClose} style={styles.absoluteBack}>
+          <AntDesign name="left" size={27} color={colorPalette.accent} />
+        </TouchableOpacity>
+
       <View style={styles.modalContainer}>
         <Text style={styles.header}>Galería de Imágenes</Text>
 
@@ -65,9 +71,7 @@ function ImagesModal({ visible, onClose }) {
           <Text style={styles.uploadText}>Subir Imagen</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-          <Text style={styles.closeText}>Cerrar</Text>
-        </TouchableOpacity>
+     
       </View>
     </Modal>
   );
@@ -142,15 +146,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
-  closeButton: {
-    backgroundColor: '#FF5733',
-    padding: 10,
-    borderRadius: 8,
-  },
-  closeText: {
-    color: '#fff',
-    fontSize: 16,
-  },
+  absoluteBack:{
+    position:'absolute',
+    left:5,
+    top:10
+  }
 });
 
 export default ImagesModal;
