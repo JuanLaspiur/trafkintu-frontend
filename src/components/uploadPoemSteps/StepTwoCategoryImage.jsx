@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import CategoryPicker from './components/CategoryPicker';
+import RecordAudio from './components/RecordAudio';
 
 const StepTwoCategoryImage = ({ imagen, abrirModalImagenes }) => {
   return (
@@ -11,6 +12,7 @@ const StepTwoCategoryImage = ({ imagen, abrirModalImagenes }) => {
       </Text>
     </TouchableOpacity>
     <CategoryPicker/>
+    <RecordAudio/>
     </>
   );
 };

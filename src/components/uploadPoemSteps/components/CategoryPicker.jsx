@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import colorPalette from '../../../helpers/color_palette';
 
@@ -14,7 +14,7 @@ const CategoryPicker = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Selecciona una categoría:</Text>
+      <Text style={styles.label}><Image source={require('../../../../assets/icons/categoria.webp')} style={styles.icon} /> Selecciona una categoría:</Text>
       <ModalDropdown
         options={categories}
         defaultValue={selectedCategory}
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   icon: {
-    width: 22,
-    height: 22,
+    width: 17,
+    height: 17,
   }
 });
 
