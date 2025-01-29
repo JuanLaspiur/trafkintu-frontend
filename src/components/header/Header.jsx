@@ -51,7 +51,7 @@ function Header() {
             </View>
             <TouchableOpacity onPress={toggleMenu} style={styles.menudesplegable}>
               <Image
-                source={{
+                source={{ uri: user?.imageProfile } || {
                   uri: 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png',
                 }}
                 style={styles.icon}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Alert, Image as ImageNoGift } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { Image } from "expo-image";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
@@ -20,8 +20,8 @@ function Profile({ navigation }) {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedOption, setSelectedOption] = useState('publico');
   const [description, setDescription] = useState(user?.description || 'Aún no se ha añadido una descripción personal.');
-  const [avatar, setAvatar] = useState(user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); 
-
+  const [avatar, setAvatar] = useState(user?.imageProfile || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); 
+  
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
   }
@@ -73,7 +73,7 @@ function Profile({ navigation }) {
         />
         <View style={styles.profileInfo}>
           <TouchableOpacity onPress={handleImageEditPress} style={styles.avatarContainer}>
-            <Image
+            <ImageNoGift
               source={{ uri: avatar }}
               style={styles.avatar}
             />
