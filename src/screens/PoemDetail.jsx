@@ -12,7 +12,7 @@ import PoemDetailOptions from '../components/poemDetailOptions/PoemDetailOptions
 
 function PoemDetail() {
   const route = useRoute();
-  const { title, image, poemId } = route.params;
+  const { title, image, poemId, content, author } = route.params;
   const navigation = useNavigation();
   const [comment, setComment] = useState('');
   const comments = [
@@ -57,14 +57,17 @@ function PoemDetail() {
       <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.poem}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. 
+{/* TO-DO quitar lorem */}
+        {content ? content:<> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. 
         Cras venenatis euismod malesuada. Nulla facilisi. Duis aliquet egestas purus in blandit. Curabitur volutpat 
         ligula vel mauris fermentum, quis viverra orci posuere. Fusce malesuada, velit nec suscipit pulvinar, sem 
-        libero tincidunt magna, non suscipit sem nunc a neque.
-      </Text>
+        libero tincidunt magna, non suscipit sem nunc a neque.</>}
+      </Text> 
       <AuthorInfo
-        name="Juan Pérez"
-        avatar="https://this-person-does-not-exist.com/img/avatar-genaf437f464b793583dc4b2d45066290fa.jpg"
+        id={author._id}
+        author = {author}
+        name={author?.username}
+        avatar={author?.imagenPerfil}
       />
      <PoemDetailOptions/>
       <CommentSection 

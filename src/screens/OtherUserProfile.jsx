@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity,Image as ImageNoGift, TextInput, Alert } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { Image } from "expo-image";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
@@ -14,21 +14,22 @@ import OtherFollowing from '../components/optionsOtherProfile/OtherFollowing.jsx
 import { useNavigation } from '@react-navigation/native';
 import OtherComponents from '../components/optionsOtherProfile/OtherCompents.jsx';
 import HeaderProfileLogo from '../components/header/HeaderProfileLogo.jsx';
+import { useRoute } from '@react-navigation/native';
 
 function OtherUserProfile({ otherUser }) {
  const { user } = useAuth();
+ const route = useRoute();
+ const { avatar , name, author } = route.params;
  const navigation = useNavigation();
   const [fontsLoaded] = useFonts({ Roboto_400Regular });
   const [isEditing, setIsEditing] = useState(false);
   const [selectedOption, setSelectedOption] = useState('publico');
   const [description, setDescription] = useState(user?.description || 'Aún no se ha añadido una descripción personal.');
-  const [avatar, setAvatar] = useState(user?.avatar || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); 
 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
   }
 
- 
 
 
     const handleSelectOption = (option) => {
@@ -54,12 +55,12 @@ function OtherUserProfile({ otherUser }) {
         />
         <View style={styles.profileInfo}>
           <TouchableOpacity  style={styles.avatarContainer}>
-            <Image
+            <ImageNoGift
               source={{ uri: avatar }}
               style={styles.avatar}
             />
           </TouchableOpacity>
-          <Text style={styles.username}>{user?.username || 'Usuario'}</Text>
+          <Text style={styles.username}>{author?.username || 'Usuario'}</Text>
         </View>
       </View> 
 

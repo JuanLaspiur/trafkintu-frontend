@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Switch, Button } from 'react-native-elements';
 
 const Settings = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -12,15 +11,12 @@ const Settings = () => {
       
       <View style={styles.settingItem}>
         <Text>Dark Mode</Text>
-        <Switch value={darkMode} onValueChange={setDarkMode} />
       </View>
       
       <View style={styles.settingItem}>
         <Text>Enable Notifications</Text>
-        <Switch value={notifications} onValueChange={setNotifications} />
       </View>
       
-      <Button title="Log Out" onPress={() => alert('Logged out')} buttonStyle={styles.logoutButton} />
     </View>
   );
 };

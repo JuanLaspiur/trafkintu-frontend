@@ -4,43 +4,22 @@ import Swiper from 'react-native-swiper';
 import colorPalette from '../../helpers/color_palette';
 import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native'; 
+import { formatDateToSpanishLong } from '../../helpers/formatDate';
 
-function LastPoems() {
-  const poems = [
-    {
-      id: 1,
-      title: 'Susurros del Alma',
-      image: require('../../../assets/gift/descarga_animation.webp'),
-      author: 'Juan Pérez',
-      date: '23 de enero, 2025',
-    },
-    {
-      id: 2,
-      title: 'Susurros del Alma 2',
-      image: require('../../../assets/gift/gernica_animation_1.webp'),
-      author: 'María Gómez',
-      date: '15 de enero, 2025',
-    },
-    {
-      id: 3,
-      title: 'Susurros del Alma 3',
-      image: require('../../../assets/gift/Muralismo-Mexicano_animation.webp'),
-      author: 'Carlos Ruiz',
-      date: '10 de enero, 2025',
-    },
-  ];
-
+function LastPoems({lastThreePoems}) {
+  const poems = lastThreePoems;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Últimos tres poemas:</Text>
       <Swiper style={styles.swiper} showsPagination={false} loop={true} autoplay={true} autoplayTimeout={5}>
         {poems.map((poem) => (
           <PoemCard
-            key={poem.id}
+            key={poem._id}
             title={poem.title}
             image={poem.image}
             author={poem.author}
-            date={poem.date}
+            date={formatDateToSpanishLong(poem.createdAt)}
+            content={poem.content}
           />
         ))}
       </Swiper>
@@ -48,11 +27,11 @@ function LastPoems() {
   );
 }
 
-function PoemCard({ title, image, author, date }) {
+function PoemCard({ title, image, author, date, content }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate('PoemDetail', { title, image, author, date });
+    navigation.navigate('PoemDetail', { title, image, author, date, content });
   };
 
   return (
@@ -60,7 +39,7 @@ function PoemCard({ title, image, author, date }) {
       <View style={styles.card}>
         <Image source={image} style={styles.image} />
         <Text style={styles.cardTitle}><Image source={require('../../../assets/icons/titulo_card.webp')} style={styles.iconTitleCard} /> {title || 'Sin título'}</Text>
-        <Text style={styles.cardAuthor}><Image source={require('../../../assets/icons/autor_card.webp')} style={styles.iconTitleCard} />   Autor: {author}</Text>
+        <Text style={styles.cardAuthor}><Image source={require('../../../assets/icons/autor_card.webp')} style={styles.iconTitleCard} />   Autor: {author.username}</Text>
         <Text style={styles.cardDate}><Image source={require('../../../assets/icons/fecha_card.webp')} style={styles.iconTitleCard} />   Publicado: {date}</Text>
       </View>
     </TouchableOpacity>

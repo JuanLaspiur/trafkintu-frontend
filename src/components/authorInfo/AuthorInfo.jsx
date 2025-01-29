@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Image } from 'expo-image';
 import colorPalette from '../../helpers/color_palette';
 
-function AuthorInfo({ id = '1',name, avatar }) {
+function AuthorInfo({ id = '1',name, avatar, author }) {
   const { user } =useAuth(); 
   const navigation = useNavigation();
 
@@ -14,7 +14,7 @@ function AuthorInfo({ id = '1',name, avatar }) {
       navigation.navigate("Profile", { name, avatar })
       }
       else {
-        navigation.navigate("OtherUserProfile", { name, avatar })
+        navigation.navigate("OtherUserProfile", { author, name:author.name, avatar:author.imagenPerfil })
       }
   }
 
