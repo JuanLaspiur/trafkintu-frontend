@@ -17,21 +17,21 @@ function PoemDetail() {
   const [comment, setComment] = useState('');
   const comments = [
     { 
-      id: '1', 
+      id: '678eb78ab87b538c618cf769', 
       user: 'Carlos López', 
       text: 'Hermoso poema, realmente inspirador.', 
       avatar: 'https://this-person-does-not-exist.com/img/avatar-gen840212179ed94ab7d009f6e6b9770fa7.jpg',
       isOwner: true  
     },
     { 
-      id: '2', 
+      id: '678ea05ad3190ab6f7c9ca59', 
       user: 'Ana García', 
       text: 'Me encanta la metáfora utilizada.', 
       avatar: 'https://this-person-does-not-exist.com/img/avatar-gen648c05f4c576887e2b1b626de498a12b.jpg',
       isOwner: false  
     },
     { 
-      id: '3', 
+      id: '1678d8d2457a380b578946ba7', 
       user: 'Clara Martínez', 
       text: '¡Qué profundidad en las palabras!', 
       avatar: 'https://this-person-does-not-exist.com/img/avatar-genb90ca300387e39eb0b560bf264386201.jpg',
@@ -41,7 +41,6 @@ function PoemDetail() {
   
 
   const handleCommentSubmit = () => {
-    console.log('Comentario:', comment);
     setComment('');
   };
 

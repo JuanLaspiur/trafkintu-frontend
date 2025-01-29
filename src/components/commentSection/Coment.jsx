@@ -23,7 +23,7 @@ function LikeButton() {
 }
 
 // Componente Coment
-function Coment({ avatar, user, text, isOwner, onDelete }) {
+function Coment({ avatar, user, text, isOwner, onDelete, isLoged }) {
   const handleDelete = () => {
     if (onDelete) {
       onDelete();
@@ -31,20 +31,20 @@ function Coment({ avatar, user, text, isOwner, onDelete }) {
   };
 
   return (
-    <View style={styles.comment}>
+    <View style={[styles.comment, { marginBottom: isLoged ? 10 : 30 }]}>
       <Image source={{ uri: avatar }} style={styles.commentAvatar} />
       <View style={styles.commentContent}>
         <Text style={styles.commentUser}>{user}</Text>
         <Text style={styles.commentText}>{text}</Text>
+      
+        {(isLoged && !isOwner) && <LikeButton />}
         
-        {!isOwner && <LikeButton />}
-        
-        {isOwner && (
+        {(isLoged && isOwner) && (
           <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
             <FontAwesome name="trash" size={16} color={colorPalette.greenFluor} />
             <Text style={styles.deleteText}>Borrar</Text>
           </TouchableOpacity>
-        )}
+        )} 
       </View>
     </View>
   );
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
   comment: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 10,
     width: '100%',
   },
   commentAvatar: {
