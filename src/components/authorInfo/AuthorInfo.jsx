@@ -10,7 +10,7 @@ function AuthorInfo({ id = '1',name, avatar }) {
   const navigation = useNavigation();
 
   const goToProfile = ()=>{
-    if(user._id == id) {
+    if(user?._id == id) {
       navigation.navigate("Profile", { name, avatar })
       }
       else {

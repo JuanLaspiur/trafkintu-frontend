@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import colorPalette from "../../helpers/color_palette";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; 
+import { useNavigation } from '@react-navigation/native';
 
 // Componente LikeButton
 function LikeButton() {
@@ -23,16 +24,27 @@ function LikeButton() {
 }
 
 // Componente Coment
-function Coment({ avatar, user, text, isOwner, onDelete, isLoged }) {
+function Coment({ avatar, user, text, isOwner, onDelete, isLoged, authId }) {
+  const navigation = useNavigation();
   const handleDelete = () => {
     if (onDelete) {
       onDelete();
     }
   };
+  const goToProfile = () => {
+  if(user._id == authId) {
+    navigation.navigate("Profile", { name:user, avatar })
+    }
+    else {
+      navigation.navigate("OtherUserProfile", { name:user, avatar })
+    }
+}
 
   return (
     <View style={[styles.comment, { marginBottom: isLoged ? 10 : 30 }]}>
-      <Image source={{ uri: avatar }} style={styles.commentAvatar} />
+          <TouchableOpacity   onPress={goToProfile} style={styles.authorContainer}>
+      <Image source={{ uri: avatar }} style={styles.commentAvatar} />    
+      </TouchableOpacity>
       <View style={styles.commentContent}>
         <Text style={styles.commentUser}>{user}</Text>
         <Text style={styles.commentText}>{text}</Text>

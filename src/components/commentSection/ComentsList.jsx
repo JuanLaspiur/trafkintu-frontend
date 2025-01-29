@@ -10,7 +10,7 @@ function ListComent({ comments }) {
     <View style={styles.commentSection}><View style={styles.comentHeader}><Text style={styles.commentSectionTitle}> Comentarios</Text><Image source={require('../../../assets/icons/comentario_poemdetail.webp')} style={styles.icon}/> 
       </View>
       {comments.map((item) => (
-        <Coment key={item.id} avatar={item.avatar} user={item.user} text={item.text} isOwner={user?._id == item.id} isLoged={ token ? true : false}/>
+        <Coment key={item.id} avatar={item.avatar} user={item.user} text={item.text} isOwner={user?._id == item.id} isLoged={ token ? true : false} authId={user?._id}/>
       ))}
     </View>
   );
