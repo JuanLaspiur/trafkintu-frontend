@@ -36,9 +36,10 @@ useEffect(() => {
       <Header />
       <LightGreenCard />
       <SelectorMenu />
-      <LastPoems lastThreePoems={lastThreePoems}/>  
+      <LastPoems lastThreePoems={lastThreePoems}/> 
+      {/** TO-DO hacer que el video id sea modificable */} 
       <LastYoutubeVideo videoId="tTfMid0Sweg" /> 
-      <SevenLastPoems />
+      <SevenLastPoems lastSevenPoems={lastSevenPoems}/>
     </ScrollView>
   );
 }

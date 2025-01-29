@@ -4,67 +4,10 @@ import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import colorPalette from "../../helpers/color_palette";
+import { formatDateToDDMMYYYY } from "../../helpers/formatDate";
 
-function SevenLastPoems() {
-  const poems = [
-    {
-      id: 1,
-      title: "El eco del bosque",
-      author: "Juan Pérez",
-      date: "01/01/2025",
-      image: require("../../../assets/gift/fotografica_animation.webp"),
-      image_route: "../../../assets/gift/fotografica_animation.webp"
-    },
-    {
-      id: 2,
-      title: "Amanecer eterno",
-      author: "Ana García",
-      date: "02/01/2025",
-      image: require("../../../assets/gift/frida_animation_1.webp"),
-      image_route: "../../../assets/gift/frida_animation_1.webp"
-    },
-    {
-      id: 3,
-      title: "Sombras perdidas",
-      author: "Luis Fernández",
-      date: "03/01/2025",
-      image: require("../../../assets/gift/hYq1Qv6q1_2000x1500__1_animation.webp"),
-      image_route: "../../../assets/gift/hYq1Qv6q1_2000x1500__1_animation.webp"
-    },
-    {
-      id: 4,
-      title: "Raíces profundas",
-      author: "María López",
-      date: "04/01/2025",
-      image: require("../../../assets/gift/quinquela_animation.webp"),
-      image_route: "../../../assets/gift/quinquela_animation.webp"
-    },
-    {
-      id: 5,
-      title: "La luna y el río",
-      author: "Carlos Martínez",
-      date: "05/01/2025",
-      image: require("../../../assets/gift/yellow_kiss.webp"),
-      image_route: "../../../assets/gift/yellow_kiss.webp"
-    },
-    {
-      id: 6,
-      title: "Versos en el viento",
-      author: "Laura Gutiérrez",
-      date: "06/01/2025",
-      image: require("../../../assets/gift/slide_nort_animation.webp"),
-      image_route: "../../../assets/gift/slide_nort_animation.webp"
-    },
-    {
-      id: 7,
-      title: "El faro y la noche",
-      author: "Fernando Ruiz",
-      date: "07/01/2025",
-      image: require("../../../assets/gift/sin_pan_y_sin_trabajo_animation.webp"),
-      image_route: "../../../assets/gift/sin_pan_y_sin_trabajo_animation.webp"
-    }
-  ];
-
+function SevenLastPoems({lastSevenPoems}) {
+  const poems = lastSevenPoems;
   const [showAll, setShowAll] = useState(false);
 
   const visiblePoems = showAll ? poems : poems.slice(0, 4);
@@ -73,16 +16,17 @@ function SevenLastPoems() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Siete últimos más leídos:</Text>
+      <Text style={styles.title}>Siete últimos más leídos: TO-DO</Text>
       <View style={styles.cardsContainer}>
         {visiblePoems.map((poem) => (
           <MiniPoemCard
-            key={poem.id}
+            key={poem._id}
             title={poem.title}
             author={poem.author}
-            date={poem.date}
+            date={formatDateToDDMMYYYY(poem.createdAt)}
             image={poem.image}
-            image_route={poem.image_route}
+            content={poem.content}
+            image_route={'../../../assets/gift/fotografica_animation.webp'}
           />
         ))}
       </View>
@@ -97,7 +41,7 @@ function SevenLastPoems() {
   );
 }
 
-function MiniPoemCard({ title, author, date, image, image_route }) {
+function MiniPoemCard({ title, author, date, image, image_route, content }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
@@ -106,7 +50,8 @@ function MiniPoemCard({ title, author, date, image, image_route }) {
       image,
       author,
       date,
-      image_route
+      image_route,
+      content
     });
   };
 
