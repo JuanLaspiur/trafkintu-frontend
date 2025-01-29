@@ -8,6 +8,7 @@ import { formatDateToDDMMYYYY } from "../../helpers/formatDate";
 
 function SevenLastPoems({lastSevenPoems}) {
   const poems = lastSevenPoems;
+
   const [showAll, setShowAll] = useState(false);
 
   const visiblePoems = showAll ? poems : poems.slice(0, 4);
@@ -16,17 +17,15 @@ function SevenLastPoems({lastSevenPoems}) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Siete últimos más leídos: TO-DO</Text>
+      <Text style={styles.title}>Siete últimos más leídos:</Text>
       <View style={styles.cardsContainer}>
         {visiblePoems.map((poem) => (
           <MiniPoemCard
-            key={poem._id}
             title={poem.title}
             author={poem.author}
             date={formatDateToDDMMYYYY(poem.createdAt)}
             image={poem.image}
-            content={poem.content}
-            image_route={'../../../assets/gift/fotografica_animation.webp'}
+            image_route= "../../../assets/gift/yellow_kiss.webp"
           />
         ))}
       </View>
@@ -41,7 +40,7 @@ function SevenLastPoems({lastSevenPoems}) {
   );
 }
 
-function MiniPoemCard({ title, author, date, image, image_route, content }) {
+function MiniPoemCard({ title, author, date, image, image_route }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
@@ -50,10 +49,13 @@ function MiniPoemCard({ title, author, date, image, image_route, content }) {
       image,
       author,
       date,
-      image_route,
-      content
+      image_route
     });
   };
+
+  // Ensure author and date are strings
+  const authorString = author ? (typeof author === 'string' ? author : author.name) : '';
+  const dateString = date ? (typeof date === 'string' ? date : formatDateToDDMMYYYY(date)) : '';
 
   return (
     <TouchableOpacity
@@ -64,11 +66,12 @@ function MiniPoemCard({ title, author, date, image, image_route, content }) {
       <Image source={image} style={styles.miniImage} />
       <Text style={styles.miniCardTitle}>{title}</Text>
       <Text style={styles.miniCardSubtitle}>
-        <Image source={require('../../../assets/icons/autor_card.webp')} style={styles.iconTitleCard} /> {author} • {date}
+        <Image source={require('../../../assets/icons/autor_card.webp')} style={styles.iconTitleCard} /> {authorString} • {dateString}
       </Text>
     </TouchableOpacity>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
