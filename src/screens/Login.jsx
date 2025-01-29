@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions
 } from "react-native";
+import { ActivityIndicator } from "react-native";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { useNavigation } from "@react-navigation/native";
 import RegisterModal from "../components/registerModal/RegisterModal.jsx";
@@ -20,9 +21,9 @@ function Login() {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [fontsLoaded] = useFonts({
     Roboto_400Regular
   });
@@ -30,9 +31,16 @@ function Login() {
   const navigation = useNavigation();
 
   const handleLogin = async () => {
-    const result = await loginUser({ email, password });
-    login(result);
-   navigation.navigate("Home");
+    setIsLoading(true);
+    try {
+      const result = await loginUser({ email, password });
+      login(result);
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error("Login failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleRegister = () => {
@@ -63,7 +71,7 @@ function Login() {
             style={[styles.input, styles.passwordInput]}
             placeholder="Contraseña"
             placeholderTextColor="#A1A1A1"
-            secureTextEntry={!isPasswordVisible} 
+            secureTextEntry={!isPasswordVisible}
             value={password}
             onChangeText={setPassword}
           />
@@ -79,10 +87,19 @@ function Login() {
           </TouchableOpacity>
         </View>
       </View>
-
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Ingresar</Text>
-      </TouchableOpacity>
+      <TouchableOpacity
+  style={styles.button}
+  onPress={handleLogin}
+  disabled={isLoading}
+>
+  <View style={styles.buttonContent}>
+    {isLoading ? (
+      <ActivityIndicator size="small" color="#FFF" />
+    ) : (
+      <Text style={styles.buttonText}>Ingresar</Text>
+    )}
+  </View>
+</TouchableOpacity>
 
       <TouchableOpacity onPress={handleRegister}>
         <Text style={styles.registerText}>
@@ -122,7 +139,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#A1A1A1",
     letterSpacing: -2,
-    marginLeft:10
+    marginLeft: 10
   },
   inputContainer: {
     marginBottom: 30
@@ -150,15 +167,25 @@ const styles = StyleSheet.create({
   button: {
     alignSelf: "center",
     backgroundColor: "#25B3AD",
-    paddingVertical: 12,
-    paddingHorizontal: 60,
-    borderRadius: 19
+    borderRadius: 19,
+    width: 200, // ANCHO FIJO PARA EVITAR CAMBIOS
+    height: 50, // ALTURA FIJA PARA UNIFORMIDAD
+    justifyContent: "center",
+    alignItems: "center",
   },
+  
+  buttonContent: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  
   buttonText: {
     fontFamily: "Roboto_400Regular",
     fontSize: 18,
     fontWeight: "700",
-    color: "white"
+    color: "white",
+    textAlign: "center",
   },
   registerText: {
     fontFamily: "Roboto_400Regular",

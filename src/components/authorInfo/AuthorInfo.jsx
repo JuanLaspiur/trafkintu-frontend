@@ -10,7 +10,7 @@ function AuthorInfo({ id = '1',name, avatar }) {
   const navigation = useNavigation();
 
   const goToProfile = ()=>{
-    if(user?._id == id) {
+    if(user && user._id == id) {
       navigation.navigate("Profile", { name, avatar })
       }
       else {
@@ -20,6 +20,7 @@ function AuthorInfo({ id = '1',name, avatar }) {
 
   return (
     <TouchableOpacity   onPress={goToProfile} style={styles.authorContainer}>
+   
       <Image source={{ uri: avatar }} style={styles.authorAvatar} />
       <Text style={styles.authorName}>{name}</Text> 
     </TouchableOpacity>
