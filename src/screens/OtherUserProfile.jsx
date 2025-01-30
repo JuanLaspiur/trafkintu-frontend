@@ -24,7 +24,7 @@ function OtherUserProfile({ otherUser }) {
   const [fontsLoaded] = useFonts({ Roboto_400Regular });
   const [isEditing, setIsEditing] = useState(false);
   const [selectedOption, setSelectedOption] = useState('publico');
-  const [description, setDescription] = useState(user?.description || 'Aún no se ha añadido una descripción personal.');
+  const [description, setDescription] = useState(author?.description || 'Aún no se ha añadido una descripción personal.');
 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
