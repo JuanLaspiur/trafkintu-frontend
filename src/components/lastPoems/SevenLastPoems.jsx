@@ -60,7 +60,7 @@ function MiniPoemCard({ title, author, date, image, image_route, content }) {
     });
   };
 
-  const authorString = author ? (typeof author === 'string' ? author : author.name) : '';
+  const authorString = author.name ? (typeof author === 'string' ? author.name : author.name) : '';
   const dateString = date ? (typeof date === 'string' ? date : formatDateToDDMMYYYY(date)) : '';
 
   return (
