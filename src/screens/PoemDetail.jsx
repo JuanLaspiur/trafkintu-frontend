@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
@@ -9,36 +9,22 @@ import AuthorInfo from '../components/authorInfo/AuthorInfo';
 import HeaderProfileLogo from '../components/header/HeaderProfileLogo';
 import colorPalette from '../helpers/color_palette';
 import PoemDetailOptions from '../components/poemDetailOptions/PoemDetailOptions';
+import { getAllPoemComments } from '../services/poemComment.services';
 
 function PoemDetail() {
   const route = useRoute();
   const { title, image, poemId, content, author } = route.params;
   const navigation = useNavigation();
   const [comment, setComment] = useState('');
-  const comments = [
-    { 
-      id: '678eb78ab87b538c618cf769', 
-      user: 'Carlos López', 
-      text: 'Hermoso poema, realmente inspirador.', 
-      avatar: 'https://this-person-does-not-exist.com/img/avatar-gen840212179ed94ab7d009f6e6b9770fa7.jpg',
-      isOwner: true  
-    },
-    { 
-      id: '678ea05ad3190ab6f7c9ca59', 
-      user: 'Ana García', 
-      text: 'Me encanta la metáfora utilizada.', 
-      avatar: 'https://this-person-does-not-exist.com/img/avatar-gen648c05f4c576887e2b1b626de498a12b.jpg',
-      isOwner: false  
-    },
-    { 
-      id: '1678d8d2457a380b578946ba7', 
-      user: 'Clara Martínez', 
-      text: '¡Qué profundidad en las palabras!', 
-      avatar: 'https://this-person-does-not-exist.com/img/avatar-genb90ca300387e39eb0b560bf264386201.jpg',
-      isOwner: false  
-    },
-  ];
-  
+  const [comments, setComments] = useState([]);
+ 
+  useEffect(()=>{
+    const fetchPoemComments = async()=>{
+    const result = await getAllPoemComments(poemId)
+    setComments(result.data)  
+  }
+    fetchPoemComments()
+  }, [poemId])
 
   const handleCommentSubmit = () => {
     setComment('');

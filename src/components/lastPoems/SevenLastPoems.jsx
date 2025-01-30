@@ -21,7 +21,7 @@ function SevenLastPoems({ lastSevenPoems }) {
       <View style={styles.cardsContainer}>
         {visiblePoems.map((poem) => (
           <MiniPoemCard
-            key={poem._id} // Añadir una clave única para cada tarjeta
+            poemId={poem._id} // Añadir una clave única para cada tarjeta
             title={poem.title}
             author={poem.author}
             date={formatDateToDDMMYYYY(poem.createdAt)}
@@ -46,12 +46,13 @@ function SevenLastPoems({ lastSevenPoems }) {
   );
 }
 
-function MiniPoemCard({ title, author, date, image, image_route, content }) {
+function MiniPoemCard({ title, author, date, image, image_route, content, poemId }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
     navigation.navigate("PoemDetail", {
       title,
+      poemId,
       image,
       author,
       date,

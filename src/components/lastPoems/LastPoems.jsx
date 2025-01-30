@@ -14,7 +14,7 @@ function LastPoems({lastThreePoems}) {
       <Swiper style={styles.swiper} showsPagination={false} loop={true} autoplay={true} autoplayTimeout={5}>
         {poems.map((poem) => (
           <PoemCard
-            key={poem._id}
+            poemId={poem._id}
             title={poem.title}
             image={poem.image}
             author={poem.author}
@@ -27,11 +27,11 @@ function LastPoems({lastThreePoems}) {
   );
 }
 
-function PoemCard({ title, image, author, date, content }) {
+function PoemCard({ title, image, author, date, content, poemId }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate('PoemDetail', { title, image, author, date, content });
+    navigation.navigate('PoemDetail', { title, image, author, date, poemId, content });
   };
 
   return (
