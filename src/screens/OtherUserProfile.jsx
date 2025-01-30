@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity,Image as ImageNoGift, TextInput, Alert } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { Image } from "expo-image";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import colorPalette from '../helpers/color_palette';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import Feather from '@expo/vector-icons/Feather';
+import { getAllPoemsByUserId } from '../services/poems.services.js';
 import * as ImagePicker from 'expo-image-picker'; 
 import SelectorOtherUserProfile from '../components/selectorMenu/SelectorOtherUserProfile';
 import OtherPoemsPublic from '../components/optionsOtherProfile/OtherPoemsPublic';
@@ -25,6 +25,15 @@ function OtherUserProfile({ otherUser }) {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedOption, setSelectedOption] = useState('publico');
   const [description, setDescription] = useState(author?.description || 'Aún no se ha añadido una descripción personal.');
+  const [publicPoems, setPublicPoems] = useState([]);
+  useEffect(()=>{
+    const fetchMyPoems = async()=>{  
+      const result = await getAllPoemsByUserId(author._id);
+      setPublicPoems(result.data);
+    }
+    fetchMyPoems();
+  },[]) 
+
 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
@@ -77,7 +86,7 @@ function OtherUserProfile({ otherUser }) {
         )}
    
       </View>
-      {selectedOption === 'publico' && <OtherPoemsPublic/> }
+      {selectedOption === 'publico' && <OtherPoemsPublic poems={publicPoems}/> }
       {selectedOption === 'comentarios' && <OtherComponents/>}
       {selectedOption === 'seguidores' && <OtherFollowers/>}
       {selectedOption === 'seguidos' && <OtherFollowing/>}
