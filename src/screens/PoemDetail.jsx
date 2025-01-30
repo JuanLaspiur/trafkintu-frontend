@@ -15,7 +15,6 @@ function PoemDetail() {
   const route = useRoute();
   const { poem } = route.params;
   const navigation = useNavigation();
-  const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
  
   useEffect(()=>{
@@ -26,9 +25,6 @@ function PoemDetail() {
     fetchPoemComments()
   }, [poem._id])
 
-  const handleCommentSubmit = () => {
-    setComment('');
-  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -43,7 +39,6 @@ function PoemDetail() {
       <Image source={poem.image} style={styles.image} />
       <Text style={styles.title}>{poem.title}</Text>
       <Text style={styles.poem}>
-{/* TO-DO quitar lorem */}
         {poem.content ? poem.content:<> Error al cargar escrito, intente más tarde</>}
       </Text> 
       <AuthorInfo
@@ -54,10 +49,8 @@ function PoemDetail() {
       />
      <PoemDetailOptions poem={poem}/>
       <CommentSection 
+        poemId={poem._id}
         comments={comments} 
-        comment={poem.comment} 
-        setComment={setComment} 
-        handleCommentSubmit={handleCommentSubmit} 
       />
     </ScrollView>
   );

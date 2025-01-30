@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-nativ
 import colorPalette from '../../helpers/color_palette';
 
 function InputComent({ comment, setComment, handleCommentSubmit }) {
+  
   return (
     <View style={styles.commentInputSection}>
       <TextInput

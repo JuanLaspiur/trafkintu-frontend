@@ -1,11 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
 import ListComent from './ComentsList'
 import InputComent from './InputComent'
+import { createPoemComment } from '../../services/poemComment.services';
 
-function CommentSection({comment, comments, setComment, handleCommentSubmit }) {
- const { token } = useAuth();
+function CommentSection({poemId,  comments }) {
+ const { token, user } = useAuth();
+   const [comment, setComment] = useState('');
+   const handleCommentSubmit = async () => {
+
+    const commentData = {
+      poem: poemId,
+      content: comment,
+      user: user._id, 
+    };  
+    const result = await createPoemComment(commentData)
+    setComment('')
+  }
   return (
     <View>
         <ListComent comments={comments}/>

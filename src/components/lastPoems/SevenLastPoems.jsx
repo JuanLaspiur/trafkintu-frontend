@@ -33,7 +33,7 @@ function SevenLastPoems({ lastSevenPoems }) {
         <Ionicons
           name={showAll ? "chevron-up" : "chevron-down"}
           size={30}
-          color={colorPalette.accent} // Usamos colorPalette.acent
+          color={colorPalette.accent} 
         />
       </TouchableOpacity>
     </View>
