@@ -20,3 +20,12 @@ export const createPoemComment = async (data) => {
     throw new Error('Error al crear el comentario: ' + error.message);
   }
 };
+
+export const deletePoemComment = async (commentId) => {
+  try {
+    const response = await $api.delete(`/poem-comments/id/${commentId}`);
+    return response;
+  } catch (error) {
+    throw new Error('Error al eliminar el comentario: ' + error.message);
+  }
+};

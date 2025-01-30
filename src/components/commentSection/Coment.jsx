@@ -3,6 +3,7 @@ import colorPalette from "../../helpers/color_palette";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
+import { deletePoemComment } from '../../services/poemComment.services';
 
 // Componente LikeButton
 function LikeButton() {
@@ -23,20 +24,14 @@ function LikeButton() {
   );
 }
 
-// Componente Coment
-function Coment({ avatar, user, text, isOwner, date, onDelete, isLoged, authId }) {
+function Coment({ commentId, avatar, user, text, isOwner, date, isLoged, authId }) {
   const navigation = useNavigation();
-
-  // Usar la fecha pasada como prop y crear un objeto Date
   const publicationDate = new Date(date);
 
-  // Convertir la fecha a formato local
   const formattedDate = `${publicationDate.getDate()}/${publicationDate.getMonth() + 1}/${publicationDate.getFullYear()} ${publicationDate.getHours()}:${publicationDate.getMinutes()}`;
 
-  const handleDelete = () => {
-    if (onDelete) {
-      onDelete();
-    }
+  const handleDelete = async() => {
+    const result = await deletePoemComment(commentId)
   };
 
   const goToProfile = () => {
@@ -65,7 +60,6 @@ function Coment({ avatar, user, text, isOwner, date, onDelete, isLoged, authId }
           </TouchableOpacity>
         )} 
 
-        {/* Mostrar la fecha y hora de publicación en la esquina superior derecha */}
         <Text style={styles.commentDate}>{formattedDate}</Text>
       </View>
     </View>
@@ -86,7 +80,7 @@ const styles = StyleSheet.create({
   },
   commentContent: {
     flex: 1,
-    position: 'relative', // Necesario para posicionar la fecha en la esquina
+    position: 'relative', 
   },
   commentUser: {
     fontSize: 14,

@@ -18,6 +18,7 @@ function ListComent({ comments }) {
         comments.map((item) => (
           <Coment
             key={item._id}
+            commentId={item._id}
             avatar={item.user.imagenPerfil}
             user={item.user.username}
             text={item.content}
@@ -25,6 +26,7 @@ function ListComent({ comments }) {
             isOwner={user?._id === item.user._id}
             isLoged={token ? true : false}
             authId={user?._id}
+            token={token}
           />
         ))
       ) : (

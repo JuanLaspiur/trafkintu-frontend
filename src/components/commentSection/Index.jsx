@@ -20,7 +20,7 @@ function CommentSection({poemId,  comments }) {
   }
   return (
     <View>
-        <ListComent comments={comments}/>
+        <ListComent comments={comments} />
        { token && <InputComent  comment={comment} setComment={setComment} handleCommentSubmit={handleCommentSubmit}/>}
     </View>
   )
