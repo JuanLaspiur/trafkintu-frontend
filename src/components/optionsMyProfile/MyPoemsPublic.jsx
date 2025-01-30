@@ -5,46 +5,7 @@ import colorPalette from "../../helpers/color_palette";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Pagination from "./components/Pagination";
 
-function MyPoemsPublic() {
-  const poems = [
-    {
-      title: "Sin Pan ni Trabajo",
-      image: require("../../../assets/gift/sin_pan_y_sin_trabajo_animation.webp")
-    },
-    {
-      title: "Poema 2",
-      image: require("../../../assets/gift/fotografica_animation.webp")
-    },
-    {
-      title: "Poema 3",
-      image: require("../../../assets/gift/hYq1Qv6q1_2000x1500__1_animation.webp")
-    },
-    {
-      title: "Poema 4",
-      image: require("../../../assets/gift/slide_nort_animation.webp")
-    },
-    {
-      title: "Poema 5",
-      image: require("../../../assets/gift/Muralismo-Mexicano_animation.webp")
-    },
-    {
-      title: "Poema 6",
-      image: require("../../../assets/gift/quinquela_animation.webp")
-    },
-    {
-      title: "Poema 7",
-      image: require("../../../assets/gift/descarga_animation.webp")
-    },
-    {
-      title: "Poema 8",
-      image: require("../../../assets/gift/sin_pan_y_sin_trabajo_animation.webp")
-    },
-    {
-      title: "Poema 9",
-      image: require("../../../assets/gift/sin_pan_y_sin_trabajo_animation.webp")
-    }
-  ];
-
+function MyPoemsPublic({poems =[]}) {
   const [currentPage, setCurrentPage] = useState(1);
   const poemsPerPage = 5;
 
@@ -59,7 +20,6 @@ function MyPoemsPublic() {
       setCurrentPage(currentPage + 1);
     }
   };
-
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
