@@ -14,7 +14,6 @@ function ListComent({ comments }) {
         <Image source={require('../../../assets/icons/comentario_poemdetail.webp')} style={styles.icon} />
       </View>
 
-      {/* Si no hay comentarios o está vacío, muestra el mensaje */}
       {comments && comments.length > 0 ? (
         comments.map((item) => (
           <Coment
@@ -22,13 +21,13 @@ function ListComent({ comments }) {
             avatar={item.user.imagenPerfil}
             user={item.user.username}
             text={item.content}
+            date={item.createdAt}
             isOwner={user?._id === item.user._id}
             isLoged={token ? true : false}
             authId={user?._id}
           />
         ))
       ) : (
-        // Si no hay comentarios, mostramos este mensaje
         <Text style={styles.noCommentsMessage}>No hay comentarios aún.</Text>
       )}
     </View>

@@ -24,31 +24,38 @@ function LikeButton() {
 }
 
 // Componente Coment
-function Coment({ avatar, user, text, isOwner, onDelete, isLoged, authId }) {
+function Coment({ avatar, user, text, isOwner, date, onDelete, isLoged, authId }) {
   const navigation = useNavigation();
+
+  // Usar la fecha pasada como prop y crear un objeto Date
+  const publicationDate = new Date(date);
+
+  // Convertir la fecha a formato local
+  const formattedDate = `${publicationDate.getDate()}/${publicationDate.getMonth() + 1}/${publicationDate.getFullYear()} ${publicationDate.getHours()}:${publicationDate.getMinutes()}`;
+
   const handleDelete = () => {
     if (onDelete) {
       onDelete();
     }
   };
+
   const goToProfile = () => {
-  if(user._id == authId) {
-    navigation.navigate("Profile", { name:user, avatar })
+    if (user._id == authId) {
+      navigation.navigate("Profile", { name:user, avatar });
+    } else {
+      navigation.navigate("OtherUserProfile", { name:user, avatar });
     }
-    else {
-      navigation.navigate("OtherUserProfile", { name:user, avatar })
-    }
-}
+  };
 
   return (
     <View style={[styles.comment, { marginBottom: isLoged ? 10 : 30 }]}>
-          <TouchableOpacity   onPress={goToProfile} style={styles.authorContainer}>
-      <Image source={{ uri: avatar }} style={styles.commentAvatar} />    
+      <TouchableOpacity onPress={goToProfile} style={styles.authorContainer}>
+        <Image source={{ uri: avatar }} style={styles.commentAvatar} />    
       </TouchableOpacity>
       <View style={styles.commentContent}>
         <Text style={styles.commentUser}>{user}</Text>
         <Text style={styles.commentText}>{text}</Text>
-      
+
         {(isLoged && !isOwner) && <LikeButton />}
         
         {(isLoged && isOwner) && (
@@ -57,6 +64,9 @@ function Coment({ avatar, user, text, isOwner, onDelete, isLoged, authId }) {
             <Text style={styles.deleteText}>Borrar</Text>
           </TouchableOpacity>
         )} 
+
+        {/* Mostrar la fecha y hora de publicación en la esquina superior derecha */}
+        <Text style={styles.commentDate}>{formattedDate}</Text>
       </View>
     </View>
   );
@@ -76,6 +86,7 @@ const styles = StyleSheet.create({
   },
   commentContent: {
     flex: 1,
+    position: 'relative', // Necesario para posicionar la fecha en la esquina
   },
   commentUser: {
     fontSize: 14,
@@ -85,6 +96,15 @@ const styles = StyleSheet.create({
   commentText: {
     fontSize: 14,
     color: colorPalette.primary,
+  },
+  commentDate: {
+    fontSize: 12,
+    color: 'gray',
+    position: 'absolute', 
+    top: 0, 
+    right: 0,
+    marginTop: 5, 
+    marginRight: 5, 
   },
   likesContainer: {
     flexDirection: 'row',
