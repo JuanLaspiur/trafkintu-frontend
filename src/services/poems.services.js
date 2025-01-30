@@ -9,10 +9,10 @@ export const getAllPoems = async () => {
     }
   };
   
- export const getAllPoemsByUserId = async()=>{
+ export const getAllPoemsByUserId = async(authorId)=>{
   try{
-    const response = await $api.get('/poems');
-    return response.data;
+    const response = await $api.get('/poems/authorId/'+authorId);
+    return response;
   }catch (error) {
     throw new Error('Error al traer todos los escritos del usuario ' + error.message); 
   }

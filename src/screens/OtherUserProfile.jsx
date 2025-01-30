@@ -30,8 +30,6 @@ function OtherUserProfile({ otherUser }) {
     return <Text>Loading...</Text>;
   }
 
-
-
     const handleSelectOption = (option) => {
           setSelectedOption(option);
       };
