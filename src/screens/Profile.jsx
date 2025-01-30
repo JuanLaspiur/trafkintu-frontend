@@ -67,7 +67,7 @@ function Profile({ navigation }) {
         </TouchableOpacity>
 
         <Image
-          source={require('../../assets/gift/fotografica_animation.webp')}
+          source={user?.imagenPortada || require('../../assets/gift/fotografica_animation.webp')}
           style={styles.backgroundImage}
           contentFit="cover"
         />

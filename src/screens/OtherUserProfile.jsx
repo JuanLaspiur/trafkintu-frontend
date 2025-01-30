@@ -36,7 +36,6 @@ function OtherUserProfile({ otherUser }) {
           setSelectedOption(option);
       };
   
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
           <HeaderProfileLogo color={'#fff'}/>
@@ -49,7 +48,7 @@ function OtherUserProfile({ otherUser }) {
         </TouchableOpacity>
 
         <Image
-          source={require('../../assets/gift/fotografica_animation.webp')}
+          source={author?.imagenPortada || require('../../assets/gift/fotografica_animation.webp')}
           style={styles.backgroundImage}
           contentFit="cover"
         />
