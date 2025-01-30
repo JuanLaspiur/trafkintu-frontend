@@ -30,7 +30,7 @@ function MyPoemsPublic({poems =[]}) {
     <View style={styles.container}>
       <Text style={styles.title}>Mis Escritos Públicos </Text>
       {currentPoems.map((poem, index) => (
-        <PoemCard key={index} image={poem.image} title={poem.title} />
+        <PoemCard key={index} image={poem.image} title={poem.title} poem={poem}/>
       ))}
 
       <Pagination
