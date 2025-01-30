@@ -13,18 +13,18 @@ import { getAllPoemComments } from '../services/poemComment.services';
 
 function PoemDetail() {
   const route = useRoute();
-  const { title, image, poemId, content, author } = route.params;
+  const { poem } = route.params;
   const navigation = useNavigation();
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
  
   useEffect(()=>{
     const fetchPoemComments = async()=>{
-    const result = await getAllPoemComments(poemId)
+    const result = await getAllPoemComments(poem._id)
     setComments(result.data)  
   }
     fetchPoemComments()
-  }, [poemId])
+  }, [poem._id])
 
   const handleCommentSubmit = () => {
     setComment('');
@@ -40,25 +40,22 @@ function PoemDetail() {
           <AntDesign name="left" size={27} color='gray' />
         </TouchableOpacity>
       </View>
-      <Image source={image} style={styles.image} />
-      <Text style={styles.title}>{title}</Text>
+      <Image source={poem.image} style={styles.image} />
+      <Text style={styles.title}>{poem.title}</Text>
       <Text style={styles.poem}>
 {/* TO-DO quitar lorem */}
-        {content ? content:<> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. 
-        Cras venenatis euismod malesuada. Nulla facilisi. Duis aliquet egestas purus in blandit. Curabitur volutpat 
-        ligula vel mauris fermentum, quis viverra orci posuere. Fusce malesuada, velit nec suscipit pulvinar, sem 
-        libero tincidunt magna, non suscipit sem nunc a neque.</>}
+        {poem.content ? poem.content:<> Error al cargar escrito, intente más tarde</>}
       </Text> 
       <AuthorInfo
-        id={author._id}
-        author = {author}
-        name={author?.username}
-        avatar={author?.imagenPerfil}
+        id={poem.author._id}
+        author = {poem.author}
+        name={poem.author?.username}
+        avatar={poem.author?.imagenPerfil}
       />
-     <PoemDetailOptions/>
+     <PoemDetailOptions poem={poem}/>
       <CommentSection 
         comments={comments} 
-        comment={comment} 
+        comment={poem.comment} 
         setComment={setComment} 
         handleCommentSubmit={handleCommentSubmit} 
       />

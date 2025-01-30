@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
+import { formatDateToSpanishLong } from '../../helpers/formatDate';
 
-const PoemDetailOptions = () => {
+const PoemDetailOptions = ({ poem }) => {
   const [likes, setLikes] = useState(0);
   const [hasLiked, setHasLiked] = useState(false);
-  const userId = '123'; // ID de usuario hardcodeado
 
   const handlePlayPoem = () => {
     Alert.alert('Reproduciendo el poema...');
@@ -36,7 +36,8 @@ const PoemDetailOptions = () => {
           source={require('../../../assets/icons/fecha_card.webp')}
           style={styles.icon}
         />
-        <Text style={styles.dateText}>Publicado el: 24 de enero de 2025</Text>
+        {/* Por que me dice poem dosent */}
+        <Text style={styles.dateText}>Publicado el: {formatDateToSpanishLong(poem?.createdAt)}</Text>
       </View>
 
       <View style={styles.viewsContainer}>

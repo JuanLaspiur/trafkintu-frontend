@@ -14,12 +14,8 @@ function LastPoems({lastThreePoems}) {
       <Swiper style={styles.swiper} showsPagination={false} loop={true} autoplay={true} autoplayTimeout={5}>
         {poems.map((poem) => (
           <PoemCard
-            poemId={poem._id}
-            title={poem.title}
-            image={poem.image}
-            author={poem.author}
             date={formatDateToSpanishLong(poem.createdAt)}
-            content={poem.content}
+            poem={poem}
           />
         ))}
       </Swiper>
@@ -27,19 +23,19 @@ function LastPoems({lastThreePoems}) {
   );
 }
 
-function PoemCard({ title, image, author, date, content, poemId }) {
+function PoemCard({ date, poem }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate('PoemDetail', { title, image, author, date, poemId, content });
+    navigation.navigate('PoemDetail', { poem });
   };
 
   return (
     <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}>
       <View style={styles.card}>
-        <Image source={image} style={styles.image} />
-        <Text style={styles.cardTitle}><Image source={require('../../../assets/icons/titulo_card.webp')} style={styles.iconTitleCard} /> {title || 'Sin título'}</Text>
-        <Text style={styles.cardAuthor}><Image source={require('../../../assets/icons/autor_card.webp')} style={styles.iconTitleCard} />   Autor: {author.username}</Text>
+        <Image source={poem.image} style={styles.image} />
+        <Text style={styles.cardTitle}><Image source={require('../../../assets/icons/titulo_card.webp')} style={styles.iconTitleCard} /> {poem.title || 'Sin título'}</Text>
+        <Text style={styles.cardAuthor}><Image source={require('../../../assets/icons/autor_card.webp')} style={styles.iconTitleCard} />   Autor: {poem.author.username}</Text>
         <Text style={styles.cardDate}><Image source={require('../../../assets/icons/fecha_card.webp')} style={styles.iconTitleCard} />   Publicado: {date}</Text>
       </View>
     </TouchableOpacity>

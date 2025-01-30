@@ -21,16 +21,10 @@ function SevenLastPoems({ lastSevenPoems }) {
       <View style={styles.cardsContainer}>
         {visiblePoems.map((poem) => (
           <MiniPoemCard
-            poemId={poem._id} // Añadir una clave única para cada tarjeta
-            title={poem.title}
-            author={poem.author}
             date={formatDateToDDMMYYYY(poem.createdAt)}
-            image={poem.image}
-            image_route="../../../assets/gift/yellow_kiss.webp"
-            content={poem.content}
+            poem={poem}
           />
         ))}
-        {/* Mostrar "Ver todos" solo cuando showAll sea true */}
         {showAll && (
           <MiniCardSeeAll onPress={togglePoems} />
         )}
@@ -39,29 +33,21 @@ function SevenLastPoems({ lastSevenPoems }) {
         <Ionicons
           name={showAll ? "chevron-up" : "chevron-down"}
           size={30}
-          color={colorPalette.acent} // Usamos colorPalette.acent
+          color={colorPalette.accent} // Usamos colorPalette.acent
         />
       </TouchableOpacity>
     </View>
   );
 }
 
-function MiniPoemCard({ title, author, date, image, image_route, content, poemId }) {
+function MiniPoemCard({  date, poem }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    navigation.navigate("PoemDetail", {
-      title,
-      poemId,
-      image,
-      author,
-      date,
-      image_route,
-      content,
-    });
+    navigation.navigate("PoemDetail", { poem });
   };
 
-  const authorString = author.name ? (typeof author === 'string' ? author.name : author.name) : '';
+  const authorString = poem?.author?.name ? (typeof poem.author.name === 'string' ? poem.author.name : poem.author.name) : '';
   const dateString = date ? (typeof date === 'string' ? date : formatDateToDDMMYYYY(date)) : '';
 
   return (
@@ -70,8 +56,8 @@ function MiniPoemCard({ title, author, date, image, image_route, content, poemId
       activeOpacity={0.7}
       style={styles.miniCard}
     >
-      <Image source={image} style={styles.miniImage} />
-      <Text style={styles.miniCardTitle}>{title}</Text>
+      <Image source={poem.image} style={styles.miniImage} />
+      <Text style={styles.miniCardTitle}>{poem.title}</Text>
       <Text style={styles.miniCardSubtitle}>
         <Image
           source={require('../../../assets/icons/autor_card.webp')}
