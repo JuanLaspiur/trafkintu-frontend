@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import OtherComponents from '../components/optionsOtherProfile/OtherCompents.jsx';
 import HeaderProfileLogo from '../components/header/HeaderProfileLogo.jsx';
 import { useRoute } from '@react-navigation/native';
+import { getCommentsByUserId } from '../services/poemComment.services.js';
 
 function OtherUserProfile({ otherUser }) {
  const { user } = useAuth();
@@ -26,12 +27,19 @@ function OtherUserProfile({ otherUser }) {
   const [selectedOption, setSelectedOption] = useState('publico');
   const [description, setDescription] = useState(author?.description || 'Aún no se ha añadido una descripción personal.');
   const [publicPoems, setPublicPoems] = useState([]);
+  const [comments, setComments] = useState([]);
   useEffect(()=>{
-    const fetchMyPoems = async()=>{  
+    const fetchPoems = async()=>{  
       const result = await getAllPoemsByUserId(author._id);
       setPublicPoems(result.data);
     }
-    fetchMyPoems();
+
+    const fetchComments = async()=>{
+      const result = await getCommentsByUserId(author._id);
+      setComments(result.data);
+    }
+    fetchPoems();
+    fetchComments();
   },[]) 
 
 
@@ -87,7 +95,8 @@ function OtherUserProfile({ otherUser }) {
    
       </View>
       {selectedOption === 'publico' && <OtherPoemsPublic poems={publicPoems}/> }
-      {selectedOption === 'comentarios' && <OtherComponents/>}
+      {/* TO DO  cambiar nombre al componente OtherComponents*/}
+      {selectedOption === 'comentarios' && <OtherComponents commentsList={comments}/>}
       {selectedOption === 'seguidores' && <OtherFollowers/>}
       {selectedOption === 'seguidos' && <OtherFollowing/>}
     </ScrollView>

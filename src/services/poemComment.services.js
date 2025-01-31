@@ -29,3 +29,14 @@ export const deletePoemComment = async (commentId) => {
     throw new Error('Error al eliminar el comentario: ' + error.message);
   }
 };
+
+
+export const getCommentsByUserId = async(userid)=>{
+  try {
+    const response = await $api.get(`/poem-comments/userid/678eb78ab87b538c618cf769`);
+    return response.data;
+  } catch (error) {
+    alert('soy error '+error)
+    throw new Error('Error al traer comentarios el comentarios del usuario: ' + error.message);
+  }
+}

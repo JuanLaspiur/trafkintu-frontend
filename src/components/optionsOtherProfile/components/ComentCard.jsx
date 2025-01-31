@@ -3,11 +3,10 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import colorPalette from '../../../helpers/color_palette';
 
 function ComentCard({ 
-  comment = 'Este es un comentario muy largo que debería ser truncado.', 
+  comment, 
   onPress 
 }) {
   const maxCharacters = 50; 
-
   const truncateText = (text, limit) =>
     text.length > limit ? `${text.slice(0, limit)}...` : text;
 
@@ -18,9 +17,9 @@ function ComentCard({
         style={styles.icon}
       />
       <View style={styles.contentContainer}>
-        <Text style={styles.userName}>Nombre Poema - Autor Poema</Text>
+        <Text style={styles.userName}>{comment.poem.title} -{comment?.poem?.author?.username} {comment?.poem?.author?.userlastname} </Text>
         <Text style={styles.commentText}>
-          {truncateText(comment, maxCharacters)}
+          {truncateText(comment.content, maxCharacters)}
         </Text>
       </View>
     </TouchableOpacity>
