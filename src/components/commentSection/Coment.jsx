@@ -24,32 +24,32 @@ function LikeButton() {
   );
 }
 
-function Coment({ commentId, avatar, user, text, isOwner, date, isLoged, authId, comentAuthor }) {
+function Coment({ comment, isOwner, isLoged, comentAuthor, authUser }) {
   const navigation = useNavigation();
-  const publicationDate = new Date(date);
+  const publicationDate = new Date(comment.createdAt);
 
   const formattedDate = `${publicationDate.getDate()}/${publicationDate.getMonth() + 1}/${publicationDate.getFullYear()} ${publicationDate.getHours()}:${publicationDate.getMinutes()}`;
 
   const handleDelete = async() => {
-    const result = await deletePoemComment(commentId)
+    const result = await deletePoemComment(comment._id)
   };
 
   const goToProfile = () => {
-    if (user._id == comentAuthor._id) {
-     navigation.navigate("Profile", { author:user, name:user, avatar });
+    if (authUser._id == comentAuthor._id) {
+     navigation.navigate("Profile", { author:authUser });
     } else {
-      navigation.navigate("OtherUserProfile", { author:comentAuthor ,name:user, avatar });
+      navigation.navigate("OtherUserProfile", { author:comentAuthor });
     }
   };
 
   return (
     <View style={[styles.comment, { marginBottom: isLoged ? 10 : 30 }]}>
       <TouchableOpacity onPress={goToProfile} style={styles.authorContainer}>
-        <Image source={{ uri: avatar }} style={styles.commentAvatar} />    
+        <Image source={{ uri: comentAuthor.imagenPerfil }} style={styles.commentAvatar} />    
       </TouchableOpacity>
       <View style={styles.commentContent}>
-        <Text style={styles.commentUser}>{user}</Text>
-        <Text style={styles.commentText}>{text}</Text>
+        <Text style={styles.commentUser}>{comentAuthor.username}</Text>
+        <Text style={styles.commentText}>{comment.content}</Text>
 
         {(isLoged && !isOwner) && <LikeButton />}
         
