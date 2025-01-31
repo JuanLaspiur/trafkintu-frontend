@@ -5,23 +5,23 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Image } from 'expo-image';
 import colorPalette from '../../helpers/color_palette';
 
-function AuthorInfo({ id = '1',name, avatar, author }) {
+function AuthorInfo({ id = '1', author }) {
   const { user } =useAuth(); 
   const navigation = useNavigation();
 
   const goToProfile = ()=>{
     if(user && user._id == id) {
-      navigation.navigate("Profile", { name, avatar })
+      navigation.navigate("Profile", { name:author.username, avatar:author.imagenPerfil })
       }
       else {
-        navigation.navigate("OtherUserProfile", { author, name:author.name, avatar:author.imagenPerfil })
+        navigation.navigate("OtherUserProfile", { author, name:author.username, avatar:author.imagenPerfil })
       }
   }
 
   return (
     <TouchableOpacity   onPress={goToProfile} style={styles.authorContainer}>
-      <Image source={{ uri: avatar }} style={styles.authorAvatar} />
-      <Text style={styles.authorName}>{name}</Text> 
+      <Image source={{ uri: author.imagenPerfil }} style={styles.authorAvatar} />
+      <Text style={styles.authorName}>{author.username}</Text> 
     </TouchableOpacity>
   );
 }

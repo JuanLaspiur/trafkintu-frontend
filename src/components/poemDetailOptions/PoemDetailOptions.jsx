@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, Alert } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
 import { formatDateToSpanishLong } from '../../helpers/formatDate';
-
+import { addLike, removeLike } from '../../services/poems.services';
 const PoemDetailOptions = ({ poem }) => {
   const [likes, setLikes] = useState(0);
   const [hasLiked, setHasLiked] = useState(false);

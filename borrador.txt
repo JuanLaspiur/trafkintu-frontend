@@ -1,0 +1,4 @@
+## mostrar likes de PoemDetailOptions
+Dar a like o dis-
+
+## optimicar Profile, y Other profile para que no sea necesario pasar el avatar

@@ -35,10 +35,10 @@ function Coment({ comment, isOwner, isLoged, comentAuthor, authUser }) {
   };
 
   const goToProfile = () => {
-    if (authUser._id == comentAuthor._id) {
-     navigation.navigate("Profile", { author:authUser });
+    if (authUser?._id == comentAuthor?._id) {
+     navigation.navigate("Profile", { author:authUser, avatar:authUser.imagenPerfil  });
     } else {
-      navigation.navigate("OtherUserProfile", { author:comentAuthor });
+      navigation.navigate("OtherUserProfile", { author:comentAuthor, avatar:comentAuthor.imagenPerfil });
     }
   };
 

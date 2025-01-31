@@ -44,8 +44,6 @@ function PoemDetail() {
       <AuthorInfo
         id={poem.author._id}
         author = {poem.author}
-        name={poem.author?.username}
-        avatar={poem.author?.imagenPerfil}
       />
      <PoemDetailOptions poem={poem}/>
       <CommentSection 
