@@ -1,23 +1,25 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import colorPalette from '../../../helpers/color_palette';
-
+import { useNavigation } from '@react-navigation/native'; 
 function ComentCard({ 
-  comment, 
-  onPress 
+  comment
 }) {
   const maxCharacters = 50; 
+  const navigation = useNavigation();
   const truncateText = (text, limit) =>
     text.length > limit ? `${text.slice(0, limit)}...` : text;
-
+  const handleCardPress = () => {
+    navigation.navigate('PoemDetail', { poem:comment.poem });
+  };
   return (
-    <TouchableOpacity style={styles.cardContainer} onPress={onPress}>
+    <TouchableOpacity style={styles.cardContainer} onPress={handleCardPress} >
       <Image
         source={require('../../../../assets/icons/mini_coment.webp')}
         style={styles.icon}
       />
       <View style={styles.contentContainer}>
-        <Text style={styles.userName}>{comment.poem.title} -{comment?.poem?.author?.username} {comment?.poem?.author?.userlastname} </Text>
+        <Text style={styles.userName}>{comment?.poem?.title} -{comment?.poem?.author?.username} {comment?.poem?.author?.userlastname} </Text>
         <Text style={styles.commentText}>
           {truncateText(comment.content, maxCharacters)}
         </Text>

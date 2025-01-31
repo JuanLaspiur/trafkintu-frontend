@@ -33,10 +33,12 @@ export const deletePoemComment = async (commentId) => {
 
 export const getCommentsByUserId = async(userid)=>{
   try {
-    const response = await $api.get(`/poem-comments/userid/678eb78ab87b538c618cf769`);
+    const response = await $api.get(`/poem-comments/userid/${userid}`);
     return response.data;
   } catch (error) {
-    alert('soy error '+error)
+    if (error.response && error.response.status === 404) {
+      return {data:[]};
+    }
     throw new Error('Error al traer comentarios el comentarios del usuario: ' + error.message);
   }
 }
