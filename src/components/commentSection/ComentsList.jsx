@@ -27,6 +27,7 @@ function ListComent({ comments }) {
             isLoged={token ? true : false}
             authId={user?._id}
             token={token}
+            comentAuthor={item.user}
           />
         ))
       ) : (

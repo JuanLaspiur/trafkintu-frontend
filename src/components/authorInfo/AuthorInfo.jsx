@@ -20,7 +20,6 @@ function AuthorInfo({ id = '1',name, avatar, author }) {
 
   return (
     <TouchableOpacity   onPress={goToProfile} style={styles.authorContainer}>
-   
       <Image source={{ uri: avatar }} style={styles.authorAvatar} />
       <Text style={styles.authorName}>{name}</Text> 
     </TouchableOpacity>

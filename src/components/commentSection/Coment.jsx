@@ -24,7 +24,7 @@ function LikeButton() {
   );
 }
 
-function Coment({ commentId, avatar, user, text, isOwner, date, isLoged, authId }) {
+function Coment({ commentId, avatar, user, text, isOwner, date, isLoged, authId, comentAuthor }) {
   const navigation = useNavigation();
   const publicationDate = new Date(date);
 
@@ -35,10 +35,10 @@ function Coment({ commentId, avatar, user, text, isOwner, date, isLoged, authId 
   };
 
   const goToProfile = () => {
-    if (user._id == authId) {
-      navigation.navigate("Profile", { name:user, avatar });
+    if (user._id == comentAuthor._id) {
+     navigation.navigate("Profile", { author:user, name:user, avatar });
     } else {
-      navigation.navigate("OtherUserProfile", { name:user, avatar });
+      navigation.navigate("OtherUserProfile", { author:comentAuthor ,name:user, avatar });
     }
   };
 
