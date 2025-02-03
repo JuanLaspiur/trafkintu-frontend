@@ -5,15 +5,16 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  ActivityIndicator
 } from "react-native";
-import { ActivityIndicator } from "react-native";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 import RegisterModal from "../components/registerModal/RegisterModal.jsx";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { loginUser } from "../services/auth.services.js";
-import { Ionicons } from "@expo/vector-icons";
+import BouncyCheckbox from "react-native-bouncy-checkbox"; // Importa BouncyCheckbox
 
 const { height } = Dimensions.get("window");
 
@@ -27,6 +28,7 @@ function Login() {
   const [fontsLoaded] = useFonts({
     Roboto_400Regular
   });
+  const [isRememberMeChecked, setIsRememberMeChecked] = useState(false); 
 
   const navigation = useNavigation();
 
@@ -34,21 +36,22 @@ function Login() {
     setIsLoading(true);
     try {
       const result = await loginUser({ email, password });
-      if(result != '1' && result != '2'&& result != '3') {
-      login(result);
-      navigation.navigate("Home"); } else{
+      if (result != "1" && result != "2" && result != "3") {
+        login(result);
+        navigation.navigate("Home");
+      } else {
         switch (result) {
           case 1:
-            alert('Usuario no encontrado ');
+            alert("Usuario no encontrado ");
             break;
           case 2:
-            alert('Credenciales inválidas ');
+            alert("Credenciales inválidas ");
             break;
           case 3:
-            alert('Error desconocido ');
+            alert("Error desconocido ");
             break;
           default:
-            alert('Error inesperado');
+            alert("Error inesperado");
         }
       }
     } catch (error) {
@@ -99,21 +102,34 @@ function Login() {
               color="#A1A1A1"
             />
           </TouchableOpacity>
+        </View> 
+        <View style={styles.remembermeContainter}>
+          <BouncyCheckbox
+            size={25}
+            fillColor="#25B3AD"
+            unfillColor="#FFFFFF"
+            text="Recordarme"
+            iconStyle={{ borderColor: "#25B3AD" }}
+            textStyle={{ color: "#A1A1A1", fontSize: 14 }}
+            isChecked={isRememberMeChecked}
+            onPress={() => setIsRememberMeChecked(!isRememberMeChecked)} 
+          />
         </View>
       </View>
+
       <TouchableOpacity
-  style={styles.button}
-  onPress={handleLogin}
-  disabled={isLoading}
->
-  <View style={styles.buttonContent}>
-    {isLoading ? (
-      <ActivityIndicator size="small" color="#FFF" />
-    ) : (
-      <Text style={styles.buttonText}>Ingresar</Text>
-    )}
-  </View>
-</TouchableOpacity>
+        style={styles.button}
+        onPress={handleLogin}
+        disabled={isLoading}
+      >
+        <View style={styles.buttonContent}>
+          {isLoading ? (
+            <ActivityIndicator size="small" color="#FFF" />
+          ) : (
+            <Text style={styles.buttonText}>Ingresar</Text>
+          )}
+        </View>
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={handleRegister}>
         <Text style={styles.registerText}>
@@ -182,24 +198,22 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: "#25B3AD",
     borderRadius: 19,
-    width: 200, // ANCHO FIJO PARA EVITAR CAMBIOS
-    height: 50, // ALTURA FIJA PARA UNIFORMIDAD
+    width: 200,
+    height: 50, 
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
-  
   buttonContent: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
-  
   buttonText: {
     fontFamily: "Roboto_400Regular",
     fontSize: 18,
     fontWeight: "700",
     color: "white",
-    textAlign: "center",
+    textAlign: "center"
   },
   registerText: {
     fontFamily: "Roboto_400Regular",
@@ -208,6 +222,9 @@ const styles = StyleSheet.create({
     color: "#A1A1A1",
     textAlign: "center",
     marginTop: 20
+  },
+  remembermeContainter: {
+    paddingHorizontal: 5
   }
 });
 
