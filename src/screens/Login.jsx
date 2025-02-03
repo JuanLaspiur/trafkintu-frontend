@@ -34,8 +34,23 @@ function Login() {
     setIsLoading(true);
     try {
       const result = await loginUser({ email, password });
+      if(result != '1' && result != '2'&& result != '3') {
       login(result);
-      navigation.navigate("Home");
+      navigation.navigate("Home"); } else{
+        switch (result) {
+          case 1:
+            alert('Usuario no encontrado ');
+            break;
+          case 2:
+            alert('Credenciales inválidas ');
+            break;
+          case 3:
+            alert('Error desconocido ');
+            break;
+          default:
+            alert('Error inesperado');
+        }
+      }
     } catch (error) {
       console.error("Login failed:", error);
     } finally {
@@ -57,7 +72,6 @@ function Login() {
         <Text style={styles.text}>Trafkintu.</Text>
         <Text style={styles.textBlack}>Iniciar sesión</Text>
       </View>
-
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
