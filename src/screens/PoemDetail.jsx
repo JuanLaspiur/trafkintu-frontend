@@ -14,6 +14,7 @@ import { getAllPoemComments } from '../services/poemComment.services';
 function PoemDetail() {
   const route = useRoute();
   const { poem } = route.params;
+  const [ poemDetail, setPoemDetail] = useState(poem); 
   const navigation = useNavigation();
   const [comments, setComments] = useState([]);
  
@@ -37,15 +38,15 @@ function PoemDetail() {
         </TouchableOpacity>
       </View>
       <Image source={poem.image} style={styles.image} />
-      <Text style={styles.title}>{poem.title}</Text>
+      <Text style={styles.title}>{poemDetail.title}</Text>
       <Text style={styles.poem}>
-        {poem.content ? poem.content:<> Error al cargar escrito, intente más tarde</>}
+        {poemDetail.content ? poemDetail.content:<> Error al cargar escrito, intente más tarde</>}
       </Text> 
       <AuthorInfo
-        id={poem.author._id}
-        author = {poem.author}
+        id={poemDetail.author._id}
+        author = {poemDetail.author}
       />
-     <PoemDetailOptions poem={poem}/>
+     <PoemDetailOptions poem={poemDetail} setPoem={setPoemDetail}/>
       <CommentSection 
         poemId={poem._id}
         comments={comments} 

@@ -1,56 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
 import { formatDateToSpanishLong } from '../../helpers/formatDate';
-import { addLike, removeLike } from '../../services/poems.services';
-const PoemDetailOptions = ({ poem }) => {
-  const [likes, setLikes] = useState(0);
-  const [hasLiked, setHasLiked] = useState(false);
+import { addLike, removeLike, getPoemByPoemId } from '../../services/poems.services';
+import { useAuth } from '../../contexts/AuthContext';
+const PoemDetailOptions = ({ poem, setPoem }) => {
+  const { user, token } = useAuth(); 
+  const [likes, setLikes] = useState(poem.likes.length);
+  const [hasLiked, setHasLiked] = useState(user ? poem.likes.includes(user._id) : false);
 
-  const handlePlayPoem = () => {
-    Alert.alert('Reproduciendo el poema...');
-  };
-
-  const handleLike = () => {
-    if (!hasLiked) {
-      setLikes(likes + 1);
-      setHasLiked(true);
-    } else {
-      Alert.alert('Ya has dado "Me gusta" a este poema.');
+  useEffect(() => {
+    if (user) {
+      setHasLiked(poem.likes.includes(user._id));
     }
+  }, [poem.likes, user]);
+
+  const fetchPoem = async()=>{
+    const result = await getPoemByPoemId(poem._id);
+    setPoem(result)
+  }
+
+  const handleLike = async () => {
+    if (!user) {
+      Alert.alert('Debes iniciar sesión para dar "Me gusta".');
+      return;
+    }
+
+      if (hasLiked) {
+        await removeLike(poem._id, token);
+        setLikes(likes - 1);
+        setHasLiked(false);
+      } else {
+        await addLike(poem._id, token);
+        setLikes(likes + 1);
+        setHasLiked(true);
+      }
+      fetchPoem()
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.playButton} onPress={handlePlayPoem}>
-        <Image
-          source={require('../../../assets/icons/repoducir_poemdetail.webp')}
-          style={styles.icon}
-        />
+      <TouchableOpacity style={styles.playButton} onPress={() => Alert.alert('Reproduciendo el poema...')}>
+        <Image source={require('../../../assets/icons/repoducir_poemdetail.webp')} style={styles.icon} />
         <Text style={styles.playText}>Reproducir poema</Text>
       </TouchableOpacity>
 
       <View style={styles.dateContainer}>
-        <Image
-          source={require('../../../assets/icons/fecha_card.webp')}
-          style={styles.icon}
-        />
-        {/* Por que me dice poem dosent */}
+        <Image source={require('../../../assets/icons/fecha_card.webp')} style={styles.icon} />
         <Text style={styles.dateText}>Publicado el: {formatDateToSpanishLong(poem?.createdAt)}</Text>
       </View>
 
       <View style={styles.viewsContainer}>
-        <Image
-          source={require('../../../assets/icons/vistas_poemdetail.webp')}
-          style={styles.icon}
-        />
+        <Image source={require('../../../assets/icons/vistas_poemdetail.webp')} style={styles.icon} />
         <Text style={styles.viewsText}>1234 visualizaciones</Text>
       </View>
+
       <View style={styles.likesContainer}>
         <TouchableOpacity style={styles.likeButton} onPress={handleLike}>
-          <Ionicons name="thumbs-up" size={24} color={colorPalette.accent} style={styles.icon} />
-          <Text style={styles.likeText}>Me gusta</Text>
+          <Ionicons 
+            name={hasLiked ? "thumbs-up" : "thumbs-up-outline"} 
+            size={24} 
+            color={hasLiked ? colorPalette.primary : colorPalette.accent} 
+            style={styles.icon} 
+          />
+          <Text style={styles.likeText}>{hasLiked ? "Me gusta (✔️)" : "Me gusta"}</Text>
         </TouchableOpacity>
         <Text style={styles.likesCount}>{likes} Me gusta</Text>
       </View>
