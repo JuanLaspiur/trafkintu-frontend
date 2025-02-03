@@ -23,19 +23,22 @@ export const getAllPoems = async () => {
     const response = await $api.get('/poems/authorId/'+authorId);
     return response;
   }catch (error) {
+  
     throw new Error('Error al traer todos los escritos del usuario ' + error.message); 
   }
  } 
- export const addLike = async (poemId, token) => {
+ export const addLike = async (poemId, token) => {   
   try {
     const response = await $api.put(`/poems/like/${poemId}`, {}, {  
       headers: {
         'Authorization': `Bearer ${token}`,
       },
     });
+
     return response;
+
   } catch (error) {
-    throw new Error('Error al dar Like Escrito: ' + error.message);
+    alert('soy error add like')
   }
 };
 
@@ -48,6 +51,20 @@ export const removeLike = async (poemId, token) => {
     });
     return response;
   } catch (error) {
-    throw new Error('Error al eliminar el like ' + error.message); 
+    alert('soy error add remove like')
   }
 };
+
+export const addView = async (poemId, token) => {
+  try {
+    const response = await $api.put(`/poems/view/${poemId}`, {}, {  
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    alert('soy error add view')
+  }
+};
+

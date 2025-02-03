@@ -10,21 +10,34 @@ import HeaderProfileLogo from '../components/header/HeaderProfileLogo';
 import colorPalette from '../helpers/color_palette';
 import PoemDetailOptions from '../components/poemDetailOptions/PoemDetailOptions';
 import { getAllPoemComments } from '../services/poemComment.services';
+import { getPoemByPoemId } from '../services/poems.services';
 
 function PoemDetail() {
   const route = useRoute();
   const { poem } = route.params;
-  const [ poemDetail, setPoemDetail] = useState(poem); 
+  const [ poemDetail, setPoemDetail] = useState({}); 
   const navigation = useNavigation();
   const [comments, setComments] = useState([]);
- 
+
+  const fetchPoem = async()=>{ 
+    try {
+      const result = await getPoemByPoemId(poem._id);   
+    setPoemDetail(result);
+    } catch (error) {
+      alert('soy error '+error)
+    }
+    
+   }
+
   useEffect(()=>{
     const fetchPoemComments = async()=>{
-    const result = await getAllPoemComments(poem._id)
+    const result = await getAllPoemComments(poem?._id)
     setComments(result.data)  
   }
+    fetchPoem()
     fetchPoemComments()
   }, [poem._id])
+
 
 
   return (
@@ -38,17 +51,18 @@ function PoemDetail() {
         </TouchableOpacity>
       </View>
       <Image source={poem.image} style={styles.image} />
-      <Text style={styles.title}>{poemDetail.title}</Text>
+      <Text style={styles.title}>{poemDetail?.title}</Text>
       <Text style={styles.poem}>
-        {poemDetail.content ? poemDetail.content:<> Error al cargar escrito, intente más tarde</>}
+        {poemDetail?.content ? poemDetail?.content:<></>}
       </Text> 
       <AuthorInfo
-        id={poemDetail.author._id}
-        author = {poemDetail.author}
+        id={poem?.author?._id}
+        author = {poem?.author}
       />
-     <PoemDetailOptions poem={poemDetail} setPoem={setPoemDetail}/>
+      {poemDetail.likes != undefined && 
+     <PoemDetailOptions poem={poemDetail} fetchPoem={fetchPoem}/> }
       <CommentSection 
-        poemId={poem._id}
+        poemId={poem?._id}
         comments={comments} 
       />
     </ScrollView>

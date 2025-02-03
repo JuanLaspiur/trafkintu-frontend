@@ -1,6 +1,4 @@
-## mostrar likes de PoemDetailOptions
-Dar a like o dis-
-
 ## hacer el backend lo mismo pero con visualisaciones.
 
 ## optimicar Profile, y Other profile para que no sea necesario pasar el avatar
+## optimizar login para que pueda filtrar en caso de que no tenga contraseña, demas.

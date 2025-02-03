@@ -3,24 +3,29 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, Alert } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
 import { formatDateToSpanishLong } from '../../helpers/formatDate';
-import { addLike, removeLike, getPoemByPoemId } from '../../services/poems.services';
+import { addLike, removeLike, getPoemByPoemId, addView } from '../../services/poems.services';
 import { useAuth } from '../../contexts/AuthContext';
-const PoemDetailOptions = ({ poem, setPoem }) => {
+const PoemDetailOptions = ({ poem, fetchPoem }) => {
   const { user, token } = useAuth(); 
   const [likes, setLikes] = useState(poem.likes.length);
+  const [views, setViews] = useState(poem.views.length);
   const [hasLiked, setHasLiked] = useState(user ? poem.likes.includes(user._id) : false);
-
   useEffect(() => {
     if (user) {
       setHasLiked(poem.likes.includes(user._id));
+  
+      if (!poem.views.includes(user._id) && poem.author._id !== user._id) {
+        const registerView = async () => {
+          await addView(poem._id, token);
+          fetchPoem();
+        };
+        registerView();
+      }
     }
-  }, [poem.likes, user]);
+  }, [poem.likes, poem.views, user]);
+  
 
-  const fetchPoem = async()=>{
-    const result = await getPoemByPoemId(poem._id);
-    setPoem(result)
-  }
-
+ 
   const handleLike = async () => {
     if (!user) {
       Alert.alert('Debes iniciar sesión para dar "Me gusta".');
@@ -28,15 +33,19 @@ const PoemDetailOptions = ({ poem, setPoem }) => {
     }
 
       if (hasLiked) {
-        await removeLike(poem._id, token);
+       const result = await removeLike(poem._id, token);
+       if(result.data.success) {
         setLikes(likes - 1);
         setHasLiked(false);
+       }
       } else {
-        await addLike(poem._id, token);
-        setLikes(likes + 1);
+        const result = await addLike(poem._id, token);
+        if(result.data.success) {
+          setLikes(likes + 1);
         setHasLiked(true);
+       }
       }
-      fetchPoem()
+      await fetchPoem()
   };
 
   return (
@@ -53,7 +62,7 @@ const PoemDetailOptions = ({ poem, setPoem }) => {
 
       <View style={styles.viewsContainer}>
         <Image source={require('../../../assets/icons/vistas_poemdetail.webp')} style={styles.icon} />
-        <Text style={styles.viewsText}>1234 visualizaciones</Text>
+        <Text style={styles.viewsText}>{views} visualizaciones</Text>
       </View>
 
       <View style={styles.likesContainer}>
