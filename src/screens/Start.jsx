@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   StyleSheet,
   View,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../contexts/AuthContext";
 
 const { height } = Dimensions.get("window");
 
@@ -16,9 +17,9 @@ function Start() {
   const [fontsLoaded] = useFonts({
     Roboto_400Regular
   });
-
+  const { setAuth } = useAuth();
   const navigation = useNavigation();
-
+ useEffect(()=>{setAuth()},[])
   return (
     <View style={styles.container}>
       <View style={styles.overlay}>

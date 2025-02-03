@@ -14,8 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import RegisterModal from "../components/registerModal/RegisterModal.jsx";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { loginUser } from "../services/auth.services.js";
-import BouncyCheckbox from "react-native-bouncy-checkbox"; // Importa BouncyCheckbox
-
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 const { height } = Dimensions.get("window");
 
 function Login() {

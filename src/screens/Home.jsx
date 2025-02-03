@@ -13,6 +13,7 @@ function Home() {
 const [allPoems, setAllPoems] = useState([]);
 const [lastThreePoems, setLastThreePoems] =useState([]);
 const [lastSevenPoems, setLastSevenPoems] =useState([]);
+
 useEffect(() => {
   const fetchAllPoems = async () => {
     try {
@@ -28,7 +29,6 @@ useEffect(() => {
       console.error("Error fetching poems:", error);
     }
   };
-
   fetchAllPoems();
 }, []);
   return (
