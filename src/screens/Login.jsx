@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -15,6 +15,8 @@ import RegisterModal from "../components/registerModal/RegisterModal.jsx";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { loginUser } from "../services/auth.services.js";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const { height } = Dimensions.get("window");
 
 function Login() {
@@ -24,13 +26,26 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [savedEmails, setSavedEmails] = useState([]);
   const [fontsLoaded] = useFonts({
     Roboto_400Regular
   });
   const [isRememberMeChecked, setIsRememberMeChecked] = useState(false); 
-
   const navigation = useNavigation();
-
+  useEffect(() => {
+    const loadSavedEmails = async () => {
+      try {
+        const storedEmails = await AsyncStorage.getItem("savedEmails");
+        if (storedEmails) {
+          setSavedEmails(JSON.parse(storedEmails));
+        }
+      } catch (error) {
+        console.error("Error loading saved emails:", error);
+      }
+    };
+  
+    loadSavedEmails();
+  }, []);
   const handleLogin = async () => {
     setIsLoading(true);
     try {
@@ -38,6 +53,21 @@ function Login() {
       if (result != "1" && result != "2" && result != "3") {
         login(result);
         navigation.navigate("Home");
+        if (isRememberMeChecked) {
+          try {
+            // Obtener los correos guardados previamente
+            const storedEmails = await AsyncStorage.getItem("savedEmails");
+            let emailList = storedEmails ? JSON.parse(storedEmails) : [];
+  
+            // Evitar duplicados
+            if (!emailList.some((e) => e.email === email)) {
+              emailList.push({ email, password });
+              await AsyncStorage.setItem("savedEmails", JSON.stringify(emailList));
+            }
+          } catch (error) {
+            console.error("Error saving email:", error);
+          }
+        }
       } else {
         switch (result) {
           case 1:

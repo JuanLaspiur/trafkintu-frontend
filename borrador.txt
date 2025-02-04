@@ -1,3 +1,2 @@
-## optimicar Profile, y Other profile para que no sea necesario pasar el avatar
 ## optimizar login para que pueda filtrar en caso de que no tenga contraseña, demas.
 ## verificar lo se auht session en caso de que se cierre la app.
