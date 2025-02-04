@@ -11,10 +11,10 @@ function AuthorInfo({ id = '1', author }) {
 
   const goToProfile = ()=>{
     if(user && user._id == id) {
-      navigation.navigate("Profile", { name:author.username, avatar:author.imagenPerfil })
+      navigation.navigate("Profile")
       }
       else {
-        navigation.navigate("OtherUserProfile", { author, name:author.username, avatar:author.imagenPerfil })
+        navigation.navigate("OtherUserProfile", { author})
       }
   }
 

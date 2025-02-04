@@ -36,9 +36,9 @@ function Coment({ comment, isOwner, isLoged, comentAuthor, authUser }) {
 
   const goToProfile = () => {
     if (authUser?._id == comentAuthor?._id) {
-     navigation.navigate("Profile", { author:authUser, avatar:authUser.imagenPerfil  });
+     navigation.navigate("Profile");
     } else {
-      navigation.navigate("OtherUserProfile", { author:comentAuthor, avatar:comentAuthor.imagenPerfil });
+      navigation.navigate("OtherUserProfile", { author:comentAuthor });
     }
   };
 

@@ -20,7 +20,7 @@ import { getCommentsByUserId } from '../services/poemComment.services.js';
 function OtherUserProfile({ otherUser }) {
  const { user } = useAuth();
  const route = useRoute();
- const { avatar , name, author } = route.params;
+ const {author } = route.params;
  const navigation = useNavigation();
   const [fontsLoaded] = useFonts({ Roboto_400Regular });
   const [isEditing, setIsEditing] = useState(false);
@@ -70,7 +70,7 @@ function OtherUserProfile({ otherUser }) {
         <View style={styles.profileInfo}>
           <TouchableOpacity  style={styles.avatarContainer}>
             <ImageNoGift
-              source={{ uri: avatar }}
+              source={{ uri: author.imagenPerfil }}
               style={styles.avatar}
             />
           </TouchableOpacity>
