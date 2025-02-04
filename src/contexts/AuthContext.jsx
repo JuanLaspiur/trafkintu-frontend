@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }) => {
 
       if (savedToken) {
         setToken(savedToken);
-        alert(savedToken)
       }
 
       if (savedUser) {

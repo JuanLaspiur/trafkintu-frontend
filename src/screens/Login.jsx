@@ -16,7 +16,6 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import { loginUser } from "../services/auth.services.js";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 const { height } = Dimensions.get("window");
-
 function Login() {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
@@ -34,6 +33,7 @@ function Login() {
   const handleLogin = async () => {
     setIsLoading(true);
     try {
+
       const result = await loginUser({ email, password });
       if (result != "1" && result != "2" && result != "3") {
         login(result);

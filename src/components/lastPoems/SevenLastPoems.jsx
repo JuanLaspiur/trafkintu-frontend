@@ -47,7 +47,6 @@ function MiniPoemCard({  date, poem }) {
     navigation.navigate("PoemDetail", { poem });
   };
 
-  const authorString = poem?.author?.name ? (typeof poem.author.name === 'string' ? poem.author.name : poem.author.name) : '';
   const dateString = date ? (typeof date === 'string' ? date : formatDateToDDMMYYYY(date)) : '';
 
   return (
@@ -63,7 +62,7 @@ function MiniPoemCard({  date, poem }) {
           source={require('../../../assets/icons/autor_card.webp')}
           style={styles.iconTitleCard}
         />{" "}
-        {authorString} • {dateString}
+       {poem.author.username} • {dateString}
       </Text>
     </TouchableOpacity>
   );

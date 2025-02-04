@@ -1,2 +1,2 @@
-## optimizar login para que pueda filtrar en caso de que no tenga contraseña, demas.
-## verificar lo se auht session en caso de que se cierre la app.
+## Seguidor seguido
+## Loading de la pagina de poemas
