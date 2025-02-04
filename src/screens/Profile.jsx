@@ -16,7 +16,7 @@ import MyFollowing from '../components/optionsMyProfile/MyFollowing';
 import HeaderProfileLogo from '../components/header/HeaderProfileLogo';
 
 function Profile({ navigation }) {
-  const { user } = useAuth();
+  const { user, followers, followedUsers } = useAuth();
   const [fontsLoaded] = useFonts({ Roboto_400Regular });
   const [isEditing, setIsEditing] = useState(false);
   const [selectedOption, setSelectedOption] = useState('publico');
@@ -93,7 +93,7 @@ function Profile({ navigation }) {
 
       <View style={styles.descriptionContainer}>    
            <SelectorMyProfile selectedOption={selectedOption} handleSelectOption={handleSelectOption} />
-        <Text style={styles.followDescription} ><Text  onPress={() => handleSelectOption('seguidores')} style={ selectedOption === 'seguidores' && styles.selectedText}><AntDesign name="team" size={14} />Seguidores 5</Text>     <Text onPress={() => handleSelectOption('seguidos')} style={ selectedOption === 'seguidos' && styles.selectedText}><AntDesign name="addusergroup" size={14} /> Seguidos 10</Text></Text>
+        <Text style={styles.followDescription} ><Text  onPress={() => handleSelectOption('seguidores')} style={ selectedOption === 'seguidores' && styles.selectedText}><AntDesign name="team" size={14} />Seguidores {followers.length || 0}</Text>     <Text onPress={() => handleSelectOption('seguidos')} style={ selectedOption === 'seguidos' && styles.selectedText}><AntDesign name="addusergroup" size={14} /> Seguidos {followedUsers.length || 0}</Text></Text>
         <Text style={styles.descriptionTitle}><AntDesign name="infocirlceo" size={14} /> Mi Descripción</Text>
         {isEditing ? (
           <TextInput

@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
+
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity,Image as ImageNoGift, TextInput, Alert } from 'react-native';
-import { useAuth } from '../contexts/AuthContext';
 import { Image } from "expo-image";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import colorPalette from '../helpers/color_palette';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { getAllPoemsByUserId } from '../services/poems.services.js';
-import * as ImagePicker from 'expo-image-picker'; 
 import SelectorOtherUserProfile from '../components/selectorMenu/SelectorOtherUserProfile';
-import OtherPoemsPublic from '../components/optionsOtherProfile/OtherPoemsPublic';
-import OtherFollowers from '../components/optionsOtherProfile/OtherFollowers.jsx';
-import OtherFollowing from '../components/optionsOtherProfile/OtherFollowing.jsx';
-import { useNavigation } from '@react-navigation/native';
-import OtherComponents from '../components/optionsOtherProfile/OtherCompents.jsx';
+import { OtherPoemsPublic, OtherFollowers, OtherFollowing, OtherComponents } from '../components/optionsOtherProfile/';
 import HeaderProfileLogo from '../components/header/HeaderProfileLogo.jsx';
+import { useAuth } from '../contexts/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
+
 import { getCommentsByUserId } from '../services/poemComment.services.js';
+import { getAllPoemsByUserId } from '../services/poems.services.js';
+import { getFollowedUsers, getFollowers } from '../services/follow.services.js';
 
 function OtherUserProfile({ otherUser }) {
- const { user } = useAuth();
+ const { token, user } = useAuth();
  const route = useRoute();
  const {author } = route.params;
  const navigation = useNavigation();
@@ -28,6 +27,8 @@ function OtherUserProfile({ otherUser }) {
   const [description, setDescription] = useState(author?.description || 'Aún no se ha añadido una descripción personal.');
   const [publicPoems, setPublicPoems] = useState([]);
   const [comments, setComments] = useState([]);
+    const [followers, setFollowers] = useState([]);
+    const [followedUsers, setFollowedUsers] = useState([]); 
   useEffect(()=>{
     const fetchPoems = async()=>{  
       const result = await getAllPoemsByUserId(author._id);
@@ -38,6 +39,16 @@ function OtherUserProfile({ otherUser }) {
       const result = await getCommentsByUserId(author._id);
       setComments(result.data);
     }
+// seguidos
+    const fetchFollowedUsers = async()=>{
+      const result = await getFollowedUsers(author._id);
+      setFollowedUsers(result)
+    }
+    const fetchFollowers = async ()=>{
+      const result = await getFollowers(author._id);
+      setFollowers(result)
+    }
+    fetchFollowedUsers()
     fetchPoems();
     fetchComments();
   },[]) 
@@ -79,8 +90,8 @@ function OtherUserProfile({ otherUser }) {
       </View> 
 
       <View style={styles.descriptionContainer}>    
-           <SelectorOtherUserProfile selectedOption={selectedOption} handleSelectOption={handleSelectOption} />
-        <Text style={styles.followDescription} ><Text  onPress={() => handleSelectOption('seguidores')} style={ selectedOption === 'seguidores' && styles.selectedText}><AntDesign name="team" size={14} />Sus Seguidores 5</Text>     <Text onPress={() => handleSelectOption('seguidos')} style={ selectedOption === 'seguidos' && styles.selectedText}><AntDesign name="addusergroup" size={14} />Sus Seguidos 10</Text></Text>
+        <SelectorOtherUserProfile selectedOption={selectedOption} handleSelectOption={handleSelectOption} authorId={author._id}/>
+        <Text style={styles.followDescription} ><Text  onPress={() => handleSelectOption('seguidores')} style={ selectedOption === 'seguidores' && styles.selectedText}><AntDesign name="team" size={14} />Sus Seguidores {followedUsers.length || 0}</Text>     <Text onPress={() => handleSelectOption('seguidos')} style={ selectedOption === 'seguidos' && styles.selectedText}><AntDesign name="addusergroup" size={14} />Sus Seguidos {followers.length || 0}</Text></Text>
         <Text style={styles.descriptionTitle}><AntDesign name="infocirlceo" size={14} /> Su Descripción</Text>
         {isEditing ? (
           <TextInput

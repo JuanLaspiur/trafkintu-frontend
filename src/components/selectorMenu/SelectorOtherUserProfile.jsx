@@ -3,7 +3,7 @@ import { View, Image, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
 
-function SelectorOtherUserProfile({ selectedOption, handleSelectOption }) {
+function SelectorOtherUserProfile({ selectedOption, handleSelectOption, authorId }) {
   const [isFollowing, setIsFollowing] = useState(false); // Estado para seguir/no seguir
 
   const toggleFollow = () => {
