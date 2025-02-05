@@ -92,7 +92,7 @@ function OtherUserProfile({ otherUser }) {
 
       <View style={styles.descriptionContainer}>    
         <SelectorOtherUserProfile selectedOption={selectedOption} handleSelectOption={handleSelectOption} followers={followers}  authorId={author._id}/>
-        <Text style={styles.followDescription} ><Text  onPress={() => handleSelectOption('seguidores')} style={ selectedOption === 'seguidores' && styles.selectedText}><AntDesign name="team" size={14} />Sus Seguidores {followedUsers.length || 0}</Text>     <Text onPress={() => handleSelectOption('seguidos')} style={ selectedOption === 'seguidos' && styles.selectedText}><AntDesign name="addusergroup" size={14} />Sus Seguidos {followers.length || 0}</Text></Text>
+        <Text style={styles.followDescription} ><Text  onPress={() => handleSelectOption('seguidores')} style={ selectedOption === 'seguidores' && styles.selectedText}><AntDesign name="team" size={14} />Sus Seguidores {followers.length || 0}</Text>     <Text onPress={() => handleSelectOption('seguidos')} style={ selectedOption === 'seguidos' && styles.selectedText}><AntDesign name="addusergroup" size={14} />Sus Seguidos {followedUsers.length || 0}</Text></Text>
         <Text style={styles.descriptionTitle}><AntDesign name="infocirlceo" size={14} /> Su Descripción</Text>
         {isEditing ? (
           <TextInput
@@ -108,9 +108,9 @@ function OtherUserProfile({ otherUser }) {
       </View>
       {selectedOption === 'publico' && <OtherPoemsPublic poems={publicPoems}/> }
       {/* TO DO  cambiar nombre al componente OtherComponents*/}
-      {selectedOption === 'comentarios' && <OtherComponents commentsList={comments}/>}
-      {selectedOption === 'seguidores' && <OtherFollowers/>}
-      {selectedOption === 'seguidos' && <OtherFollowing/>}
+      {selectedOption === 'comentarios' && <OtherComponents commentsList={comments} />}
+      {selectedOption === 'seguidores' && <OtherFollowers followers={followers}  />}
+      {selectedOption === 'seguidos' && <OtherFollowing followedUsers={followedUsers}/>}
     </ScrollView>
   );
 }
