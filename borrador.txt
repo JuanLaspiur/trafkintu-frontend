@@ -1,6 +1,6 @@
 ## Que poem detail no pierda su tamaño
 ## Que se pueda reproducir el poema
-## Ver por que en PoemDetail si entro del Mi perfil no se ve
-## Ver mis seguidores y mis seguidos de Perfil de usuario
-## Que pueda pasarlo a borrador
+## Que pueda pasarlo a borrador -- 2
 ## Que poemDetail pueda editarse, pasarse a borrador y elminarse si es mio.
+## Que el video de Youtube sea modificable
+## Que el Ver todos de los ultimos 7 poemas, sea un gradiente y que vaya a Pagina ver todos los poemas
