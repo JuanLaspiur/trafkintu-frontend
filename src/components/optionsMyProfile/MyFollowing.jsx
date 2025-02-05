@@ -6,26 +6,14 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import HeaderWithFilter from './components/HeaderWithFilter';
 import Pagination from './components/Pagination';
 
-const MyFollowing = () => {
-  const followers = [
-    { id: 1, name: 'User 1', avatar: 'https://this-person-does-not-exist.com/img/avatar-1.jpg' },
-    { id: 2, name: 'User 2', avatar: 'https://this-person-does-not-exist.com/img/avatar-2.jpg' },
-    { id: 3, name: 'User 3', avatar: 'https://this-person-does-not-exist.com/img/avatar-3.jpg' },
-    { id: 4, name: 'User 4', avatar: 'https://this-person-does-not-exist.com/img/avatar-4.jpg' },
-    { id: 5, name: 'User 5', avatar: 'https://this-person-does-not-exist.com/img/avatar-5.jpg' },
-    { id: 6, name: 'User 6', avatar: 'https://this-person-does-not-exist.com/img/avatar-6.jpg' },
-    { id: 7, name: 'User 7', avatar: 'https://this-person-does-not-exist.com/img/avatar-7.jpg' },
-    { id: 8, name: 'User 8', avatar: 'https://this-person-does-not-exist.com/img/avatar-8.jpg' },
-    { id: 9, name: 'User 9', avatar: 'https://this-person-does-not-exist.com/img/avatar-9.jpg' },
-  ];
-
+const MyFollowing = ({followedUsers}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterText, setFilterText] = useState('');
 
   const followersPerPage = 5;
 
-  const filteredFollowers = followers.filter((follower) =>
-    follower.name.toLowerCase().includes(filterText.toLowerCase())
+  const filteredFollowers = followedUsers?.filter((follower) =>
+    follower.username.toLowerCase().includes(filterText.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredFollowers.length / followersPerPage);
@@ -55,9 +43,10 @@ const MyFollowing = () => {
       <View style={styles.cardContainer}>
         {currentFollowers.map((follower) => (
           <OtherUserCard
-            key={follower.id}
-            user={{ name: follower.name, avatar: follower.avatar }}
-          />
+          key={follower._id}
+          data={{ name: `${follower?.username} ${follower?.userlastname ? follower?.userlastname :''}` , avatar: follower?.imagenPerfil }}
+          author ={follower}
+        />
         ))}
       </View>
            <Pagination

@@ -115,8 +115,8 @@ function Profile({ navigation }) {
       </View>
       {selectedOption === 'publico' && <MyPoemsPublic poems={publicPoems}/> }
       {selectedOption === 'borrador' && <MyPoemsDraft poems={publicPoems} />}
-      {selectedOption === 'seguidores' && <MyFollowers/>}
-      {selectedOption === 'seguidos' && <MyFollowing/>}
+      {selectedOption === 'seguidores' && <MyFollowers followers={followers}/>}
+      {selectedOption === 'seguidos' && <MyFollowing followedUsers={followedUsers}/>}
     </ScrollView>
   );
 }

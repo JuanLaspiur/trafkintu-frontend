@@ -1,6 +1,6 @@
-## Seguidor seguido
-## Loading de la pagina de poemas
 ## Que poem detail no pierda su tamaño
 ## Que se pueda reproducir el poema
 ## Ver por que en PoemDetail si entro del Mi perfil no se ve
-## Ver si se agrega la lista de seguidores
+## Ver mis seguidores y mis seguidos de Perfil de usuario
+## Que pueda pasarlo a borrador
+## Que poemDetail pueda editarse, pasarse a borrador y elminarse si es mio.

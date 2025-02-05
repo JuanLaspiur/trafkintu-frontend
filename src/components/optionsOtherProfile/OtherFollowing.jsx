@@ -43,7 +43,7 @@ function OtherFollowing( {followedUsers}) {
         {currentFollowers.map((follower) => (
            <OtherUserCard
            key={follower._id}
-           data={{ name: `${follower?.username} ${follower?.userlastname}` , avatar: follower?.imagenPerfil }}
+           data={{ name: `${follower?.username}  ${follower?.userlastname ? follower?.userlastname :''}` , avatar: follower?.imagenPerfil }}
            author ={follower}
          />
         ))}

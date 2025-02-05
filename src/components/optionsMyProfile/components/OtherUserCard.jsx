@@ -2,22 +2,29 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import colorPalette from '../../../helpers/color_palette';
+import { useAuth } from '../../../contexts/AuthContext';
 
-function OtherUserCard({ user }) {
+function OtherUserCard({ data, author }) {
+  const {user} = useAuth()
   const navigation = useNavigation(); 
 
   const handleNavigate = () => {
-    navigation.navigate('OtherUserProfile'); 
+    if(author._id == user._id) {
+      navigation.navigate("Profile")
+      }
+      else {
+        navigation.navigate("OtherUserProfile", { author})
+      }
   };
 
   return (
     <TouchableOpacity onPress={handleNavigate}>
       <View style={styles.card}>
         <Image
-          source={{ uri:'https://this-person-does-not-exist.com/img/avatar-gence1a1e33fb6a8bb54cea76516040b661.jpg' }}
+          source={{ uri:data.avatar }}
           style={styles.avatar}
         />
-        <Text style={styles.username}>{user.name || 'Username'}</Text>
+        <Text style={styles.username}>{data.name || 'Username'}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -25,7 +32,7 @@ function OtherUserCard({ user }) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: colorPalette.neutralDark,
     flexDirection: 'row',
     alignItems: 'center',
     padding: 15,
