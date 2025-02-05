@@ -6,7 +6,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import HeaderWithFilter from './components/HeaderWithFilter';
 import Pagination from './components/Pagination';
 
-const MyFollowers = ({followers}) => {
+const MyFollowers = ({ followers }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterText, setFilterText] = useState('');
 
@@ -35,21 +35,32 @@ const MyFollowers = ({followers}) => {
         filterText={filterText}
         setFilterText={setFilterText}
       />
+
+      {filteredFollowers.length === 0 && (
+        <Text style={styles.noFollowersText}>No tiene seguidores aún</Text>
+      )}
+
       <View style={styles.cardContainer}>
         {currentFollowers.map((follower) => (
-   <OtherUserCard
-   key={follower._id}
-   data={{ name: `${follower?.username}  ${follower?.userlastname ? follower?.userlastname :''}` , avatar: follower?.imagenPerfil }}
-   author ={follower}
- />
+          <OtherUserCard
+            key={follower._id}
+            data={{ 
+              name: `${follower?.username} ${follower?.userlastname ? follower?.userlastname : ''}`, 
+              avatar: follower?.imagenPerfil 
+            }}
+            author={follower}
+          />
         ))}
       </View>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onNext={handleNextPage}
-        onPrevious={handlePreviousPage}
-      />
+
+      {filteredFollowers.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onNext={handleNextPage}
+          onPrevious={handlePreviousPage}
+        />
+      )}
     </View>
   );
 };
@@ -61,7 +72,13 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     height: 500,
-  }
+  },
+  noFollowersText: {
+    color: 'gray',
+    fontSize: 16,
+    textAlign: 'center',
+    marginVertical: 10,
+  },
 });
 
 export default MyFollowers;

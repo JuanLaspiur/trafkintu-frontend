@@ -23,7 +23,7 @@ function PoemCard({ title, image, poem, fetchPoems }) {
   return (
     <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}>
       <View style={styles.card}>
-        <Image source={image} style={styles.image} />
+      {!poem?.isDraft &&  <Image source={image} style={styles.image} />  }
         <Text style={styles.cardTitle}>
           <Image source={require('../../../../assets/icons/inkwell_15894224.webp')} style={styles.icon} />  {title || 'Sin título'}
         </Text>
@@ -32,14 +32,14 @@ function PoemCard({ title, image, poem, fetchPoems }) {
             <Image source={require('../../../../assets/icons/fecha_card.webp')} style={styles.iconTitleCard} /> Publicado: {formatDateToSpanishLong(poem.createdAt)}
           </Text>
         </View>
-        <TouchableOpacity onPress={handleSetDraft} style={styles.padding}>
+  {!poem.isDraft  && <TouchableOpacity onPress={handleSetDraft} style={styles.padding}>
           <Ionicons 
-            name={poem.isDraft ? "document-outline" : "eye-outline"} 
+            name={"eye-outline"} 
             size={18} 
             color={colorPalette.primary} 
             style={styles.draftButton}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> }
       </View>
     </TouchableOpacity>
   );
