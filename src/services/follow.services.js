@@ -2,14 +2,15 @@ import { $api } from "./Api.js";
 
 export const toggleFollow = async (followedId, token) => {
     try {
-      const response = await $api.post(`/follow`, { followedId }, {
+      const response = await $api.post(`/follow`, { followedId:followedId }, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
+
       return response;
     } catch (error) {
-      alert('Error al seguir/dejar de seguir usuario');
+      alert('Error al seguir/dejar de seguir usuario '+error);
     }
   };
 
@@ -17,7 +18,6 @@ export const toggleFollow = async (followedId, token) => {
   export const getFollowedUsers = async (userId) => {
     try {
       const response = await $api.get(`/follow/followed/id/${userId}`);
-      alert(JSON.stringify(response.data))
       return response.data;
     } catch (error) {
       console.error('Error al obtener los usuarios seguidos:', error);

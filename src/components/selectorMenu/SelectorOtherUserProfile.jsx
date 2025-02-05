@@ -1,24 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Image, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colorPalette from '../../helpers/color_palette';
+import { toggleFollow } from '../../services/follow.services';
+import { useAuth } from '../../contexts/AuthContext';
 
-function SelectorOtherUserProfile({ selectedOption, handleSelectOption, authorId }) {
-  const [isFollowing, setIsFollowing] = useState(false); // Estado para seguir/no seguir
+function SelectorOtherUserProfile({ selectedOption, handleSelectOption, authorId, followers }) {
+  const { user, token, fetchFollowData } = useAuth();
+  const [isFollowing, setIsFollowing] = useState(followers.some(follower => follower._id === user._id));
 
-  const toggleFollow = () => {
-    setIsFollowing((prev) => !prev); 
-  }
+  useEffect(() => {
+    if (user && user._id) {
+      setIsFollowing(followers.some(follower => follower._id === user._id));
+    }
+  }, [followers, user]);
+  
+
+  const toggleFollowUser = async () => {
+    try {
+      await toggleFollow(authorId, token);
+      await fetchFollowData(user._id)
+      setIsFollowing((prev) => !prev); 
+    } catch (error) {
+      console.error('Error al seguir/dejar de seguir:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View>
-        <TouchableOpacity style={styles.option} onPress={toggleFollow}>
+        <TouchableOpacity style={styles.option} onPress={toggleFollowUser}>
           <Image
             source={
               isFollowing
-                ? require('../../../assets/icons/dejar-de-seguir.webp') 
-                : require('../../../assets/icons/seguir.webp') 
+                ? require('../../../assets/icons/dejar-de-seguir.webp')
+                : require('../../../assets/icons/seguir.webp')
             }
             style={styles.image}
           />

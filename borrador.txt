@@ -2,4 +2,5 @@
 ## Loading de la pagina de poemas
 ## Que poem detail no pierda su tamaño
 ## Que se pueda reproducir el poema
-# Ver por que en PoemDetail si entro del Mi perfil no se ve
+## Ver por que en PoemDetail si entro del Mi perfil no se ve
+## Ver si se agrega la lista de seguidores

@@ -48,6 +48,7 @@ function OtherUserProfile({ otherUser }) {
       const result = await getFollowers(author._id);
       setFollowers(result)
     }
+    fetchFollowers();
     fetchFollowedUsers()
     fetchPoems();
     fetchComments();
@@ -90,7 +91,7 @@ function OtherUserProfile({ otherUser }) {
       </View> 
 
       <View style={styles.descriptionContainer}>    
-        <SelectorOtherUserProfile selectedOption={selectedOption} handleSelectOption={handleSelectOption} authorId={author._id}/>
+        <SelectorOtherUserProfile selectedOption={selectedOption} handleSelectOption={handleSelectOption} followers={followers}  authorId={author._id}/>
         <Text style={styles.followDescription} ><Text  onPress={() => handleSelectOption('seguidores')} style={ selectedOption === 'seguidores' && styles.selectedText}><AntDesign name="team" size={14} />Sus Seguidores {followedUsers.length || 0}</Text>     <Text onPress={() => handleSelectOption('seguidos')} style={ selectedOption === 'seguidos' && styles.selectedText}><AntDesign name="addusergroup" size={14} />Sus Seguidos {followers.length || 0}</Text></Text>
         <Text style={styles.descriptionTitle}><AntDesign name="infocirlceo" size={14} /> Su Descripción</Text>
         {isEditing ? (
