@@ -4,18 +4,21 @@ import colorPalette from '../../../helpers/color_palette';
 import { useNavigation } from '@react-navigation/native'; 
 import { formatDateToSpanishLong } from '../../../helpers/formatDate';
 import { Ionicons } from '@expo/vector-icons'; 
+import { updatePoem } from '../../../services/poems.services';
 
-function PoemCard({ title, image, poem }) {
+
+function PoemCard({ title, image, poem, fetchPoems }) {
   const navigation = useNavigation();
-
+  
   const handleCardPress = () => {
     navigation.navigate('PoemDetail', { poem });
   };
 
-  const handleSetDraft = () => {
-  alert('modificando estado del poema')
+  const handleSetDraft = async () => {
+    const prev = poem.isDraft ? true : false;
+    const result = await updatePoem(poem._id, { isDraft: !prev });
+    fetchPoems()
   };
-
   return (
     <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}>
       <View style={styles.card}>

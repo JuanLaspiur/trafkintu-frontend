@@ -16,20 +16,13 @@ import MyFollowing from '../components/optionsMyProfile/MyFollowing';
 import HeaderProfileLogo from '../components/header/HeaderProfileLogo';
 
 function Profile({ navigation }) {
-  const { user, followers, followedUsers } = useAuth();
+  const { user, followers, followedUsers, myPoems, fetchMyPoemsData } = useAuth();
   const [fontsLoaded] = useFonts({ Roboto_400Regular });
   const [isEditing, setIsEditing] = useState(false);
   const [selectedOption, setSelectedOption] = useState('publico');
   const [description, setDescription] = useState(user?.description || 'Aún no se ha añadido una descripción personal.');
   const [avatar, setAvatar] = useState(user?.imageProfile || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); 
-  const [publicPoems, setPublicPoems] = useState([]);
-  useEffect(()=>{
-    const fetchMyPoems = async()=>{  
-      const result = await getAllPoemsByUserId(user._id);
-      setPublicPoems(result.data);
-    }
-    fetchMyPoems();
-  },[]) 
+
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
   }
@@ -113,8 +106,8 @@ function Profile({ navigation }) {
         </TouchableOpacity>  
 
       </View>
-      {selectedOption === 'publico' && <MyPoemsPublic poems={publicPoems}/> }
-      {selectedOption === 'borrador' && <MyPoemsDraft poems={publicPoems} />}
+      {selectedOption === 'publico' && <MyPoemsPublic poems={myPoems} fetchPoems={fetchMyPoemsData}/> }
+      {selectedOption === 'borrador' && <MyPoemsDraft poems={myPoems} fetchPoems={fetchMyPoemsData} />}
       {selectedOption === 'seguidores' && <MyFollowers followers={followers}/>}
       {selectedOption === 'seguidos' && <MyFollowing followedUsers={followedUsers}/>}
     </ScrollView>

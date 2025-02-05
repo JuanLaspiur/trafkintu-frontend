@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getFollowedUsers,  getFollowers  } from "../services/follow.services.js";
-
+import { getAllPoemsByUserId } from "../services/poems.services.js";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -9,10 +9,16 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [followedUsers, setFollowedUsers] = useState([]); 
-  
+  const [myPoems, setMyPoems] = useState();
+
   const setterUser = (newUser) => {
     setUser(newUser);
   };
+
+  const fetchMyPoemsData = async()=>{
+    const result = await getAllPoemsByUserId(user._id);
+    setMyPoems(result.data);
+  }
 
   const fetchFollowData = async (userId) => {
     if (!userId) return;
@@ -73,12 +79,15 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(()=>{
-    if(user && user._id)
-      fetchFollowData(user._id)
+    if(user && user._id){
+      fetchFollowData(user._id);
+      fetchMyPoemsData();
+    }
+
   },[user?._id])
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, token, setterUser, setAuth, followers, followedUsers, fetchFollowData }}>
+    <AuthContext.Provider value={{ user, login, logout, token, setterUser, setAuth, followers, followedUsers, fetchFollowData, myPoems, fetchMyPoemsData }}>
       {children}
     </AuthContext.Provider>
   );

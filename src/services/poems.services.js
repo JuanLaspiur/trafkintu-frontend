@@ -1,4 +1,12 @@
-import { $api } from "./Api.js";
+import { $api } from "./Api.js"; 
+
+export const updatePoem = async (poemId,data) => {
+  try {
+    const response = await $api.put(`/poems/id/${poemId}`, data);
+  } catch (error) {
+    alert('Soy error ' + error);
+  }
+};
 
 export const getAllPoems = async () => {
     try {
@@ -7,36 +15,34 @@ export const getAllPoems = async () => {
     } catch (error) {
       throw new Error('Error al traer todos los escritos ' + error.message); 
     }
-  };
+};
 
- export const getPoemByPoemId =  async(poemId)=>{
-  try{
+export const getPoemByPoemId = async (poemId) => {
+  try {
     const response = await $api.get(`/poems/id/${poemId}`);
     return response.data;
-  }catch(error){
+  } catch (error) {
     throw new Error('Error al traer el escrito por su Id ' + error.message); 
   }
- } 
-  
- export const getAllPoemsByUserId = async(authorId)=>{
-  try{
-    const response = await $api.get('/poems/authorId/'+authorId);
+};
+
+export const getAllPoemsByUserId = async (authorId) => {
+  try {
+    const response = await $api.get('/poems/authorId/' + authorId);
     return response;
-  }catch (error) {
-  
+  } catch (error) {
     throw new Error('Error al traer todos los escritos del usuario ' + error.message); 
   }
- } 
- export const addLike = async (poemId, token) => {   
+};
+
+export const addLike = async (poemId, token) => {   
   try {
     const response = await $api.put(`/poems/like/${poemId}`, {}, {  
       headers: {
         'Authorization': `Bearer ${token}`,
       },
     });
-
     return response;
-
   } catch (error) {
     alert('soy error add like')
   }
@@ -64,7 +70,6 @@ export const addView = async (poemId, token) => {
     });
     return response;
   } catch (error) {
-    alert('soy error add view')
+    console.error(error)
   }
 };
-
