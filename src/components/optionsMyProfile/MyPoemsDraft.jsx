@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
-import PoemCard from "./components/PoemCard";
-import colorPalette from "../../helpers/color_palette";
-import Pagination from "./components/Pagination";
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
+import PoemCard from './components/PoemCard';
+import colorPalette from '../../helpers/color_palette';
+import Pagination from './components/Pagination';
 
 function MyPoemsDraft({ poems, fetchPoems }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const poemsPerPage = 5;
-
+  
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
@@ -18,7 +18,8 @@ function MyPoemsDraft({ poems, fetchPoems }) {
 
   const indexOfLastPoem = currentPage * poemsPerPage;
   const indexOfFirstPoem = indexOfLastPoem - poemsPerPage;
-  const currentPoems = poems.slice(indexOfFirstPoem, indexOfLastPoem);
+  const filteredPoems = poems.filter(poem => poem.isDraft);
+  const currentPoems = filteredPoems.slice(indexOfFirstPoem, indexOfLastPoem);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -36,31 +37,16 @@ function MyPoemsDraft({ poems, fetchPoems }) {
     <View style={styles.container}>
       <Text style={styles.title}>Mis Borradores</Text>
       {loading ? (
-        <ActivityIndicator
-          size="large"
-          color={colorPalette.accent}
-          style={styles.loadingIndicator}
-        />
+        <ActivityIndicator size="large" color={colorPalette.accent} style={styles.loadingIndicator} />
       ) : (
         <>
-          {currentPoems.filter((poem) => !poem.isDraft).length > 0 ? (
-            currentPoems
-              .filter((poem) => poem.isDraft)
-              .map((poem, index) => (
-                <PoemCard
-                  key={index}
-                  image={poem.image}
-                  title={poem.title}
-                  poem={poem}
-                  fetchPoems={fetchPoems}
-                />
-              ))
+          {currentPoems.length > 0 ? (
+            currentPoems.map((poem, index) => (
+              <PoemCard key={index} image={poem.image} title={poem.title} poem={poem} fetchPoems={fetchPoems}/>
+            ))
           ) : (
-            <Text style={styles.noPoemsText}>
-              No hay borradores disponibles
-            </Text>
+            <Text style={styles.noPoemsText}>No hay borradores disponibles</Text>
           )}
-
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
@@ -76,23 +62,23 @@ function MyPoemsDraft({ poems, fetchPoems }) {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    paddingVertical: 10
+    paddingVertical: 10,
   },
   title: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: colorPalette.accent,
     paddingTop: 15,
-    padding: 10
+    padding: 10,
   },
   noPoemsText: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 14,
-    color: "gray",
-    marginTop: 20
+    color: 'gray',
+    marginTop: 20,
   },
-  loadingIndicator: {
-    marginTop: 40
+  loadingIndicator:{
+    marginTop:40
   }
 });
 

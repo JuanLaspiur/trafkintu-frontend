@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchMyPoemsData = async()=>{
-    const result = await getAllPoemsByUserId(user._id);
+    const result = await getAllPoemsByUserId(user._id);  
     setMyPoems(result.data);
   }
 

@@ -21,6 +21,7 @@ function SevenLastPoems({ lastSevenPoems }) {
       <View style={styles.cardsContainer}>
         {visiblePoems.map((poem) => (
           <MiniPoemCard
+            key={poem._id}
             date={formatDateToDDMMYYYY(poem.createdAt)}
             poem={poem}
           />

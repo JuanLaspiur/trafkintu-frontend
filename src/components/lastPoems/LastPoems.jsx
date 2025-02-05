@@ -14,6 +14,7 @@ function LastPoems({lastThreePoems}) {
       <Swiper style={styles.swiper} showsPagination={false} loop={true} autoplay={true} autoplayTimeout={5}>
         {poems.map((poem) => (
           <PoemCard
+            key={poem._id}
             date={formatDateToSpanishLong(poem.createdAt)}
             poem={poem}
           />

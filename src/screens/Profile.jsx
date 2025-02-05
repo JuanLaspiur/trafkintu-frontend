@@ -22,7 +22,7 @@ function Profile({ navigation }) {
   const [selectedOption, setSelectedOption] = useState('publico');
   const [description, setDescription] = useState(user?.description || 'Aún no se ha añadido una descripción personal.');
   const [avatar, setAvatar] = useState(user?.imageProfile || 'https://cdn.icon-icons.com/icons2/11/PNG/256/writer_person_people_man_you_1633.png'); 
-
+ 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
   }
