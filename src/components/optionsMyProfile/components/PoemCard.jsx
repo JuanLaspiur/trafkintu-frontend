@@ -18,6 +18,7 @@ function PoemCard({ title, image, poem, fetchPoems }) {
     const prev = poem.isDraft ? true : false;
     const result = await updatePoem(poem._id, { isDraft: !prev });
     fetchPoems()
+    alert(!prev ? 'El escrito pasó a borrador ' : 'El escrito pasó a público')
   };
   return (
     <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}>
@@ -31,11 +32,12 @@ function PoemCard({ title, image, poem, fetchPoems }) {
             <Image source={require('../../../../assets/icons/fecha_card.webp')} style={styles.iconTitleCard} /> Publicado: {formatDateToSpanishLong(poem.createdAt)}
           </Text>
         </View>
-        <TouchableOpacity onPress={handleSetDraft} style={styles.draftButton}>
+        <TouchableOpacity onPress={handleSetDraft} style={styles.padding}>
           <Ionicons 
             name={poem.isDraft ? "document-outline" : "eye-outline"} 
             size={18} 
             color={colorPalette.primary} 
+            style={styles.draftButton}
           />
         </TouchableOpacity>
       </View>
@@ -91,18 +93,22 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   draftButton: {
-    position: 'absolute',
-    right: 10,
-    top: 10,
+ 
     backgroundColor: 'white',
-    padding: 5,
-    borderRadius: 15,
+    padding: 13,
+    borderRadius: 50,
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
   },
+  padding:{
+       position: 'absolute',
+    right: 10,
+    top: 10,
+    zIndex:999999
+  }
 });
 
 export default PoemCard;
