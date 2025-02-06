@@ -8,12 +8,13 @@ import LastPoems from "../components/lastPoems/LastPoems";
 import SevenLastPoems from "../components/lastPoems/SevenLastPoems";
 import LastYoutubeVideo from "../components/lastYoutubeVideo/LastYoutubeVideo";
 import { getAllPoems } from "../services/poems.services";
+import { getDashGestion } from "../services/dashGestion.services";
 
 function Home() {
 const [allPoems, setAllPoems] = useState([]);
 const [lastThreePoems, setLastThreePoems] =useState([]);
 const [lastSevenPoems, setLastSevenPoems] =useState([]);
-
+const [youtubeLink,setYoutubeLink] = useState("")
 useEffect(() => {
   const fetchAllPoems = async () => {
     try {
@@ -29,6 +30,12 @@ useEffect(() => {
       console.error("Error fetching poems:", error);
     }
   };
+  const fetchDashGestionData = async()=>{
+    const result = await getDashGestion();
+    setYoutubeLink(result.youtubeLink);
+
+  }
+  fetchDashGestionData();
   fetchAllPoems();
 }, []);
   return (
@@ -37,8 +44,7 @@ useEffect(() => {
       <LightGreenCard />
       <SelectorMenu />
       <LastPoems lastThreePoems={lastThreePoems}/> 
-      {/** TO-DO hacer que el video id sea modificable */} 
-      <LastYoutubeVideo videoId="tTfMid0Sweg" /> 
+      <LastYoutubeVideo videoId={youtubeLink} /> 
       <SevenLastPoems lastSevenPoems={lastSevenPoems}/>
     </ScrollView>
   );

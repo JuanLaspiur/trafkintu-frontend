@@ -9,7 +9,13 @@ import { formatDateToSpanishLong } from '../../helpers/formatDate';
 function LastPoems({ lastThreePoems }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Últimos tres poemas:</Text>
+<Text style={styles.title}>
+  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Image source={require('../../../assets/gift/cuadrado_loading.webp')} style={styles.titleMiniIcon} />
+    <Text style={styles.tiitleText}>Últimos tres poemas:</Text>
+  </View>
+</Text>
+
       <Swiper style={styles.swiper} showsPagination={false} loop={true} autoplay={true} autoplayTimeout={5}>
         {lastThreePoems && lastThreePoems.length > 0
           ? lastThreePoems.map((poem) => (
@@ -46,7 +52,6 @@ function PoemCard({ date, poem }) {
   );
 }
 
-// 🔹 Skeleton Loader sin librerías
 function PoemCardSkeleton() {
   const shimmerAnim = useRef(new Animated.Value(0)).current;
 
@@ -94,11 +99,16 @@ const styles = StyleSheet.create({
     height: 308,
   },
   title: {
+    marginBottom: 15,
+    paddingHorizontal: 2,
+    flexDirection: 'row',
+    alignItems: 'center', 
+    justifyContent: 'flex-start', 
+  },
+  tiitleText:{
     fontSize: 17,
     fontWeight: '600',
-    color: '#ffffff',
-    marginBottom: 15,
-    paddingHorizontal: 5,
+    color: '#ffffff',  
     textShadowColor: 'gray',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
@@ -112,7 +122,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     marginBottom: 10,
-    paddingBottom: 10, 
+    paddingBottom: 10,
   },
   iconTitleCard: {
     height: 12,
@@ -160,6 +170,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 6,
     marginHorizontal: 10,
+  },
+  titleMiniIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 1, // Para mayor separación entre la imagen y el texto
   },
 });
 

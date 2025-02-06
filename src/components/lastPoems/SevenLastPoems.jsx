@@ -17,7 +17,12 @@ function SevenLastPoems({ lastSevenPoems }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Siete últimos:</Text>
+     <Text style={styles.title}>
+       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+         <Image source={require('../../../assets/gift/cuadrado_loading.webp')} style={styles.titleMiniIcon} />
+         <Text style={styles.tiitleText}>Últimos tres poemas:</Text>
+       </View>
+     </Text>
       <View style={styles.cardsContainer}>
         {visiblePoems.map((poem) => (
           <MiniPoemCard
@@ -83,13 +88,16 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 17,
-    fontWeight: "600",
-    color: colorPalette.secondary,
     marginBottom: 15,
-    textShadowColor: colorPalette.neutralDark,
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
+    paddingHorizontal: 2,
+    flexDirection: 'row',
+    alignItems: 'center', 
+    justifyContent: 'flex-start', 
+  },
+  tiitleText:{
+    fontSize: 17,
+    fontWeight: '600',
+    color: colorPalette.primary,  
   },
   cardsContainer: {
     flexDirection: "row",
@@ -158,6 +166,11 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#fff",
     marginRight: 8,
+  },
+  titleMiniIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 1, // Para mayor separación entre la imagen y el texto
   },
 });
 
