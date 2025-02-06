@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';  
-import colorPalette from '../helpers/color_palette';
-import Header from '../components/header/Header';
 import Reproductor from '../components/reproductor/Reproductor';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import HeaderProfileLogo from '../components/header/HeaderProfileLogo';
 
 const Radio = () => {
   const [isPlaying, setIsPlaying] = useState(false);

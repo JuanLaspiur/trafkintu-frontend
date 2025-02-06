@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient"; // Importa LinearGradient
 import colorPalette from "../../helpers/color_palette";
 import { formatDateToDDMMYYYY } from "../../helpers/formatDate";
 
@@ -17,12 +18,12 @@ function SevenLastPoems({ lastSevenPoems }) {
 
   return (
     <View style={styles.container}>
-     <Text style={styles.title}>
-       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-         <Image source={require('../../../assets/gift/cuadrado_loading.webp')} style={styles.titleMiniIcon} />
-         <Text style={styles.tiitleText}>Últimos tres poemas:</Text>
-       </View>
-     </Text>
+      <Text style={styles.title}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Image source={require('../../../assets/gift/cuadrado_loading.webp')} style={styles.titleMiniIcon} />
+          <Text style={styles.tiitleText}>Últimos tres poemas:</Text>
+        </View>
+      </Text>
       <View style={styles.cardsContainer}>
         {visiblePoems.map((poem) => (
           <MiniPoemCard
@@ -31,9 +32,7 @@ function SevenLastPoems({ lastSevenPoems }) {
             poem={poem}
           />
         ))}
-        {showAll && (
-          <MiniCardSeeAll onPress={togglePoems} />
-        )}
+        {showAll && <MiniCardSeeAll onPress={togglePoems} />}
       </View>
       <TouchableOpacity style={styles.showMoreButton} onPress={togglePoems}>
         <Ionicons
@@ -46,7 +45,7 @@ function SevenLastPoems({ lastSevenPoems }) {
   );
 }
 
-function MiniPoemCard({  date, poem }) {
+function MiniPoemCard({ date, poem }) {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
@@ -68,7 +67,7 @@ function MiniPoemCard({  date, poem }) {
           source={require('../../../assets/icons/autor_card.webp')}
           style={styles.iconTitleCard}
         />{" "}
-       {poem.author.username} • {dateString}
+        {poem.author.username} • {dateString}
       </Text>
     </TouchableOpacity>
   );
@@ -77,7 +76,14 @@ function MiniPoemCard({  date, poem }) {
 function MiniCardSeeAll({ onPress }) {
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.7} style={styles.button}>
-      <Text style={styles.buttonText}>Ver todos</Text>
+      <LinearGradient
+        colors={['#41ADAD', '#5FCBCB', '#24B9CC','#299DFC99', '#5FCBCB', '#5FCBCB', '#24B9CC']} 
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradientButton}
+      >
+        <Text style={styles.buttonText}>Ver todos</Text>
+      </LinearGradient>
     </TouchableOpacity>
   );
 }
@@ -170,9 +176,15 @@ const styles = StyleSheet.create({
   titleMiniIcon: {
     width: 20,
     height: 20,
-    marginRight: 1, // Para mayor separación entre la imagen y el texto
+    marginRight: 1,
   },
+  gradientButton:{
+    width:'100%',
+    height:'100%',
+    maxWidth:'100%',
+    maxHeight:"100%",
+     alignItems:'center', 
+     justifyContent:"center"}
 });
 
 export default SevenLastPoems;
-
