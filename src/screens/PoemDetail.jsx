@@ -27,13 +27,13 @@ function PoemDetail() {
       Animated.sequence([
         Animated.timing(shimmerAnim, {
           toValue: 1,
-          duration: 300,
+          duration: 230,
           easing: Easing.linear,
           useNativeDriver: false,
         }),
         Animated.timing(shimmerAnim, {
           toValue: 0,
-          duration: 300,
+          duration: 230,
           easing: Easing.linear,
           useNativeDriver: false,
         }),
