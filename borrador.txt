@@ -5,4 +5,4 @@
 ## Que el video de Youtube sea modificable
 ## Que el Ver todos de los ultimos 7 poemas, sea un gradiente y que vaya a Pagina ver todos los poemas
 ## Que en ultimos tres poemas si no hay nada que carge un esqueleto
-##  
+##  Eliminar 'lottie-react-native' y .json relacionados
